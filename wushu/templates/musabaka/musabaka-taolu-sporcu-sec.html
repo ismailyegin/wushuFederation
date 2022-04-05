@@ -26,7 +26,7 @@
     </div>
 
 
-    <div class="modal modal-dialog "  role="dialog" id="modalsporcu"
+    <div class="modal modal-dialog " role="dialog" id="modalsporcu"
          aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -39,8 +39,9 @@
 
 
                     <label for="inputState"> Taolu Kategori</label>
-                    <select style="width: 100%" id="taolucategory" class="form-control select2 select2-hidden-accessible"
-                    tabindex="-1" aria-hidden="true">
+                    <select style="width: 100%" id="taolucategory"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
                         <option selected>Seçiniz...</option>
                         {% for item in category %}
                             <option value="{{ item.pk }}">{{ item }}</option>
@@ -212,12 +213,16 @@
                         </div>
                         <div class="box-header with-border">
                             <div class="btn-group">
-
-                                <a href=""
+                                <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
                                    type="button" class="btn btn-success"><i
                                         class="fa fa-edit"></i>Eklenen Sporcular
                                 </a>
-
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url "wushu:sporcu-ekle" %}"
+                                   type="button" class="btn btn-success"><i
+                                        class="fa fa-edit"></i>Sporcu Ekle
+                                </a>
                             </div>
 
                             <div class="box-body berktug">
@@ -228,11 +233,6 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Ad Soyad</th>
-                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                <th>Kulüp</th>
-                                                {% else %}
-                                                <th></th>
-                                            {% endif %}
 
                                             <th>Seç</th>
 
@@ -240,7 +240,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-
 
 
                                         </tbody>
@@ -282,8 +281,9 @@
     <script>
 
         $(function () {
-
+            debugger;
             $('#sporcular').DataTable({
+
 
                 language: {
 
@@ -424,7 +424,7 @@
                         e.handled = true;
 
 
-                        if (id != null && $('#taolucategory').val() && $('#taolucategoryyears').val()  != 'Seçiniz...') {
+                        if (id != null && $('#taolucategory').val() && $('#taolucategoryyears').val() != 'Seçiniz...') {
 
 
                             category = $('#taolucategory').val();
@@ -476,7 +476,6 @@
                             alert("Lütfen eksik alanlari giriniz");
 
                         }
-
 
 
                     }

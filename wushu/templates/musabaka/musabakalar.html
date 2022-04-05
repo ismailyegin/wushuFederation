@@ -448,9 +448,9 @@
                                                                 class="fa fa-edit"></i>İncele
                                                         </a>
                                                     </div>
-                                                {% elif user.groups.all.0.name == 'KulupUye' %}
+                                                {% elif user.groups.all.0.name == 'Antrenor' %}
                                                     <div class="btn-group">
-                                                        <a href=""
+                                                        <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
                                                            type="button" class="btn btn-warning"><i
                                                                 class="fa fa-edit"></i>İncele
                                                         </a>

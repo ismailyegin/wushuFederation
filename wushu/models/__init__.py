@@ -6,8 +6,6 @@ from .Competition import Competition
 from .CompetitionCategori import CompetitionCategori
 from .Country import Country
 from .EnumFields import EnumFields
-from .Level import Level
-from .License import License
 from .Logs import Logs
 from .Menu import Menu
 from .MenuAdmin import MenuAdmin
@@ -18,3 +16,4 @@ from .TaoluCategory import TaoluCategory
 from .YearsSandaCategory import YearsSandaCategory
 from .YearsTaoluCategory import YearsTaoluCategory
 from .TaoluAthlete import TaoluAthlete
+from .SandaAthlete import SandaAthlete

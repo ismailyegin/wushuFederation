@@ -165,20 +165,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label> {{ Sportclup.sportsClub.label }}</label>
-                                        {{ Sportclup.sportsClub }}
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label> {{ Sportclup.branch.label }}</label>
-                                        {{ Sportclup.branch }}
-                                    </div>
-                                </div>
-
-
                             </div>
 
                             <!-- /.box-body -->
@@ -224,12 +210,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th> Ad Soyad</th>
-
-                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                        <th>Kulüp</th>
-                                    {% endif %}
-                                    <th>Branş</th>
-                                    <th>Kuşak</th>
                                     <th>İşlemler</th>
 
 
@@ -241,63 +221,12 @@
                                         <tr>
                                             <td>{{ forloop.counter }} </td>
                                             <td>{{ athlete.user.first_name }} {{ athlete.user.last_name }} </td>
-
-
-                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-
-                                                <td>
-                                                    {% for license in athlete.licenses.all %}
-                                                        {% if forloop.last %}
-                                                        {% if  license.status == 'Onaylandı' %}
-                                                            <p>{{ license.sportsClub }}</p>
-                                                        {% endif %}
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </td>
-
-                                            {% endif %}
-
-                                            <td>
-                                                {% for license in athlete.licenses.all %}
-                                                    {% if forloop.last %}
-                                                    {% if  license.status == 'Onaylandı' %}
-                                                        <p>{{ license.branch }}</p>
-                                                    {% endif %}
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </td>
-
-
-                                            <td>
-                                                {% for belts in athlete.belts.all %}
-                                                    {% if forloop.last %}
-                                                    {% if  belts.status == 'Onaylandı' %}
-                                                        <p>{{ belts.definition }}</p>
-                                                    {% endif %}
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </td>
-
-
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href=""
+                                                    <a href="{% url "wushu:update-athletes" athlete.pk %}"
                                                        type="button" class="btn btn-warning"><i
                                                             class="fa fa-edit"></i>İncele
                                                     </a>
-
-
-                                                    <a href=""
-                                                       type="button" class="btn btn-secondary btn-success">Lisans
-                                                        Ekle
-                                                    </a>
-                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                        <a href=""
-                                                           type="button" class="btn btn-success">Kusak Ekle
-                                                        </a>
-                                                    {% endif %}
-
-
                                                 </div>
                                             </td>
 

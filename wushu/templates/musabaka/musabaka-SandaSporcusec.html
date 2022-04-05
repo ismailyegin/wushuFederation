@@ -37,7 +37,7 @@
                 </div>
                 <div class="modal-body">
                     <label for="inputState">Müsabaka Türü</label>
-                    <select id="sanda" class="form-control" style="width: 100%;" >
+                    <select id="sanda" class="form-control" style="width: 100%;">
                         <option value="0" selected>Sanda</option>
                         <option value="1">Light Sanda</option>
                         <option value="2">Tuishou</option>
@@ -207,12 +207,16 @@
                         </div>
 
                         <div class="btn-group">
-
                             <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
                                type="button" class="btn btn-success"><i
                                     class="fa fa-edit"></i>Eklenen Sporcular
                             </a>
-
+                        </div>
+                        <div class="btn-group">
+                            <a href="{% url "wushu:sporcu-ekle" %}"
+                               type="button" class="btn btn-success"><i
+                                    class="fa fa-edit"></i>Sporcu Ekle
+                            </a>
                         </div>
                         <div class="box-body berktug">
                             <form method="post" enctype="multipart/form-data" role="form">
@@ -222,11 +226,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Ad Soyad</th>
-                                        {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                            <th>Kulüp</th>
-                                        {% else %}
-                                            <th></th>
-                                        {% endif %}
                                         <th>Seç</th>
 
 
@@ -293,7 +292,6 @@
                     [
                         {'data': 'say'},
                         {'data': 'name'},
-                        {'data': 'club'},
 
 
                         {
