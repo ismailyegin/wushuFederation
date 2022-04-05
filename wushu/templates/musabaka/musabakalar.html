@@ -265,7 +265,7 @@
                                         <div class="box-header with-border">
                                             <div class="btn-group">
                                                 {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                    <a href=""
+                                                    <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
                                                        type="button" class="btn btn-danger"><i
                                                             class="fa fa-edit"></i>Başvuru Yap
                                                     </a>
@@ -273,7 +273,7 @@
 
                                                 {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
 
-                                                    <a href=""
+                                                    <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
                                                        type="button" class="btn btn-danger"><i
                                                             class="fa fa-edit"></i>Başvuru yap
                                                     </a>

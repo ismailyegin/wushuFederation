@@ -15,3 +15,6 @@ from .MenuAthlete import MenuAthlete
 from .MenuCoach import MenuCoach
 from .Person import Person
 from .TaoluCategory import TaoluCategory
+from .YearsSandaCategory import YearsSandaCategory
+from .YearsTaoluCategory import YearsTaoluCategory
+from .TaoluAthlete import TaoluAthlete
