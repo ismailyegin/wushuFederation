@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Person(models.Model):
-    MALE = 'Erkek'
-    FEMALE = 'Kadın'
+    MALE = 'MAN'
+    FEMALE = 'WOMAN'
 
     AB1 = 'AB Rh+'
     AB2 = 'AB Rh-'
@@ -15,8 +15,8 @@ class Person(models.Model):
     O2 = '0 Rh-'
 
     GENDER_CHOICES = (
-        (MALE, 'Erkek'),
-        (FEMALE, 'Kadın'),
+        (MALE, 'MAN'),
+        (FEMALE, 'WOMAN'),
     )
 
     BLOODTYPE = (
@@ -31,17 +31,16 @@ class Person(models.Model):
 
     )
 
-    tc = models.CharField(max_length=120, null=True, blank=True)
-    height = models.CharField(max_length=120, null=True, blank=True)
-    weight = models.CharField(max_length=120, null=True, blank=True)
-    birthplace = models.CharField(max_length=120, null=True, blank=True, verbose_name='Doğum Yeri')
-    motherName = models.CharField(max_length=120, null=True, blank=True, verbose_name='Anne Adı')
-    fatherName = models.CharField(max_length=120, null=True, blank=True, verbose_name='Baba Adı')
+    pasaport = models.CharField(max_length=120, null=True, blank=True)
+    pasaportImage = models.ImageField(upload_to='pasaport/', null=True, blank=True, default='pasaport/user.png',
+                                     verbose_name='pasaport Picture')
     profileImage = models.ImageField(upload_to='profile/', null=True, blank=True, default='profile/user.png',
-                                     verbose_name='Profil Resmi')
-    birthDate = models.DateField(null=True, blank=True, verbose_name='Doğum Tarihi')
-    bloodType = models.CharField(max_length=128, verbose_name='Kan Grubu', choices=BLOODTYPE, default=AB1)
-    gender = models.CharField(max_length=128, verbose_name='Cinsiyeti', choices=GENDER_CHOICES, default=MALE)
+                                     verbose_name='Profile Picture')
+
+    birthDate = models.DateField(null=True, blank=True, verbose_name='Birth Date')
+    gender = models.CharField(max_length=128, verbose_name='Gender', choices=GENDER_CHOICES, default=MALE)
+    ekg = models.FileField(upload_to='files/', null=True, blank=True, verbose_name='EKG')
+    eeg = models.FileField(upload_to='files/', null=True, blank=True, verbose_name='EEG')
 
     class Meta:
         default_permissions = ()

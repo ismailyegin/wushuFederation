@@ -7,8 +7,8 @@ from django.db import models
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'is_active')
-        labels = {'first_name': 'Ad(*)', 'last_name': 'Soyad(*)', 'email': 'Email(*)'}
+        fields = ('first_name', 'last_name', 'is_active')
+        labels = {'first_name': 'Name(*)', 'last_name': 'Surname(*)', }
         widgets = {
             'first_name': forms.TextInput(
                 attrs={'class': 'form-control ', 'value': '', 'required': 'required'}),

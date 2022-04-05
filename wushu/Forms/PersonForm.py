@@ -9,37 +9,22 @@ class PersonForm(ModelForm):
         model = Person
 
         fields = (
-            'tc', 'profileImage', 'height', 'weight', 'birthDate', 'bloodType', 'gender', 'birthplace', 'motherName',
-            'fatherName')
-        labels = {'tc': 'T.C.(*)', 'gender': 'Cinsiyet','birthDate':'Doğum Tarihi(*)'}
+            'pasaport', 'profileImage','birthDate', 'gender','pasaportImage', 'ekg', 'eeg')
+        labels = {'pasaport': 'Pasaport number (*)', 'gender': 'Gender','birthDate':'Birth Date(*)', 'ekg': 'EKG(*)', 'eeg': 'EEG(*)'}
 
         widgets = {
 
 
-            'tc': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
-
-            'height': forms.TextInput(attrs={'class': 'form-control'}),
-
-            'weight': forms.TextInput(attrs={'class': 'form-control'}),
-
-            'birthplace': forms.TextInput(
-                attrs={'class': 'form-control ', 'value': '',}),
-
-            'motherName': forms.TextInput(
-                attrs={'class': 'form-control ', 'value': '', }),
-
-            'fatherName': forms.TextInput(
-                attrs={'class': 'form-control ', 'value': '', }),
+            'pasaport': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
 
             'birthDate': forms.DateInput(
                 attrs={'class': 'form-control  pull-right', 'id': 'datepicker', 'autocomplete': 'off',
                        'onkeydown': 'return false', 'required': 'required'}),
 
-            'bloodType': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
-                                             'style': 'width: 100%; '}),
-
             'gender': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),
+            'ekg': forms.FileInput(attrs={'required': 'required'}),
+            'eeg': forms.FileInput(attrs={'required': 'required'}),
 
         }
 

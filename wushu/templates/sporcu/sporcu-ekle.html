@@ -63,23 +63,15 @@
             {% csrf_token %}
             <div class="row">
 
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Genel Bilgiler</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label> {{ person_form.profileImage.label }}</label>
-                                        {{ person_form.profileImage }}
-                                    </div>
+                                <div class="col-lg-4">
 
-                                    <div class="form-group">
-                                        <label> {{ person_form.tc.label }}</label>
-                                        {{ person_form.tc }}
-                                    </div>
 
 
                                     <div class="form-group">
@@ -91,180 +83,72 @@
                                         <label> {{ user_form.last_name.label }}</label>
                                         {{ user_form.last_name }}
                                     </div>
-
-
-                                    <div class="form-group">
-                                        <label> {{ person_form.bloodType.label }}</label>
-                                        {{ person_form.bloodType }}
-                                    </div>
-
-
-                                </div>
-                                <br>
-                                <div class="col-lg-6">
-
-
-                                    <div class="form-group">
-                                        <label> {{ person_form.motherName.label }}</label>
-                                        {{ person_form.motherName }}
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label> {{ person_form.fatherName.label }}</label>
-                                        {{ person_form.fatherName }}
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label> {{ person_form.birthplace.label }}</label>
-                                        {{ person_form.birthplace }}
-                                    </div>
-
-
                                     <div class="form-group">
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
 
 
+                                </div>
+
+                                <div class="col-lg-4">
+
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
                                     <div class="form-group">
                                         <label> {{ person_form.gender.label }}</label>
                                         {{ person_form.gender }}
                                     </div>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <button class="btn btn-primary" type="submit">Kaydet</button>
-                        </div>
-
-
-                    </div>
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">İletişim Bilgileri</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label> {{ user_form.email.label }}</label>
-                                        {{ user_form.email }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label> {{ communication_form.phoneNumber.label }}</label>
-                                        {{ communication_form.phoneNumber }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label> {{ communication_form.phoneNumber2.label }}</label>
-                                        {{ communication_form.phoneNumber2 }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ communication_form.country.label }}</label>
                                         {{ communication_form.country }}
                                     </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label> {{ communication_form.city.label }}</label>
-                                        {{ communication_form.city }}
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
                                     </div>
                                     <div class="form-group">
-                                        <label> {{ communication_form.postalCode.label }}</label>
-                                        {{ communication_form.postalCode }}
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.eeg.label }}</label>
+                                        {{ person_form.eeg }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.ekg.label }}</label>
+                                        {{ person_form.ekg }}
                                     </div>
                                 </div>
+
+
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> {{ communication_form.address.label }}</label>
-                                        {{ communication_form.address }}
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="box-footer">
                             <button class="btn btn-primary" type="submit">Kaydet</button>
                         </div>
-
-
                     </div>
+
 
                 </div>
 
             </div>
 
-
-
-{#            fd lisans ekleme alani #}
-             <div class="row">
-
-                <div class="col-lg-12">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Lisans Ekle</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.startDate.label }}</label>
-                                        {{ license_form.startDate }}
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.expireDate.label }}</label>
-                                        {{ license_form.expireDate }}
-                                    </div>
-
-
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.licenseNo.label }}</label>
-                                        {{ license_form.licenseNo }}
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.branch.label }}</label>
-                                        {{ license_form.branch }}
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.sportsClub.label }}</label>
-                                        {{ license_form.sportsClub }}
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.cityHeadShip.label }}</label>
-                                        {{ license_form.cityHeadShip }}
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label> {{ license_form.lisansPhoto.label }}</label>
-                                        {{ license_form.lisansPhoto }}
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <button class="btn btn-primary" type="submit">Kaydet</button>
-                        </div>
-
-
-                    </div>
-
-                </div>
             </div>
 
-{#            lisans ekleme alani son #}
+
+            {#            fd lisans ekleme alani #}
+
+            {#            lisans ekleme alani son #}
 
         </form>
 
