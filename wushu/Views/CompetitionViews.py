@@ -10,6 +10,9 @@ from django.utils import timezone
 
 from wushu.Forms.CompetitionForm import CompetitionForm
 from wushu.Forms.DisabledCompetitionForm import DisabledCompetitionForm
+from wushu.Forms.JudgeForm import JudgeForm
+from wushu.Forms.PersonForm import PersonForm
+from wushu.Forms.UserForm import UserForm
 from wushu.Forms.competitonSearchForm import CompetitionSearchForm
 from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, EnumFields, \
     TaoluAthlete, SandaAthlete
@@ -64,15 +67,25 @@ def musabaka_taolu(request, pk):
     if not perm:
         logout(request)
         return redirect('accounts:login')
+    person_form = PersonForm()
+    user_form = UserForm()
+    judge_form=JudgeForm()
 
     musabaka = Competition.objects.get(pk=pk)
     yearscategory = YearsTaoluCategory.objects.all()
     category = TaoluCategory.objects.all()
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        person_form = PersonForm(request.POST, request.FILES)
+        judge_form=JudgeForm(request.POST)
 
     return render(request, 'musabaka/musabaka-taolu-sporcu-sec.html',
                   {'competition': musabaka,
                    'yearscategory': yearscategory,
-                   'category': category})
+                   'category': category,
+                   'user_form': user_form,
+                   'person_form': person_form,
+                   'judge_form':judge_form})
 
 
 @login_required
