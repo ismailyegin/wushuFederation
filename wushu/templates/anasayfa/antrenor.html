@@ -126,11 +126,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Ana Sayfa
+                Home Page
 
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Ana Sayfa</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home Page</a></li>
 
             </ol>
         </section>
@@ -145,13 +145,13 @@
                         <div class="inner">
                             <h3>{{ athletes.count }}</h3>
 
-                            <p>Sporcu Sayısı</p>
+                            <p>Number of Athletes</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
                         <a href="#" class="small-box-footer">
-                            Daha Fazla <i class="fa fa-arrow-circle-right"></i>
+                            More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
@@ -161,13 +161,13 @@
                         <div class="inner">
                             <h3>{{ application.all.count }}</h3>
 
-                            <p>Aktif Müsabaka Sayısı</p>
+                            <p>Number of Active Competitions</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
                         <a href="#" class="small-box-footer">
-                            Daha Fazla <i class="fa fa-arrow-circle-right"></i>
+                            More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                                     <div class=" dash-center">
                                         <div class="profile-left mb20">
                                             <h4><span class="label pull-left label-danger mr5"
-                                                      style="margin: 0px 0px 0px 0px">Güncel Müsabaka</span></h4>
+                                                      style="margin: 0px 0px 0px 0px">Current Competition</span></h4>
 
 
                                             <div class="profile-left-heading">
@@ -198,7 +198,7 @@
                                                                 {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
                                                                     <a href=""
                                                                        type="button" class="btn btn-danger"><i
-                                                                            class="fa fa-edit"></i>Başvuru Yap
+                                                                            class="fa fa-edit"></i>Make an application
                                                                     </a>
                                                                 {% endif %}
 
@@ -206,7 +206,7 @@
 
                                                                     <a href=""
                                                                        type="button" class="btn btn-danger"><i
-                                                                            class="fa fa-edit"></i>Başvuru yap
+                                                                            class="fa fa-edit"></i>Make an application
                                                                     </a>
                                                                 {% endif %}
 
@@ -215,7 +215,7 @@
                                                             <div class="btn-group">
                                                                 <a href="{% url "wushu:sporcu-ekle" %}"
                                                                    type="button" class="btn btn-success"><i
-                                                                        class="fa fa-edit"></i> Sporcu Ekle
+                                                                        class="fa fa-edit"></i> Add Athletes
                                                                 </a>
                                                             </div>
                                                         {% endif %}
@@ -230,7 +230,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">MÜSABAKANIN YERİ</h4>
+                                                            <h4 class="panel-title">LOCATION OF THE COMPETITION</h4>
                                                             <p>
                                                                 <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
                                                             </p>
@@ -238,7 +238,7 @@
                                                     </div>
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">MÜSABAKANIN TARİHİ</h4>
+                                                            <h4 class="panel-title">DATE OF THE COMPETITION</h4>
                                                             <p>
                                                                 <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d " }}
                                                                 - {{ competition.finishDate | date }}</p>
@@ -246,7 +246,7 @@
                                                     </div>
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">ONLİNE BAŞVURU TARİHİ</h4>
+                                                            <h4 class="panel-title">DATE OF ONLINE APPLICATION</h4>
                                                             <p>
                                                                 <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d " }}
                                                                 - {{ competition.registerFinishDate | date }}</p>

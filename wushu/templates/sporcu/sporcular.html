@@ -12,14 +12,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">İşlem Başarılı</h4>
+                    <h4 class="modal-title">Transaction Successful</h4>
                 </div>
                 <div class="modal-body successModal">
                     ...
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-outline btn-ok">Tamam</button>
+                    <button type="button" class="btn btn-outline btn-ok">Okey</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -34,16 +34,16 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Uyarı</h4>
+                    <h4 class="modal-title">Warning</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Silmek istediğinizden emin misiniz?</p>
+                    <p>Are you sure you want to delete?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left btn-ok" id="btn-conf"
-                            data-dismiss="modal">Evet
+                            data-dismiss="modal">Yes
                     </button>
-                    <button type="button" class="btn btn-outline" id="btn-close">Hayır</button>
+                    <button type="button" class="btn btn-outline" id="btn-close">No</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -61,7 +61,7 @@
 
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> Hata!</h4>
+                    <h4><i class="icon fa fa-ban"></i> Error!</h4>
 
 
                     <ul class="messages">
@@ -80,7 +80,7 @@
 
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> Başarılı!</h4>
+                    <h4><i class="icon fa fa-ban"></i> Successful!</h4>
 
 
                     <ul class="messages">
@@ -139,7 +139,7 @@
 
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Sporcu Filtrele</h3>
+                            <h3 class="box-title">Athlete Filter</h3>
                         </div>
                         <form method="post" role="form">
 
@@ -170,7 +170,7 @@
                             <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Ara</button>
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
 
@@ -194,13 +194,13 @@
 
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Sporcular</h3>
+                            <h3 class="box-title">Athletes</h3>
                         </div>
                         <div class="box-header with-border">
                             <div class="btn-group">
                                 <a href="{% url "wushu:sporcu-ekle" %}"
                                    type="button" class="btn btn-success"><i
-                                        class="fa fa-edit"></i> Yeni Sporcu Ekle
+                                        class="fa fa-edit"></i> Add New Athlete
                                 </a>
                             </div>
                         </div>
@@ -209,8 +209,8 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th> Ad Soyad</th>
-                                    <th>İşlemler</th>
+                                    <th>Name Surname</th>
+                                    <th>Transactions</th>
 
 
                                 </tr>
@@ -225,7 +225,7 @@
                                                 <div class="btn-group">
                                                     <a href="{% url "wushu:update-athletes" athlete.pk %}"
                                                        type="button" class="btn btn-warning"><i
-                                                            class="fa fa-edit"></i>İncele
+                                                            class="fa fa-edit"></i>Review
                                                     </a>
                                                 </div>
                                             </td>
@@ -263,15 +263,15 @@
                 language: {
                     buttons: {
                         pageLength: {
-                            _: " %d  Tane Göster",
-                            '-1': "Hepsini Göster"
+                            _: " %d  Show Piece",
+                            '-1': "Show All"
                         }
                     }
                 },
 
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
-                    ['10 tane', '25 tane ', '50 tane ', '100 Tane', 'Hepsini Getir']
+                    ['10 piece', '25 piece ', '50 piece ', '100 piece', 'Show All']
                 ],
 
                 'buttons': [
@@ -289,7 +289,7 @@
                     {
                         extend: 'colvis',
                         text: '<i class=" fa  fa-th-list"></i>',
-                        titleAttr: 'Ekle Çıkar'
+                        titleAttr: 'Add Subtract'
 
 
                     },
@@ -300,7 +300,7 @@
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5]
                         },
-                        titleAttr: 'Yazdır'
+                        titleAttr: 'Print'
                     },
                     {
                         extend: 'pdfHtml5',
@@ -309,7 +309,7 @@
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5]
                         },
-                        titleAttr: 'Pdf Kaydet'
+                        titleAttr: 'Save Pdf'
                     },
 
                     {
@@ -323,7 +323,7 @@
                             columns: [0, 2, 1, 3, 4, 5]
 
                         },
-                        titleAttr: 'Excel Kaydet'
+                        titleAttr: 'Excel Save'
                     },
                     {
                         text: '<i class="fa fa-file-text-o"></i>',
