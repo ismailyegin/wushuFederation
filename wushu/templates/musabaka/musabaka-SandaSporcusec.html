@@ -197,18 +197,18 @@
             <div class="col-lg-5">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Sporcu Bilgilerİ</h3>
+                        <h3 class="box-title">Sporcu Bilgileri</h3>
                     </div>
                     <div class="btn-group" style="margin: 10px">
                         <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
                            type="button" class="btn btn-success"><i
-                                class="fa fa-list" style=""></i> Müsabakaya Eklenen Sporcular
+                                class="fa fa-list"></i>Müsabakaya Eklenen Sporcular
                         </a>
                     </div>
                     <div class="btn-group">
                         <a href="{% url "wushu:sporcu-ekle" %}"
                            type="button" class="btn btn-success"><i
-                                class="fa fa-plus"></i> Sporcu Ekle
+                                class="fa fa-plus"></i>Sporcu Ekle
                         </a>
                     </div>
                     <div class="box-body">
@@ -221,6 +221,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Ad Soyad</th>
+
                                     <th>Seç</th>
 
 
@@ -276,60 +277,36 @@
                                 <div class="col-lg-6">
 
                                     <div class="form-group">
-                                        <label> Cep Telefonu</label>
-                                        <input type="text" name="phoneNumber" value="5418619461" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneNumber">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Sabit Telefon</label>
-                                        <input type="text" name="phoneNumber2" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneNumber2">
+                                        <label> {{ user_form.first_name.label }}</label>
+                                        {{ user_form.first_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> Ev Telefonu</label>
-                                        <input type="text" name="phoneHome" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneHome">
+                                        <label> {{ user_form.last_name.label }}</label>
+                                        {{ user_form.last_name }}
                                     </div>
+
+                                </div>
+
+                                <div class="col-lg-6">
+
                                     <div class="form-group">
-                                        <label> İş Telefonu</label>
-                                        <input type="text" name="phoneJop" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneJop">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
                                     </div>
 
                                 </div>
 
 
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> Adres</label>
-                                        <textarea name="address" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_address">Osman kavuncu Caddesi ankara Yolu 7.km kayseri şeker fabrikası</textarea>
-                                    </div>
-                                </div>
+                            <div class="box-footer">
+                                <button class="btn btn-primary" type="submit">Kaydet</button>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> Ev Adresi</label>
-                                        <textarea name="addressHome" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_addressHome"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> İş Adresi</label>
-                                        <textarea name="addressJop" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_addressJop"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -353,49 +330,41 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label> {{ user_form.first_name.label }} </label>
+                                            {{ user_form.first_name }}
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label> Uyruk</label>
-                                        <select name="uyrukid" class="form-control select2 select2-hidden-accessible"
-                                                style="width: 100%;" id="id_uyrukid" tabindex="-1" aria-hidden="true">
-                                            <option value="" selected="">---------</option>
+                                        <div class="form-group">
+                                            <label> {{ person_form.profileImage.label }} </label>
+                                            {{ person_form.profileImage }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label> {{ judge_form.category.label }} </label>
+                                            {{ judge_form.category }}
+                                        </div>
 
-                                            <option value="2">T.C.</option>
-
-                                        </select><span class="select2 select2-container select2-container--default"
-                                                       dir="ltr" style="width: 100%;"><span class="selection"><span
-                                            class="select2-selection select2-selection--single" role="combobox"
-                                            aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                            aria-labelledby="select2-id_uyrukid-container"><span
-                                            class="select2-selection__rendered" id="select2-id_uyrukid-container"
-                                            title="---------">---------</span><span class="select2-selection__arrow"
-                                                                                    role="presentation"><b
-                                            role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                                                                               aria-hidden="true"></span></span>
+                                        <div class="box-footer">
+                                            <button class="btn btn-primary" type="submit">Kaydet</button>
+                                        </div>
                                     </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label> {{ user_form.last_name.label }} </label>
+                                            {{ user_form.last_name }}
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label> Nufus Aile Sıra No</label>
-                                        <input type="text" name="nufus_ailesirano" class="form-control"
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_ailesirano">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Nufus Cilt No</label>
-                                        <input type="text" name="nufus_ciltno" class="form-control "
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_ciltno">
-                                    </div>
+                                        <div class="form-group">
+                                            <label> {{ person_form.pasaport.label }} </label>
+                                            {{ person_form.pasaport }}
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label> Nufus Sıra No</label>
-                                        <input type="text" name="nufus_sirano" class="form-control"
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_sirano">
                                     </div>
 
 
-                                    <div class="box-footer">
-                                        <button class="btn btn-primary" type="submit">Kaydet</button>
-                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -419,43 +388,29 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
 
                                     <div class="form-group">
-                                        <label> Uyruk</label>
-                                        <select name="uyrukid" class="form-control select2 select2-hidden-accessible"
-                                                style="width: 100%;" id="id_uyrukid" tabindex="-1" aria-hidden="true">
-                                            <option value="" selected="">---------</option>
-
-                                            <option value="2">T.C.</option>
-
-                                        </select><span class="select2 select2-container select2-container--default"
-                                                       dir="ltr" style="width: 100%;"><span class="selection"><span
-                                            class="select2-selection select2-selection--single" role="combobox"
-                                            aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                            aria-labelledby="select2-id_uyrukid-container"><span
-                                            class="select2-selection__rendered" id="select2-id_uyrukid-container"
-                                            title="---------">---------</span><span class="select2-selection__arrow"
-                                                                                    role="presentation"><b
-                                            role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                                                                               aria-hidden="true"></span></span>
+                                        <label> {{ user_form.first_name.label }} </label>
+                                        {{ user_form.first_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> Nufus Aile Sıra No</label>
-                                        <input type="text" name="nufus_ailesirano" class="form-control"
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_ailesirano">
+                                        <label> {{ person_form.profileImage.label }} </label>
+                                        {{ person_form.profileImage }}
                                     </div>
+
+
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label> Nufus Cilt No</label>
-                                        <input type="text" name="nufus_ciltno" class="form-control "
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_ciltno">
+                                        <label> {{ user_form.last_name.label }} </label>
+                                        {{ user_form.last_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> Nufus Sıra No</label>
-                                        <input type="text" name="nufus_sirano" class="form-control"
-                                               onkeypress="validate(event)" maxlength="20" id="id_nufus_sirano">
+                                        <label> {{ person_form.pasaport.label }} </label>
+                                        {{ person_form.pasaport }}
                                     </div>
 
 
@@ -495,59 +450,35 @@
 
                             <div class="row">
                                 <div class="col-lg-6">
-
                                     <div class="form-group">
-                                        <label> Cep Telefonu</label>
-                                        <input type="text" name="phoneNumber" value="5418619461" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneNumber">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> Sabit Telefon</label>
-                                        <input type="text" name="phoneNumber2" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneNumber2">
+                                        <label> {{ user_form.first_name.label }} </label>
+                                        {{ user_form.first_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> Ev Telefonu</label>
-                                        <input type="text" name="phoneHome" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneHome">
+                                        <label> {{ person_form.profileImage.label }} </label>
+                                        {{ person_form.profileImage }}
                                     </div>
+
+
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label> İş Telefonu</label>
-                                        <input type="text" name="phoneJop" class="form-control "
-                                               onkeypress="validate(event)" maxlength="120" id="id_phoneJop">
+                                        <label> {{ user_form.last_name.label }} </label>
+                                        {{ user_form.last_name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }} </label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+                                    <div class="box-footer pull-right">
+                                        <button class="btn btn-primary" type="submit">Kaydet</button>
                                     </div>
 
                                 </div>
 
 
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> Adres</label>
-                                        <textarea name="address" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_address">Osman kavuncu Caddesi ankara Yolu 7.km kayseri şeker fabrikası</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> Ev Adresi</label>
-                                        <textarea name="addressHome" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_addressHome"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label> İş Adresi</label>
-                                        <textarea name="addressJop" cols="40" rows="2" class="form-control "
-                                                  style="text-transform:uppercase" id="id_addressJop"></textarea>
-                                    </div>
-                                </div>
                             </div>
 
 
