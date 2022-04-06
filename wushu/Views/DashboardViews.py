@@ -31,8 +31,8 @@ def return_referee_dashboard(request):
 
 
 @login_required
-def return_coach_dashboard(request):
-    perm = general_methods.control_access(request)
+def return_federation_dashboard(request):
+    perm = general_methods.control_access_antrenor(request)
     #
     # if not perm:
     #     logout(request)

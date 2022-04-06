@@ -92,7 +92,7 @@ def control_access_antrenor(request):
         if request.resolver_match.url_name == perm.name:
             is_exist = True
 
-    if group.name == "Admin" or group.name=="Antrenor":
+    if group.name == "Admin" or group.name=="Federation":
         is_exist = True
 
     return is_exist

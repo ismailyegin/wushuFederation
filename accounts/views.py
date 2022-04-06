@@ -19,24 +19,11 @@ def login(request):
 
             log = general_methods.logwrite(request, request.user, " Giris yapti")
             if user.groups.all():
-                if user.groups.all()[0].name == 'Antrenor':
-                    return redirect('wushu:antrenor')
-
-                elif user.groups.all()[0].name == 'Hakem':
-                    return redirect('wushu:hakem')
-
-                elif user.groups.all()[0].name == 'Sporcu':
-                    return redirect('wushu:sporcu')
-
-                elif user.groups.all()[0].name == 'Yonetim':
-                    return redirect('wushu:federasyon')
-
-                elif user.groups.all()[0].name == 'Admin':
+                if user.groups.all()[0].name == 'Admin':
                     return redirect('wushu:admin')
 
-                elif user.groups.all()[0].name == 'KulupUye':
-                    return redirect('wushu:kulup-uyesi')
-
+                elif user.groups.all()[0].name == 'Federation':
+                    return redirect('wushu:federasyon')
 
                 else:
                     return redirect('accounts:logout')
