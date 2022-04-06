@@ -197,7 +197,7 @@
 
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> Başarılı!</h4>
+                    <h4><i class="icon fa fa-check"></i> Başarılı!</h4>
 
 
                     <ul class="messages">
@@ -242,10 +242,10 @@
 
 
 
+    {% if application.all %}
+        <section class="content">
 
-    <section class="content">
 
-        {% if application.all %}
             {% for competition in application %}
 
                 <div class="row">
@@ -325,9 +325,10 @@
 
                 </div>
             {% endfor %}
-        {% endif %}
 
-    </section>
+
+        </section>
+    {% endif %}
     <section class="content">
         <div class="row">
             <section class="col-lg-12 ">
@@ -398,7 +399,7 @@
                         <div class="box-header with-border">
                             <div class="btn-group">
                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                    <a href=""
+                                    <a href="{% url 'wushu:musabaka-ekle' %}"
                                        type="button" class="btn btn-success"><i
                                             class="fa fa-edit"></i> Yeni Müsabaka Ekle
                                     </a>
@@ -443,7 +444,7 @@
                                             <td>
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <div class="btn-group">
-                                                        <a href=""
+                                                        <a href="{% url 'wushu:musabaka-duzenle' competition.pk %}"
                                                            type="button" class="btn btn-warning"><i
                                                                 class="fa fa-edit"></i>İncele
                                                         </a>
@@ -597,48 +598,48 @@
         })
     </script>
 
-{#    <script>#}
-{##}
-{##}
-{#        function deleteCompetition(id) {#}
-{##}
-{#            console.log(id);#}
-{#            var html = ''#}
-{#            $("#modal-danger").on("shown.bs.modal", function (e) {#}
-{#                $("#btn-conf").click(function () {#}
-{#                    $.ajax({#}
-{#                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),#}
-{#                        type: "POST",#}
-{#                        data: {#}
-{#                            'csrfmiddlewaretoken': "{{  csrf_token  }}",#}
-{#                            isActive: 'False'#}
-{#                        },#}
-{#                        success: function (result) {#}
-{##}
-{#                            html = 'Müsabaka Başarıyla Silindi';#}
-{#                            debugger;#}
-{#                            $(".successModal").html(html);#}
-{#                            $('#modal-success').on("shown.bs.modal", function (e) {#}
-{#                                $(".btn-ok").click(function () {#}
-{##}
-{#                                    window.location.replace("{% url "wushu:musabakalar" %}");#}
-{##}
-{#                                });#}
-{##}
-{#                            }).modal('show');#}
-{##}
-{##}
-{#                            console.log(result.status)#}
-{#                        }#}
-{#                    });#}
-{#                });#}
-{#            }).modal('show');#}
-{#            $('#btn-close').click(function () {#}
-{#                $('#modal-danger').modal('hide');#}
-{#            });#}
-{##}
-{#        }#}
-{#    </script>#}
+    <script>
+
+
+        function deleteCompetition(id) {
+
+            console.log(id);
+            var html = ''
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False'
+                        },
+                        success: function (result) {
+
+                            html = 'Müsabaka Başarıyla Silindi';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabakalar" %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        }
+    </script>
 
 
 

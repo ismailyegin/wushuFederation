@@ -44,6 +44,26 @@ def return_competitions(request):
     return render(request, 'musabaka/musabakalar.html', {'competitions': competitions,
                                                          'application': competition,
                                                          'query': comquery})
+@login_required
+def musabaka_sil(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = Competition.objects.get(pk=pk)
+            log = str(obj.name) + "  Müsabaka silindi."
+            log = general_methods.logwrite(request, request.user, log)
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
+        except Competition.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
 
 
 @login_required
@@ -244,19 +264,11 @@ def musabaka_duzenle(request, pk):
     musabaka = Competition.objects.get(pk=pk)
     categori = None
     athletes = None
+    competition_form=None
 
     user = request.user
-    if request.user.groups.filter(name='Antrenor'):
-        competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
-        coach = Federation.objects.get(user=request.user)
 
-        if musabaka.subBranch == EnumFields.SANDA.value:
-            athletes = SandaAthlete.objects.filter(athlete__coach=coach,
-                                                   competition=musabaka.pk).distinct()
-        elif musabaka.subBranch == EnumFields.TAOLU.value:
-            athletes = TaoluAthlete.objects.filter(athlete__coach=coach,
-                                                   competition=musabaka).distinct()
-    elif request.user.groups.filter(name__in=['Yonetim', 'Admin']):
+    if request.user.groups.filter(name__in=['Admin']):
         competition_form = CompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
             athletes = SandaAthlete.objects.filter(competition=musabaka)
@@ -265,7 +277,7 @@ def musabaka_duzenle(request, pk):
 
     if request.method == 'POST':
         if competition_form.is_valid():
-            if request.user.groups.filter(name__in=['Yonetim', 'Admin']):
+            if request.user.groups.filter(name__in=['Admin']):
                 competition = competition_form.save(commit=False)
                 competition.save()
                 mesaj = str(competition.name) + ' müsabaka güncellendi   '
@@ -475,3 +487,32 @@ def musabaka_sanda_sporcu_ekle(request):
 
     else:
         return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+
+@login_required
+def musabaka_ekle(request):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    competition_form = CompetitionForm()
+    if request.method == 'POST':
+        competition_form = CompetitionForm(request.POST)
+        if competition_form.is_valid():
+            competition = competition_form.save(commit=False)
+            competition.save()
+
+            mesaj = str(competition.name) + ' added.  '
+            log = general_methods.logwrite(request, request.user, mesaj)
+
+            messages.success(request, 'The competition has been successfully registered.')
+
+            return redirect('wushu:musabakalar')
+        else:
+
+            messages.warning(request, 'Alanları Kontrol Ediniz')
+
+    return render(request, 'musabaka/musabaka-ekle.html',
+                  {'competition_form': competition_form, })
+

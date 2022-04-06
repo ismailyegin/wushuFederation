@@ -5,26 +5,26 @@ from wushu.models.CompetitionCategori import CompetitionCategori
 
 
 class Competition(models.Model):
-    OPEN = 'Ön Kayıt Açık'
-    CLOSED = 'Ön Kayıt Tamamlandı'
-    WAITED = 'Beklemede'
+    OPEN = 'Pre-Registration Open'
+    CLOSED = 'Pre-Registration Completed'
+    WAITED = 'On Standby'
 
     STATUS_CHOICES = (
-        (OPEN, 'Ön Kayıt Açık'),
-        (CLOSED, 'Ön Kayıt Tamamlandı'),
-        (WAITED, 'Beklemede')
+        (OPEN, 'Pre-Registration Open'),
+        (CLOSED, 'Pre-Registration Completed'),
+        (WAITED, 'On Standby')
     )
 
-    INTERNATIONAL = 'Uluslararası'
-    INTERSCHOOL = 'Okullar Arası'
-    INTERUNIVERSITY = 'Üniversiteler Arası'
-    NATIONAL = 'Ulusal'
+    INTERNATIONAL = 'International'
+    INTERSCHOOL = 'Interschool'
+    INTERUNIVERSITY = 'Inter-University'
+    NATIONAL = 'National'
 
     COMPETITION_TYPE = (
-        (INTERNATIONAL, 'Uluslararası'),
-        (INTERSCHOOL, 'Okullar Arası'),
-        (INTERUNIVERSITY, 'Üniversiteler Arası'),
-        (NATIONAL, 'Ulusal')
+        (INTERNATIONAL, 'International'),
+        (INTERSCHOOL, 'Interschool'),
+        (INTERUNIVERSITY, 'Inter-University'),
+        (NATIONAL, 'National')
     )
 
     creationDate = models.DateTimeField(auto_now_add=True)
