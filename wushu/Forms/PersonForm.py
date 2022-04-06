@@ -9,8 +9,8 @@ class PersonForm(ModelForm):
         model = Person
 
         fields = (
-            'pasaport', 'profileImage','birthDate', 'gender','pasaportImage', 'ekg', 'eeg')
-        labels = {'pasaport': 'Pasaport number (*)', 'gender': 'Gender','birthDate':'Birth Date(*)', 'ekg': 'EKG(*)', 'eeg': 'EEG(*)'}
+            'pasaport', 'profileImage','birthDate', 'gender','pasaportImage',)
+        labels = {'pasaport': 'Pasaport number (*)', 'gender': 'Gender','birthDate':'Birth Date(*)', }
 
         widgets = {
 
@@ -23,8 +23,6 @@ class PersonForm(ModelForm):
 
             'gender': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),
-            'ekg': forms.FileInput(attrs={'required': 'required'}),
-            'eeg': forms.FileInput(attrs={'required': 'required'}),
 
         }
 

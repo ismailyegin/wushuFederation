@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from wushu.models.Athlete import Athlete
-from wushu.models.Coach import Coach
+from wushu.models.Federation import Federation
 from wushu.models.Logs import Logs
 from wushu.models.Menu import Menu
 from wushu.models.MenuAdmin import MenuAdmin
@@ -39,7 +39,7 @@ def getProfileImage(request):
             person = Person.objects.get(id=athlete.person.id)
 
         elif current_user.groups.filter(name='Antrenor').exists():
-            athlete = Coach.objects.get(user=current_user)
+            athlete = Federation.objects.get(user=current_user)
             person = Person.objects.get(id=athlete.person.id)
 
         # elif current_user.groups.filter(name='Hakem').exists():

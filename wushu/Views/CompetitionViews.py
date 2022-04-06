@@ -11,7 +11,7 @@ from django.utils import timezone
 from wushu.Forms.CompetitionForm import CompetitionForm
 from wushu.Forms.DisabledCompetitionForm import DisabledCompetitionForm
 from wushu.Forms.competitonSearchForm import CompetitionSearchForm
-from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Coach, Athlete, EnumFields, \
+from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, EnumFields, \
     TaoluAthlete, SandaAthlete
 from wushu.services import general_methods
 
@@ -116,7 +116,7 @@ def return_sporcu_sec_taolu(request):
 
     if length == -1:
         if user.groups.filter(name='Antrenor'):
-            coach = Coach.objects.get(user=request.user)
+            coach = Federation.objects.get(user=request.user)
             modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
             for item in modeldata:
                 print(item)
@@ -129,7 +129,7 @@ def return_sporcu_sec_taolu(request):
     else:
         if search:
             if user.groups.filter(name='Antrenor'):
-                coach = Coach.objects.get(user=request.user)
+                coach = Federation.objects.get(user=request.user)
 
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
                     Q(user__last_name__icontains=search) | Q(user__first_name__icontains=search) | Q(
@@ -144,7 +144,7 @@ def return_sporcu_sec_taolu(request):
                 total = modeldata.count()
         else:
             if user.groups.filter(name='Antrenor'):
-                coach = Coach.objects.get(user=request.user)
+                coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[
                             start:start + length]
                 total = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct().count()
@@ -235,7 +235,7 @@ def musabaka_duzenle(request, pk):
     user = request.user
     if request.user.groups.filter(name='Antrenor'):
         competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
-        coach = Coach.objects.get(user=request.user)
+        coach = Federation.objects.get(user=request.user)
 
         if musabaka.subBranch == EnumFields.SANDA.value:
             athletes = SandaAthlete.objects.filter(athlete__coach=coach,
@@ -348,7 +348,7 @@ def return_sporcu_sec_sanda(request):
 
     if length == -1:
         if user.groups.filter(name='Antrenor'):
-            coach = Coach.objects.get(user=request.user)
+            coach = Federation.objects.get(user=request.user)
             modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
             for item in modeldata:
                 print(item)
@@ -367,7 +367,7 @@ def return_sporcu_sec_sanda(request):
         if search:
             if user.groups.filter(name='Antrenor'):
 
-                coach = Coach.objects.get(user=request.user)
+                coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
                     Q(user__last_name__icontains=search) | Q(user__first_name__icontains=search) | Q(
                         user__email__icontains=search)).distinct()
@@ -383,7 +383,7 @@ def return_sporcu_sec_sanda(request):
         else:
             if user.groups.filter(name='Antrenor'):
 
-                coach = Coach.objects.get(user=request.user)
+                coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[
                             start:start + length]
                 total = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct().count()

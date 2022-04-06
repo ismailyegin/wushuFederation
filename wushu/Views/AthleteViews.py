@@ -9,7 +9,7 @@ from wushu.Forms.CommunicationForm import CommunicationForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.Forms.UserForm import UserForm
 from wushu.Forms.UserSearchForm import UserSearchForm
-from wushu.models import Coach, Athlete, Person, Communication
+from wushu.models import Federation, Athlete, Person, Communication
 from wushu.services import general_methods
 
 
@@ -30,7 +30,7 @@ def return_add_athlete(request):
         user_form = UserForm(request.POST)
         person_form = PersonForm(request.POST, request.FILES)
         communication_form = CommunicationForm(request.POST)
-        coach = Coach.objects.get(user=request.user)
+        coach = Federation.objects.get(user=request.user)
         if person_form.is_valid() and communication_form.is_valid() and user_form:
             user = User()
             user.first_name = request.POST.get('first_name')
