@@ -134,34 +134,36 @@
                 <div class="box-body">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Athletes</h3>
+                            <h3 class="box-title">Coaches</h3>
                         </div>
                         <div class="box-header with-border">
                             <div class="btn-group">
-                                <a href="{% url "wushu:sporcu-ekle" %}"
+                                <a href="{% url "wushu:add-coach" %}"
                                    type="button" class="btn btn-success"><i
-                                        class="fa fa-edit"></i> Add New Athlete
+                                        class="fa fa-edit"></i> Add New Coach
                                 </a>
                             </div>
                         </div>
                         <div class="box-body">
-                            <table id="sporcular" class="table table-bordered table-hover">
+                            <table id="coaches" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Name Surname</th>
                                     <th>Transactions</th>
+
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% if athletes.all %}
-                                    {% for athlete in athletes %}
+                                {% if coaches.all %}
+                                    {% for coach in coaches %}
                                         <tr>
                                             <td>{{ forloop.counter }} </td>
-                                            <td>{{ athlete.person.name }} {{ athlete.person.surName }} </td>
+                                            <td>{{ coach.person.name }} {{ coach.person.surName }} </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{% url "wushu:update-athletes" athlete.pk %}"
+                                                    <a href="{% url "wushu:update-coaches" coach.pk %}"
                                                        type="button" class="btn btn-warning"><i
                                                             class="fa fa-edit"></i>Review
                                                     </a>
@@ -193,7 +195,7 @@
 
     <script>
         $(function () {
-            $('#sporcular').DataTable({
+            $('#coaches').DataTable({
 
 
                 dom: 'Bfrtip',
@@ -233,7 +235,7 @@
                     },
                     {
                         extend: 'print',
-                        title: 'Sporcular',
+                        title: 'Coaches',
                         text: '<i class="fa  fa-print"></i>',
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5]
@@ -252,7 +254,7 @@
 
                     {
                         extend: 'excelHtml5',
-                        title: 'Sporcular',
+                        title: 'Coaches',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         messageTop: 'Twf Bilgi Sistemi ',
                         {#footer: true,#}
@@ -270,7 +272,7 @@
 
                             $.fn.dataTable.fileSave(
                                 new Blob([JSON.stringify(data)]),
-                                'Sporcular.json'
+                                'Coaches.json'
                             );
                         }
                     }

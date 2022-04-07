@@ -49,11 +49,11 @@
 
     <section class="content-header">
         <h1>
-            Add Athletes
+            Update Athlete
 
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Add Athletes</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Update Athlete</a></li>
 
         </ol>
     </section>
@@ -70,19 +70,19 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-4">
-
+                                <div class="col-lg-6">
 
 
                                     <div class="form-group">
-                                        <label> {{ user_form.first_name.label }}</label>
-                                        {{ user_form.first_name }}
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> {{ user_form.last_name.label }}</label>
-                                        {{ user_form.last_name }}
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
                                     </div>
+
                                     <div class="form-group">
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
@@ -91,8 +91,7 @@
 
                                 </div>
 
-                                <div class="col-lg-4">
-
+                                <div class="col-lg-6">
 
                                     <div class="form-group">
                                         <label> {{ person_form.pasaport.label }}</label>
@@ -104,42 +103,48 @@
                                         {{ person_form.gender }}
                                     </div>
                                     <div class="form-group">
-                                        <label> {{ communication_form.country.label }}</label>
-                                        {{ communication_form.country }}
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
                                     </div>
-
-
                                 </div>
-                                <div class="col-lg-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.profileImage.label }}</label>
                                         {{ person_form.profileImage }}
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.pasaportImage.label }}</label>
                                         {{ person_form.pasaportImage }}
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label> {{ person_form.eeg.label }}</label>
-                                        {{ person_form.eeg }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label> {{ person_form.ekg.label }}</label>
-                                        {{ person_form.ekg }}
+                                        <label> {{ athlete_form.ekg.label }}</label>
+                                        {{ athlete_form.ekg }}
                                     </div>
                                 </div>
-
-
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label> {{ athlete_form.eeg.label }}</label>
+                                        {{ athlete_form.eeg }}
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="box-footer">
-                            <button class="btn btn-primary" type="submit">Save</button>
                         </div>
                     </div>
 
-
                 </div>
+                <div class="box-footer">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+
+
+            </div>
 
             </div>
 

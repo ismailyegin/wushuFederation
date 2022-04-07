@@ -9,12 +9,14 @@ class PersonForm(ModelForm):
         model = Person
 
         fields = (
-            'pasaport', 'profileImage','birthDate', 'gender','pasaportImage',)
-        labels = {'pasaport': 'Pasaport number (*)', 'gender': 'Gender','birthDate':'Birth Date(*)', }
+            'name', 'surName', 'pasaport', 'profileImage', 'birthDate', 'gender', 'pasaportImage', 'country')
+        labels = {'name': 'Name (*)', 'surName': 'Surname (*)', 'pasaport': 'Pasaport number (*)', 'gender': 'Gender',
+                  'birthDate': 'Birth Date (*)', 'country': 'Country (*)'}
 
         widgets = {
 
-
+            'name': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
+            'surName': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
             'pasaport': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
 
             'birthDate': forms.DateInput(
@@ -23,6 +25,9 @@ class PersonForm(ModelForm):
 
             'gender': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),
+
+            'country': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
+                                           'style': 'width: 100%;', 'required': 'required'}),
 
         }
 

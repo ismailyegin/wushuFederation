@@ -160,7 +160,7 @@
 
 
 
-                                    {% elif user.groups.all.0.name == "Antrenor" %}
+                                    {% elif user.groups.all.0.name == "Federation" %}
                                         <small> Antrenör</small>
 
 
@@ -225,7 +225,7 @@
 
 
 
-                                    {% elif user.groups.all.0.name == "Antrenor" %}
+                                    {% elif user.groups.all.0.name == "Federation" %}
                                         <a href=""
                                            class="btn btn-default btn-flat">Profil Bilgisi</a>
 
@@ -344,7 +344,7 @@
 
 
 
-                {% elif  user.groups.all.0.name == 'Antrenor' %}
+                {% elif  user.groups.all.0.name == 'Federation' %}
 
                     {% for menu in coachmenus %}
 

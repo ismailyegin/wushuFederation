@@ -38,7 +38,7 @@ def getProfileImage(request):
             athlete = Athlete.objects.get(user=current_user)
             person = Person.objects.get(id=athlete.person.id)
 
-        elif current_user.groups.filter(name='Antrenor').exists():
+        elif current_user.groups.filter(name='Federation').exists():
             athlete = Federation.objects.get(user=current_user)
             person = Person.objects.get(id=athlete.person.id)
 

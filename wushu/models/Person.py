@@ -33,7 +33,8 @@ class Person(models.Model):
         (O2, '0 Rh-'),
 
     )
-
+    name = models.CharField(max_length=120, null=True, blank=True)
+    surName = models.CharField(max_length=120, null=True, blank=True)
     pasaport = models.CharField(max_length=120, null=True, blank=True)
     pasaportImage = models.ImageField(upload_to='pasaport/', null=True, blank=True, default='pasaport/user.png',
                                       verbose_name='pasaport Picture')
@@ -43,5 +44,4 @@ class Person(models.Model):
     birthDate = models.DateField(null=True, blank=True, verbose_name='Birth Date')
     gender = models.CharField(max_length=128, verbose_name='Gender', choices=GENDER_CHOICES, default=MALE)
 
-    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='İl')
     country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name='Ülke')
