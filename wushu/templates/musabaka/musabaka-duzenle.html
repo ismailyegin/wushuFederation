@@ -241,7 +241,7 @@
                                         {% for athlete in athletes %}
                                             <tr>
                                                 <td>{{ forloop.counter }} </td>
-                                                <td>{{ athlete.athlete.user.first_name }} {{ athlete.athlete.user.last_name }} </td>
+                                                <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                 <td id="display">{{ athlete.athlete.communication.city }}</td>
                                                 <td id="display">{{ athlete.athlete.communication.city }}</td>
 

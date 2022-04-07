@@ -14,7 +14,8 @@ from wushu.Forms.JudgeForm import JudgeForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.Forms.UserForm import UserForm
 from wushu.Forms.competitonSearchForm import CompetitionSearchForm
-from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, EnumFields, \
+from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, \
+    EnumFields, \
     TaoluAthlete, SandaAthlete
 from wushu.services import general_methods
 
@@ -44,6 +45,8 @@ def return_competitions(request):
     return render(request, 'musabaka/musabakalar.html', {'competitions': competitions,
                                                          'application': competition,
                                                          'query': comquery})
+
+
 @login_required
 def musabaka_sil(request, pk):
     perm = general_methods.control_access(request)
@@ -63,7 +66,6 @@ def musabaka_sil(request, pk):
 
     else:
         return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
-
 
 
 @login_required
@@ -89,7 +91,7 @@ def musabaka_taolu(request, pk):
         return redirect('accounts:login')
     person_form = PersonForm()
     user_form = UserForm()
-    judge_form=JudgeForm()
+    judge_form = JudgeForm()
 
     musabaka = Competition.objects.get(pk=pk)
     yearscategory = YearsTaoluCategory.objects.all()
@@ -97,7 +99,7 @@ def musabaka_taolu(request, pk):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         person_form = PersonForm(request.POST, request.FILES)
-        judge_form=JudgeForm(request.POST)
+        judge_form = JudgeForm(request.POST)
 
     return render(request, 'musabaka/musabaka-taolu-sporcu-sec.html',
                   {'competition': musabaka,
@@ -105,7 +107,7 @@ def musabaka_taolu(request, pk):
                    'category': category,
                    'user_form': user_form,
                    'person_form': person_form,
-                   'judge_form':judge_form})
+                   'judge_form': judge_form})
 
 
 @login_required
@@ -149,8 +151,8 @@ def return_sporcu_sec_taolu(request):
 
     if length == -1:
         if user.groups.filter(name='Federation'):
-            coach = Federation.objects.get(user=request.user)
-            modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
+            federation = Federation.objects.get(user=request.user)
+            modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct()
             for item in modeldata:
                 print(item)
             total = modeldata.count()
@@ -162,9 +164,9 @@ def return_sporcu_sec_taolu(request):
     else:
         if search:
             if user.groups.filter(name='Federation'):
-                coach = Federation.objects.get(user=request.user)
+                federation = Federation.objects.get(user=request.user)
 
-                modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
+                modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).filter(
                     Q(user__last_name__icontains=search) | Q(user__first_name__icontains=search) | Q(
                         user__email__icontains=search)).distinct()
 
@@ -177,10 +179,10 @@ def return_sporcu_sec_taolu(request):
                 total = modeldata.count()
         else:
             if user.groups.filter(name='Federation'):
-                coach = Federation.objects.get(user=request.user)
-                modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[
+                federation = Federation.objects.get(user=request.user)
+                modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct()[
                             start:start + length]
-                total = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct().count()
+                total = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct().count()
                 # .exclude(belts=None).exclude(licenses=None).exclude(beltexam__athletes__user__in = exam_athlete).filter(licenses__branch=sinav.branch,licenses__status='Onaylandı').filter(belts__branch=sinav.branch,belts__status='Onaylandı').distinct()
             elif user.groups.filter(name__in=['Yonetim', 'Admin']):
 
@@ -196,7 +198,7 @@ def return_sporcu_sec_taolu(request):
         data = {
             'say': say,
             'pk': item.pk,
-            'name': item.user.first_name + ' ' + item.user.last_name,
+            'name': item.person.name + ' ' + item.person.surName,
 
         }
         beka.append(data)
@@ -236,7 +238,7 @@ def musabaka_taolu_sporcu_ekle(request):
                 )
                 taoluAthlete.save()
                 mesaj = str(
-                    compettion.name) + ' to the competition ' + taoluAthlete.athlete.user.get_full_name() + '  added'
+                    compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
                 log = general_methods.logwrite(request, request.user, mesaj)
                 return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
             else:
@@ -264,7 +266,7 @@ def musabaka_duzenle(request, pk):
     musabaka = Competition.objects.get(pk=pk)
     categori = None
     athletes = None
-    competition_form=None
+    competition_form = None
 
     user = request.user
 
@@ -274,6 +276,12 @@ def musabaka_duzenle(request, pk):
             athletes = SandaAthlete.objects.filter(competition=musabaka)
         elif musabaka.subBranch == EnumFields.TAOLU.value:
             athletes = TaoluAthlete.objects.filter(competition=musabaka)
+    if request.user.groups.filter(name__in=['Federation']):
+        competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
+        if musabaka.subBranch == EnumFields.SANDA.value:
+            athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
+        elif musabaka.subBranch == EnumFields.TAOLU.value:
+            athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
 
     if request.method == 'POST':
         if competition_form.is_valid():
@@ -373,8 +381,8 @@ def return_sporcu_sec_sanda(request):
 
     if length == -1:
         if user.groups.filter(name='Federation'):
-            coach = Federation.objects.get(user=request.user)
-            modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
+            federation = Federation.objects.get(user=request.user)
+            modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct()
             for item in modeldata:
                 print(item)
             total = modeldata.count()
@@ -392,8 +400,8 @@ def return_sporcu_sec_sanda(request):
         if search:
             if user.groups.filter(name='Federation'):
 
-                coach = Federation.objects.get(user=request.user)
-                modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
+                federation = Federation.objects.get(user=request.user)
+                modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).filter(
                     Q(user__last_name__icontains=search) | Q(user__first_name__icontains=search) | Q(
                         user__email__icontains=search)).distinct()
 
@@ -408,10 +416,10 @@ def return_sporcu_sec_sanda(request):
         else:
             if user.groups.filter(name='Federation'):
 
-                coach = Federation.objects.get(user=request.user)
-                modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[
+                federation = Federation.objects.get(user=request.user)
+                modeldata = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct()[
                             start:start + length]
-                total = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct().count()
+                total = Athlete.objects.exclude(id__in=coa).filter(federation=federation).distinct().count()
                 # .exclude(belts=None).exclude(licenses=None).exclude(beltexam__athletes__user__in = exam_athlete).filter(licenses__branch=sinav.branch,licenses__status='Onaylandı').filter(belts__branch=sinav.branch,belts__status='Onaylandı').distinct()
             elif user.groups.filter(name__in=['Yonetim', 'Admin']):
 
@@ -424,11 +432,10 @@ def return_sporcu_sec_sanda(request):
 
     beka = []
     for item in modeldata:
-
         data = {
             'say': say,
             'pk': item.pk,
-            'name': item.user.first_name + ' ' + item.user.last_name,
+            'name': item.person.name + ' ' + item.person.surName,
 
         }
         beka.append(data)
@@ -472,7 +479,8 @@ def musabaka_sanda_sporcu_ekle(request):
                     athlete_yas_category=YearsSandaCategory.objects.get(pk=int(request.POST.get('yas'))).categoryYear
                 )
                 sandaAthlete.save()
-                mesaj = str(compettion.name) + ' to the competition ' + sandaAthlete.athlete.user.get_full_name() + 'added'
+                mesaj = str(
+                    compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
                 log = general_methods.logwrite(request, request.user, mesaj)
                 return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
             else:
@@ -515,4 +523,3 @@ def musabaka_ekle(request):
 
     return render(request, 'musabaka/musabaka-ekle.html',
                   {'competition_form': competition_form, })
-
