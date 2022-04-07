@@ -20,8 +20,8 @@ class PersonForm(ModelForm):
             'pasaport': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
 
             'birthDate': forms.DateInput(
-                attrs={'class': 'form-control  pull-right', 'id': 'datepicker', 'autocomplete': 'off',
-                       'onkeydown': 'return false', 'required': 'required'}),
+                attrs={'class': 'form-control  pull-right datemask2013', 'autocomplete': 'on',
+                        'required': 'required'}),
 
             'gender': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),

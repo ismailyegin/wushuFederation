@@ -20,7 +20,7 @@ def addFederationGroup(request):
     judge_form = JudgeForm()
 
     if request.method == 'POST':
-        if request.method.POST.get('submit') == 'athlete':
+        if request.POST.get('submit') == 'athlete':
             person_form = PersonForm(request.POST, request.FILES)
             athlete_form = AthleteForm(request.POST, request.FILES)
             federation = Federation.objects.get(user=request.user)
@@ -47,7 +47,7 @@ def addFederationGroup(request):
                 for x in person_form.errors.as_data():
                     messages.warning(request, person_form.errors[x][0])
 
-        if request.method.POST.get('submit') == 'coach':
+        if request.POST.get('submit') == 'coach':
             if request.method == 'POST':
                 person_form = PersonForm(request.POST, request.FILES)
                 federation = Federation.objects.get(user=request.user)
@@ -72,7 +72,7 @@ def addFederationGroup(request):
                     for x in person_form.errors.as_data():
                         messages.warning(request, person_form.errors[x][0])
 
-        if request.method.POST.get('submit') == 'observer':
+        if request.POST.get('submit') == 'observer':
             person_form = PersonForm(request.POST, request.FILES)
             federation = Federation.objects.get(user=request.user)
             if person_form.is_valid():
@@ -96,7 +96,7 @@ def addFederationGroup(request):
                 for x in person_form.errors.as_data():
                     messages.warning(request, person_form.errors[x][0])
 
-        if request.method.POST.get('submit') == 'officer':
+        if request.POST.get('submit') == 'officer':
             person_form = PersonForm(request.POST, request.FILES)
             federation = Federation.objects.get(user=request.user)
             if person_form.is_valid():
@@ -120,7 +120,7 @@ def addFederationGroup(request):
                 for x in person_form.errors.as_data():
                     messages.warning(request, person_form.errors[x][0])
 
-        if request.method.POST.get('submit') == 'judge':
+        if request.POST.get('submit') == 'judge':
             person_form = PersonForm(request.POST, request.FILES)
             judge_form = JudgeForm(request.POST, request.FILES)
             federation = Federation.objects.get(user=request.user)
