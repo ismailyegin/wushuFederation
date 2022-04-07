@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.urls import path
 
 from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews, ObserverViews, OfficerViews, \
     JudgeViews, FederationViews
@@ -62,4 +61,19 @@ urlpatterns = [
 
     # Federation
     url(r'federation/add-registration/$', FederationViews.addFederationGroup, name='add-registration'),
+
+    url(r'musabaka/taoluekle/$', AthleteViews.return_taolu, name='taolu-katagori'),
+    url(r'musabaka/taolu/sil/(?P<pk>\d+)$', AthleteViews.categoryTaoluDelete, name='taolu-katagori-sil'),
+    url(r'musabaka/taolu/Duzenle/(?P<pk>\d+)$', AthleteViews.categoryTaoluUpdate, name='taolu-katagori-duzenle'),
+    # Taoulu yaş eklendisi
+    url(r'musabaka/taoluekleyas/$', AthleteViews.return_taolu_years, name='yas-taolu-katagori'),
+    url(r'musabaka/taoluekleyas/sil/(?P<pk>\d+)$', AthleteViews.categoryTaoluyearsDelete, name='yas-taolu-katagori-sil'),
+    url(r'musabaka/taoluekleyas/Duzenle/(?P<pk>\d+)$', AthleteViews.categoryTaoluyearsUpdate,
+        name='yas-taolu-katagori-duzenle'),
+
+    # Sanda Yaş
+    url(r'sporcu/sanda-ekleyas/$', AthleteViews.return_sanda_years, name='return_sanda_years'),
+    url(r'sporcu/sanda-ekleyas/sil/(?P<pk>\d+)$', AthleteViews.categorySandayearsDelete, name='yas-sanda-katagori-sil'),
+    url(r'sporcu/sanda-ekleyas/Duzenle/(?P<pk>\d+)$', AthleteViews.categorySandayearsUpdate,
+        name='yas-sanda-katagori-duzenle'),
 ]
