@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from wushu.Forms.PersonForm import PersonForm
-from wushu.models import Federation, Coach, Person
+from wushu.models import Federation, Person, Officer
 from wushu.services import general_methods
 
 
 @login_required
-def return_add_coach(request):
+def return_add_officer(request):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
@@ -26,27 +26,27 @@ def return_add_coach(request):
             person = person_form.save(commit=False)
             person.save()
 
-            coach = Coach(
+            officer = Officer(
                 person=person, federation=federation
             )
-            coach.save()
+            officer.save()
 
-            mesaj = str(coach.person.name) + ' ' + str(coach.person.surName) + ' coach registered'
+            mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
             log = general_methods.logwrite(request, request.user, mesaj)
 
-            messages.success(request, 'Coach Registered Successfully.')
+            messages.success(request, 'Officer Registered Successfully.')
 
-            return redirect('wushu:coaches')
+            return redirect('wushu:officers')
 
         else:
             for x in person_form.errors.as_data():
                 messages.warning(request, person_form.errors[x][0])
 
-    return render(request, 'antrenor/antrenor-ekle.html', {'person_form': person_form, })
+    return render(request, 'resmiGörevli/resmiGörevli-ekle.html', {'person_form': person_form, })
 
 
 @login_required
-def return_coaches(request):
+def return_officers(request):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
@@ -54,27 +54,27 @@ def return_coaches(request):
         return redirect('accounts:login')
     login_user = request.user
     user = User.objects.get(pk=login_user.pk)
-    coaches = Coach.objects.none()
+    officers = Officer.objects.none()
 
     if user.groups.filter(name='Federation'):
-        coaches = Coach.objects.filter(federation__user=request.user)
+        officers = Officer.objects.filter(federation__user=request.user)
 
     if user.groups.filter(name__in=['Yonetim', 'Admin']):
-        coaches = Coach.objects.all()
+        officers = Officer.objects.all()
 
-    return render(request, 'antrenor/antrenorler.html',
-                  {'coaches': coaches})
+    return render(request, 'resmiGörevli/resmiGörevliler.html',
+                  {'officers': officers})
 
 
 @login_required
-def updatecoaches(request, pk):
+def updateofficers(request, pk):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
         return redirect('accounts:login')
-    coach = Coach.objects.get(pk=pk)
-    person = Person.objects.get(pk=coach.person.pk)
+    officer = Officer.objects.get(pk=pk)
+    person = Person.objects.get(pk=officer.person.pk)
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
     say = 0
@@ -84,16 +84,16 @@ def updatecoaches(request, pk):
         if person_form.is_valid():
 
             person_form.save()
-            messages.success(request, 'Coach Successfully Updated.')
+            messages.success(request, 'Officer Successfully Updated.')
 
-            mesaj = 'The coach named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+            mesaj = 'The officer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
             log = general_methods.logwrite(request, request.user, mesaj)
 
-            return redirect('wushu:update-coaches', pk=pk)
+            return redirect('wushu:update-officers', pk=pk)
 
         else:
 
             messages.warning(request, 'Check Fields')
 
-    return render(request, 'antrenor/antrenorDuzenle.html',
-                  {'person_form': person_form, 'coach': coach, 'say': say, })
+    return render(request, 'resmiGörevli/resmiGörevliDuzenle.html',
+                  {'person_form': person_form, 'officer': officer, 'say': say, })

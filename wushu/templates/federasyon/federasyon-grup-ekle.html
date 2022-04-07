@@ -1,0 +1,442 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+
+
+            {% if message.tags == 'warning' %}
+
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Error!</h4>
+
+
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+
+
+                </div>
+
+            {% endif %}
+
+
+            {% if message.tags == 'success' %}
+
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> Successful!</h4>
+
+
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+
+
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+
+    {% endif %}
+
+
+    <section class="content-header">
+        <h1>
+            Add Registration
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Add Registration</a></li>
+
+        </ol>
+    </section>
+    <section class="content">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="box box-primary collapsed-box" id="athleteCollapse">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Athlete Information</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-plus" onclick="myFunction('athleteCollapse')"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ athlete_form.eeg.label }}</label>
+                                        {{ athlete_form.eeg }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ athlete_form.ekg.label }}</label>
+                                        {{ athlete_form.ekg }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit" name="submit" value="athlete">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="box box-primary collapsed-box" id="coachCollapse">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Coach Information</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool collapsed" data-widget="collapse"><i
+                                        class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit" name="submit" value="coach">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="box box-primary collapsed-box" id="judgeCollapse">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Judge Information</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool collapsed" data-widget="collapse"><i
+                                        class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ judge_form.category.label }} </label>
+                                        {{ judge_form.category }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit" name="submit" value="judge">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="box box-primary collapsed-box" id="observerCollapse">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Observer Information</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool collapsed" data-widget="collapse"><i
+                                        class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit" name="submit" value="observer">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" role="form">
+                    {% csrf_token %}
+                    <div class="box box-primary collapsed-box" id="officerCollapse">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Officer Information</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool collapsed" data-widget="collapse"><i
+                                        class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit" name="submit" value="officer">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+function myFunction(buttonid) {
+  document.getElementById("demo").innerHTML = "Hello World";
+}
+</script>
+
+{% endblock %}
+
+
+
+
+

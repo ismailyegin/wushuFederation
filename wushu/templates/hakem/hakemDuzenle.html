@@ -49,16 +49,15 @@
 
     <section class="content-header">
         <h1>
-            Update Athlete
+            Update Judge
 
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Update Athlete</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Update Judge</a></li>
 
         </ol>
     </section>
     <section class="content">
-
         <form method="post" enctype="multipart/form-data" role="form">
             {% csrf_token %}
             <div class="row">
@@ -106,6 +105,10 @@
                                         <label> {{ person_form.country.label }}</label>
                                         {{ person_form.country }}
                                     </div>
+                                    <div class="form-group">
+                                        <label> {{ judge_form.category.label }} </label>
+                                        {{ judge_form.category }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -121,18 +124,6 @@
                                         {{ person_form.pasaportImage }}
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label> {{ athlete_form.ekg.label }}</label>
-                                        {{ athlete_form.ekg }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label> {{ athlete_form.eeg.label }}</label>
-                                        {{ athlete_form.eeg }}
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,10 +133,7 @@
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </div>
-
         </form>
-
-
     </section>
 
 {% endblock %}

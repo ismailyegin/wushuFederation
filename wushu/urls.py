@@ -1,7 +1,8 @@
 from django.conf.urls import url
 from django.urls import path
 
-from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews
+from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews, ObserverViews, OfficerViews, \
+    JudgeViews, FederationViews
 
 app_name = 'wushu'
 
@@ -44,4 +45,21 @@ urlpatterns = [
     url(r'coach/coaches/$', CoachViews.return_coaches, name='coaches'),
     url(r'coach/update-coach/(?P<pk>\d+)$', CoachViews.updatecoaches, name='update-coaches'),
 
+    # Observers
+    url(r'observer/add-observer/$', ObserverViews.return_add_observer, name='add-observer'),
+    url(r'observer/observers/$', ObserverViews.return_observers, name='observers'),
+    url(r'observer/update-observer/(?P<pk>\d+)$', ObserverViews.updateobservers, name='update-observers'),
+
+    # Officers
+    url(r'officer/add-officer/$', OfficerViews.return_add_officer, name='add-officer'),
+    url(r'officer/officers/$', OfficerViews.return_officers, name='officers'),
+    url(r'officer/update-officer/(?P<pk>\d+)$', OfficerViews.updateofficers, name='update-officers'),
+
+    # Judge
+    url(r'judge/add-judge/$', JudgeViews.return_add_judge, name='add-judge'),
+    url(r'judge/judges/$', JudgeViews.return_judges, name='judges'),
+    url(r'judge/update-judge/(?P<pk>\d+)$', JudgeViews.updatejudges, name='update-judges'),
+
+    # Federation
+    url(r'federation/add-registration/$', FederationViews.addFederationGroup, name='add-registration'),
 ]

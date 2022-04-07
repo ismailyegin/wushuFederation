@@ -148,7 +148,7 @@ def return_sporcu_sec_taolu(request):
     #     coa.append(item.athlete.pk)
 
     if length == -1:
-        if user.groups.filter(name='Antrenor'):
+        if user.groups.filter(name='Federation'):
             coach = Federation.objects.get(user=request.user)
             modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
             for item in modeldata:
@@ -161,7 +161,7 @@ def return_sporcu_sec_taolu(request):
             total = modeldata.count()
     else:
         if search:
-            if user.groups.filter(name='Antrenor'):
+            if user.groups.filter(name='Federation'):
                 coach = Federation.objects.get(user=request.user)
 
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
@@ -176,7 +176,7 @@ def return_sporcu_sec_taolu(request):
                         user__email__icontains=search)).distinct()
                 total = modeldata.count()
         else:
-            if user.groups.filter(name='Antrenor'):
+            if user.groups.filter(name='Federation'):
                 coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[
                             start:start + length]
@@ -372,7 +372,7 @@ def return_sporcu_sec_sanda(request):
         coa.append(item.athlete.pk)
 
     if length == -1:
-        if user.groups.filter(name='Antrenor'):
+        if user.groups.filter(name='Federation'):
             coach = Federation.objects.get(user=request.user)
             modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()
             for item in modeldata:
@@ -390,7 +390,7 @@ def return_sporcu_sec_sanda(request):
         #   .exclude(belts__definition__parent_id=None)    eklenmeli ama eklendigi zaman kuşaklarindan bir tanesi en üst olunca almıyor
     else:
         if search:
-            if user.groups.filter(name='Antrenor'):
+            if user.groups.filter(name='Federation'):
 
                 coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).filter(
@@ -406,7 +406,7 @@ def return_sporcu_sec_sanda(request):
                 total = modeldata.count()
 
         else:
-            if user.groups.filter(name='Antrenor'):
+            if user.groups.filter(name='Federation'):
 
                 coach = Federation.objects.get(user=request.user)
                 modeldata = Athlete.objects.exclude(id__in=coa).filter(coach=coach).distinct()[

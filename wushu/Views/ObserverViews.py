@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from wushu.Forms.PersonForm import PersonForm
-from wushu.models import Federation, Coach, Person
+from wushu.models import Federation, Person, Observer
 from wushu.services import general_methods
 
 
 @login_required
-def return_add_coach(request):
+def return_add_observer(request):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
@@ -26,27 +26,27 @@ def return_add_coach(request):
             person = person_form.save(commit=False)
             person.save()
 
-            coach = Coach(
+            observer = Observer(
                 person=person, federation=federation
             )
-            coach.save()
+            observer.save()
 
-            mesaj = str(coach.person.name) + ' ' + str(coach.person.surName) + ' coach registered'
+            mesaj = str(observer.person.name) + ' ' + str(observer.person.surName) + ' observer registered'
             log = general_methods.logwrite(request, request.user, mesaj)
 
-            messages.success(request, 'Coach Registered Successfully.')
+            messages.success(request, 'Observer Registered Successfully.')
 
-            return redirect('wushu:coaches')
+            return redirect('wushu:observers')
 
         else:
             for x in person_form.errors.as_data():
                 messages.warning(request, person_form.errors[x][0])
 
-    return render(request, 'antrenor/antrenor-ekle.html', {'person_form': person_form, })
+    return render(request, 'gozlemci/gozlemci-ekle.html', {'person_form': person_form, })
 
 
 @login_required
-def return_coaches(request):
+def return_observers(request):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
@@ -54,27 +54,27 @@ def return_coaches(request):
         return redirect('accounts:login')
     login_user = request.user
     user = User.objects.get(pk=login_user.pk)
-    coaches = Coach.objects.none()
+    observers = Observer.objects.none()
 
     if user.groups.filter(name='Federation'):
-        coaches = Coach.objects.filter(federation__user=request.user)
+        observers = Observer.objects.filter(federation__user=request.user)
 
     if user.groups.filter(name__in=['Yonetim', 'Admin']):
-        coaches = Coach.objects.all()
+        observers = Observer.objects.all()
 
-    return render(request, 'antrenor/antrenorler.html',
-                  {'coaches': coaches})
+    return render(request, 'gozlemci/gozlemciler.html',
+                  {'observers': observers})
 
 
 @login_required
-def updatecoaches(request, pk):
+def updateobservers(request, pk):
     perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
         return redirect('accounts:login')
-    coach = Coach.objects.get(pk=pk)
-    person = Person.objects.get(pk=coach.person.pk)
+    observer = Observer.objects.get(pk=pk)
+    person = Person.objects.get(pk=observer.person.pk)
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
     say = 0
@@ -84,16 +84,16 @@ def updatecoaches(request, pk):
         if person_form.is_valid():
 
             person_form.save()
-            messages.success(request, 'Coach Successfully Updated.')
+            messages.success(request, 'Observer Successfully Updated.')
 
-            mesaj = 'The coach named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+            mesaj = 'The observer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
             log = general_methods.logwrite(request, request.user, mesaj)
 
-            return redirect('wushu:update-coaches', pk=pk)
+            return redirect('wushu:update-observers', pk=pk)
 
         else:
 
             messages.warning(request, 'Check Fields')
 
-    return render(request, 'antrenor/antrenorDuzenle.html',
-                  {'person_form': person_form, 'coach': coach, 'say': say, })
+    return render(request, 'gozlemci/gozlemciDuzenle.html',
+                  {'person_form': person_form, 'observer': observer, 'say': say, })

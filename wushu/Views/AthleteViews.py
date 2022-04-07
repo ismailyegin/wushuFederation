@@ -27,7 +27,7 @@ def return_add_athlete(request):
     if request.method == 'POST':
         person_form = PersonForm(request.POST, request.FILES)
         athlete_form = AthleteForm(request.POST, request.FILES)
-        coach = Federation.objects.get(user=request.user)
+        federation = Federation.objects.get(user=request.user)
         if person_form.is_valid() and athlete_form.is_valid():
 
             person = person_form.save(commit=False)
@@ -36,7 +36,7 @@ def return_add_athlete(request):
             ekgEeg = athlete_form.save(commit=False)
 
             athlete = Athlete(
-                person=person, federation=coach, eeg=ekgEeg.eeg, ekg=ekgEeg.ekg
+                person=person, federation=federation, eeg=ekgEeg.eeg, ekg=ekgEeg.ekg
             )
             athlete.save()
 
