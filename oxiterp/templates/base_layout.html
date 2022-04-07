@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TWF BİLGİ SİSTEMİ </title>
-    <meta name="description" content="TWF BİLGİ SİSTEMİ"/>
-    <meta name="keywords" content="TWF BİLGİ SİSTEMİ"/>
+    <title>TWF INFORMATION SYSTEM </title>
+    <meta name="description" content="TWF INFORMATION SYSTEM"/>
+    <meta name="keywords" content="TWF INFORMATION SYSTEM"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -138,11 +138,11 @@
 
 
                                     {% if user.groups.all.0.name == "Sporcu" %}
-                                        <small> Sporcu</small>
+                                        <small> Athlete</small>
 
 
                                     {% elif user.groups.all.0.name == "Hakem" %}
-                                        <small> Hakem</small>
+                                        <small> Referee</small>
 
 
 
@@ -151,17 +151,17 @@
 
 
                                     {% elif user.groups.all.0.name == "Yonetim" %}
-                                        <small> Yönetim</small>
+                                        <small> Management</small>
 
 
                                     {% elif user.groups.all.0.name == "KulupUye" %}
-                                        <small> Kulüp Üyesi</small>
+                                        <small> Club Member</small>
 
 
 
 
                                     {% elif user.groups.all.0.name == "Federation" %}
-                                        <small> Antrenör</small>
+                                        <small> Coach</small>
 
 
                                     {% else %}
@@ -171,7 +171,7 @@
 
 
 
-                                    <small>Kayıt Tarihi: {{ user.date_joined }}</small>
+                                    <small>Date of Registration: {{ user.date_joined }}</small>
 
 
                                 </p>
@@ -196,38 +196,38 @@
 
                                     {% if user.groups.all.0.name == "Sporcu" %}
                                         <a href="{% url "wushu:sporcu-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
                                     {% elif user.groups.all.0.name == "Admin" %}
                                         <a href=""
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
                                     {% elif user.groups.all.0.name == "Hakem" %}
                                         <a href="{% url "wushu:hakem-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
 
 
                                     {% elif user.groups.all.0.name == "Admin" %}
                                         <a href="{% url "wushu:kullanici-duzenle" %}"
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
 
                                     {% elif user.groups.all.0.name == "Yonetim" %}
                                         <a href="{% url "wushu:yonetim-kurul-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
 
                                     {% elif user.groups.all.0.name == "KulupUye" %}
                                         <a href="{% url "wushu:kulup-uyesi-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
 
 
 
                                     {% elif user.groups.all.0.name == "Federation" %}
                                         <a href=""
-                                           class="btn btn-default btn-flat">Profil Bilgisi</a>
+                                           class="btn btn-default btn-flat">Profile Information</a>
 
 
                                     {% else %}
@@ -237,7 +237,7 @@
 
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{% url 'accounts:logout' %}" class="btn btn-default btn-flat">Çıkış Yap</a>
+                                    <a href="{% url 'accounts:logout' %}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -566,7 +566,7 @@
 
 
             <strong>Email: </strong> <a href="mailto:twfbilgisistemi@twf.gov.tr"> twfbilgisistemi@twf.gov.tr</a>
-            <strong>Tel</strong>:<a href="tel:+903122195654"> (0312) 219 56 54 <br></a>
+            <strong>Phone</strong>:<a href="tel:+903122195654"> (0312) 219 56 54 <br></a>
             {#            <div class="pull-right"><b>Versiyon</b> 1.0.0 </div>#}
 
 

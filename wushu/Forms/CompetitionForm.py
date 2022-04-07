@@ -12,23 +12,23 @@ class CompetitionForm(ModelForm):
         model = Competition
 
         fields = (
-              'location',
-            'branch','startDate', 'name','finishDate', 'status','type','subBranch',
+            'name', 'startDate', 'finishDate', 'location',
+            'branch', 'status','type','subBranch',
             'registerStartDate','registerFinishDate')
 
-        labels = { 'startDate': 'Başlangıç Tarihi', 'finishDate': 'Bitiş Tarihi',
-                  'location': 'Yer', 'branch': 'Branş',
-                  'status':'Kayıt Durumu','type':'Türü','subBranch':'Alt Branş',
-                  'registerStartDate': 'Ön Kayıt Başlangıç Tarihi',
-                  'registerFinishDate': 'Ön Kayıt Bitiş Tarihi','name': 'İsim',
+        labels = {'name': 'Name', 'startDate': 'Starting Date', 'finishDate': 'End Date',
+                  'location': 'Location', 'branch': 'Branch',
+                  'status':'Registration Status','type':'Type','subBranch':'Sub-Branch',
+                  'registerStartDate': 'Pre-Registration Start Date',
+                  'registerFinishDate': 'Pre-Registration End Date',
                   }
 
         widgets = {
             'registerStartDate': forms.DateInput(
                 attrs={'class': 'form-control  pull-right datepicker6', 'autocomplete': 'on',
-                       'onkeydown': 'return true', }),
+                       'onkeydown': 'return true',}),
             'registerFinishDate': forms.DateInput(
-                attrs={'class': 'form-control  pull-right datepicker6', 'autocomplete': 'on',
+                attrs={'class': 'form-control  pull-right datepicker6',  'autocomplete': 'on',
                        'onkeydown': 'return true', }),
             'startDate': forms.DateInput(
                 attrs={'class': 'form-control  pull-right', 'id': 'datepicker2', 'autocomplete': 'on',
@@ -37,6 +37,7 @@ class CompetitionForm(ModelForm):
             'finishDate': forms.DateInput(
                 attrs={'class': 'form-control  pull-right', 'id': 'datepicker4', 'autocomplete': 'on',
                        'onkeydown': 'return true'}),
+
             'branch': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),
 

@@ -11,9 +11,9 @@ class DisabledCompetitionForm(ModelForm):
         fields = (
             'name', 'startDate', 'finishDate', 'location', 'branch', 'status', 'type', 'subBranch')
 
-        labels = {'name': 'İsim', 'startDate': 'Başlangıç Tarihi', 'finishDate': 'Bitiş Tarihi',
-                  'location': 'Yer', 'branch': 'Branş', 'status': 'Kayıt Durumu', 'type': 'Türü',
-                  'subBranch': 'Alt Branş'}
+        labels = {'name': 'Name', 'startDate': 'Starting Date', 'finishDate': 'End Date',
+                  'location': 'Location', 'branch': 'Branch', 'status': 'Registration Status', 'type': 'Type',
+                  'subBranch': 'Sub-Branch'}
 
         widgets = {
 

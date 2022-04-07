@@ -54,7 +54,7 @@ def musabaka_sil(request, pk):
     if request.method == 'POST' and request.is_ajax():
         try:
             obj = Competition.objects.get(pk=pk)
-            log = str(obj.name) + "  Müsabaka silindi."
+            log = str(obj.name) + "  Competition deleted."
             log = general_methods.logwrite(request, request.user, log)
             obj.delete()
             return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
@@ -236,11 +236,11 @@ def musabaka_taolu_sporcu_ekle(request):
                 )
                 taoluAthlete.save()
                 mesaj = str(
-                    compettion.name) + ' müsabakasına ' + taoluAthlete.athlete.user.get_full_name() + '   eklendi'
+                    compettion.name) + ' to the competition ' + taoluAthlete.athlete.user.get_full_name() + '  added'
                 log = general_methods.logwrite(request, request.user, mesaj)
                 return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
             else:
-                return JsonResponse({'status': 'Fail', 'msg': 'Müsabanın alt katagorisi Sanda degil'})
+                return JsonResponse({'status': 'Fail', 'msg': 'The sub-category of the competition is not Sanda'})
 
 
 
@@ -280,14 +280,14 @@ def musabaka_duzenle(request, pk):
             if request.user.groups.filter(name__in=['Admin']):
                 competition = competition_form.save(commit=False)
                 competition.save()
-                mesaj = str(competition.name) + ' müsabaka güncellendi   '
+                mesaj = str(competition.name) + 'The competition has been updated.   '
                 log = general_methods.logwrite(request, request.user, mesaj)
 
-                messages.success(request, 'Müsabaka Başarıyla Güncellenmiştir.')
+                messages.success(request, 'Competition Successfully Updated.')
             return redirect('wushu:musabaka-duzenle', pk=pk)
         else:
 
-            messages.warning(request, 'Alanları Kontrol Ediniz')
+            messages.warning(request, 'Check Fields')
 
     return render(request, 'musabaka/musabaka-duzenle.html',
                   {'competition_form': competition_form, 'competition': musabaka, 'athletes': athletes,
@@ -472,11 +472,11 @@ def musabaka_sanda_sporcu_ekle(request):
                     athlete_yas_category=YearsSandaCategory.objects.get(pk=int(request.POST.get('yas'))).categoryYear
                 )
                 sandaAthlete.save()
-                mesaj = str(compettion.name) + ' müsabakasına ' + sandaAthlete.athlete.user.get_full_name() + 'eklendi'
+                mesaj = str(compettion.name) + ' to the competition ' + sandaAthlete.athlete.user.get_full_name() + 'added'
                 log = general_methods.logwrite(request, request.user, mesaj)
                 return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
             else:
-                return JsonResponse({'status': 'Fail', 'msg': 'Müsabanın alt katagorisi Sanda degil'})
+                return JsonResponse({'status': 'Fail', 'msg': 'The sub-category of the competition is not Sanda'})
 
 
 
@@ -511,7 +511,7 @@ def musabaka_ekle(request):
             return redirect('wushu:musabakalar')
         else:
 
-            messages.warning(request, 'Alanları Kontrol Ediniz')
+            messages.warning(request, 'Check Fields')
 
     return render(request, 'musabaka/musabaka-ekle.html',
                   {'competition_form': competition_form, })

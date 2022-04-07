@@ -10,8 +10,8 @@ class PersonForm(ModelForm):
 
         fields = (
             'name', 'surName', 'pasaport', 'profileImage', 'birthDate', 'gender', 'pasaportImage', 'country')
-        labels = {'name': 'Name (*)', 'surName': 'Surname (*)', 'pasaport': 'Pasaport number (*)', 'gender': 'Gender',
-                  'birthDate': 'Birth Date (*)', 'country': 'Country (*)'}
+        labels = {'name': 'Name (*)', 'surName': 'Surname (*)', 'pasaport': 'Passport Number (*)', 'gender': 'Gender',
+                  'birthDate': 'Date of birth (*)', 'country': 'Country (*)'}
 
         widgets = {
 

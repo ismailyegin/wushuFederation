@@ -9,11 +9,10 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Ana Sayfa
-
+                Home Page
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Ana Sayfa</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home Page</a></li>
 
             </ol>
         </section>
@@ -29,13 +28,13 @@
                         <div class="inner">
                             <h3>{{ total_athlete }}</h3>
 
-                            <p>Sporcu Sayısı</p>
+                            <p>Number of Athletes</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-home"></i>
                         </div>
                         <a href="" class="small-box-footer">
-                            Daha Fazla <i class="fa fa-arrow-circle-right"></i>
+                            More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
@@ -46,13 +45,13 @@
                         <div class="inner">
                             <h3>{{ total_coachs }}</h3>
 
-                            <p>Antrenör Sayısı</p>
+                            <p>Number of Coaches</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-home"></i>
                         </div>
                         <a href="" class="small-box-footer">
-                            Daha Fazla <i class="fa fa-arrow-circle-right"></i>
+                            More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
@@ -63,7 +62,7 @@
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Aylık Rapor</h3>
+                            <h3 class="box-title">Monthly Report</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -90,7 +89,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <p class="text-center">
-                                        <strong>Wushu Sporcu Sayısı Artışı</strong>
+                                        <strong>Increase in Wushu Athletes</strong>
                                     </p>
 
                                     <div class="chart">
@@ -103,11 +102,11 @@
                                 <!-- /.col -->
                                 <div class="col-md-4">
                                     <p class="text-center">
-                                        <strong>Ulaşılan Hedefler</strong>
+                                        <strong>Goals Achieved</strong>
                                     </p>
 
                                     <div class="progress-group">
-                                        <span class="progress-text">Toplam Sporcu</span>
+                                        <span class="progress-text">Total Athletes</span>
                                         <span class="progress-number"><b>{{ total_athlete }}</b>/{{ total_athlete }}</span>
 
                                         <div class="progress sm">
@@ -116,7 +115,7 @@
                                     </div>
                                     <!-- /.progress-group -->
                                     <div class="progress-group">
-                                        <span class="progress-text">Toplam Erkek Sporcu</span>
+                                        <span class="progress-text">Total Male Athletes</span>
                                         <span class="progress-number"><b>{{ total_athlete_gender_man }}</b>/{{ total_athlete_gender_man }}</span>
 
                                         <div class="progress sm">
@@ -125,7 +124,7 @@
                                     </div>
                                     <!-- /.progress-group -->
                                     <div class="progress-group">
-                                        <span class="progress-text">Toplam Kadın Sporcu</span>
+                                        <span class="progress-text">Total Female Athletes</span>
                                         <span class="progress-number"><b>{{ total_athlete_gender_woman }}</b>/{{ total_athlete_gender_woman }}</span>
 
                                         <div class="progress sm">
@@ -134,7 +133,7 @@
                                     </div>
                                     <!-- /.progress-group -->
                                     <div class="progress-group">
-                                        <span class="progress-text">Toplam Antrenör</span>
+                                        <span class="progress-text">Total Coaches</span>
                                         <span class="progress-number"><b>{{ total_coachs }}</b>/{{ total_coachs }}</span>
 
                                         <div class="progress sm">
@@ -162,7 +161,7 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Braşlarin Sporcu Sayılari</h3>
+                            <h3 class="box-title">Number of Athletes by Branches</h3>
                             <div class="box-tools pull-right">
 
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -179,9 +178,9 @@
                                 <tbody>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Brans</th>
+                                    <th>Branch</th>
 
-                                    <th>Sporcu Sayısı</th>
+                                    <th>Number of Athletes</th>
                                 </tr>
                                 <tr>
                                     <td>1.</td>
@@ -247,7 +246,7 @@
 
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Sporcularda Cinsiyet Dağılımı</h3>
+                            <h3 class="box-title">Gender Distribution in Athletes</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -271,8 +270,8 @@
                                 <div class="col-md-4">
                                     <ul class="chart-legend clearfix">
 
-                                        <li><i class="fa fa-circle-o text-green"></i> Erkek</li>
-                                        <li><i class="fa fa-circle-o text-red"></i> Kadın</li>
+                                        <li><i class="fa fa-circle-o text-green"></i> Male</li>
+                                        <li><i class="fa fa-circle-o text-red"></i> Woman</li>
 
                                     </ul>
                                 </div>
@@ -283,11 +282,11 @@
                         <!-- /.box-body -->
                         <div class="box-footer no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Kadın
+                                <li><a href="#">Woman
                                     <span class="pull-right text-red"><i
                                             class="fa fa-angle-down"></i> {{ total_athlete_gender_woman }}</span></a>
                                 </li>
-                                <li><a href="#">Erkek <span class="pull-right text-green"><i
+                                <li><a href="#">Male <span class="pull-right text-green"><i
                                         class="fa fa-angle-up"></i> {{ total_athlete_gender_man }}</span></a>
                                 </li>
 
@@ -308,7 +307,7 @@
 
                 <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Son Eklenen Sporcular</h3>
+                        <h3 class="box-title">Recently Added Athletes</h3>
 
                         <div class="box-tools pull-right">
 
@@ -346,7 +345,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="" class="uppercase">Tüm Sporculari Görüntüleyin</a>
+                        <a href="" class="uppercase">View All Athletes</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -362,7 +361,7 @@
                                     <div class=" dash-center">
                                         <div class="profile-left mb20">
                                             <h4><span class="label pull-left label-danger mr5"
-                                                      style="margin: 0px 0px 0px 0px">Güncel Müsabaka</span></h4>
+                                                      style="margin: 0px 0px 0px 0px">Current Competition</span></h4>
 
 
                                             <div class="profile-left-heading">
@@ -375,7 +374,7 @@
                                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
                                                                 <a href=""
                                                                    type="button" class="btn btn-danger"><i
-                                                                        class="fa fa-edit"></i>Başvuru Yap
+                                                                        class="fa fa-edit"></i>Make an application
                                                                 </a>
                                                             {% endif %}
 
@@ -383,7 +382,7 @@
 
                                                                 <a href=""
                                                                    type="button" class="btn btn-danger"><i
-                                                                        class="fa fa-edit"></i>Başvuru yap
+                                                                        class="fa fa-edit"></i>Make an application
                                                                 </a>
                                                             {% endif %}
 
@@ -399,7 +398,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">MÜSABAKANIN YERİ</h4>
+                                                            <h4 class="panel-title">LOCATION OF THE COMPETITION</h4>
                                                             <p>
                                                                 <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
                                                             </p>
@@ -407,7 +406,7 @@
                                                     </div>
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">MÜSABAKANIN TARİHİ</h4>
+                                                            <h4 class="panel-title">DATE OF THE COMPETITION</h4>
                                                             <p>
                                                                 <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d " }}
                                                                 - {{ competition.finishDate | date }}</p>
@@ -415,7 +414,7 @@
                                                     </div>
                                                     <div class="col-xs-5 col-sm-4">
                                                         <div class="pull-left">
-                                                            <h4 class="panel-title">ONLİNE BAŞVURU TARİHİ</h4>
+                                                            <h4 class="panel-title">DATE OF ONLINE APPLICATION</h4>
                                                             <p>
                                                                 <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d " }}
                                                                 - {{ competition.registerFinishDate | date }}</p>
@@ -442,7 +441,7 @@
 
                 <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Şehir Degerlendirme</h3>
+                        <h3 class="box-title">City Evaluation</h3>
                         <div id="sehir"></div>
 
 
@@ -587,13 +586,13 @@
                     value: {{total_athlete_gender_woman}},
                     color: '#f56954',
                     highlight: '#f56954',
-                    label: 'Kadın'
+                    label: 'Woman'
                 },
                 {
                     value: {{total_athlete_gender_man}},
                     color: '#00a65a',
                     highlight: '#00a65a',
-                    label: 'Erkek'
+                    label: 'Male'
                 },
 
             ];

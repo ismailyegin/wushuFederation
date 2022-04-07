@@ -129,14 +129,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">İşlem Başarılı</h4>
+                    <h4 class="modal-title">Transaction Successful</h4>
                 </div>
                 <div class="modal-body successModal">
                     ...
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-outline btn-ok">Tamam</button>
+                    <button type="button" class="btn btn-outline btn-ok">OK</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -151,16 +151,16 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Uyarı</h4>
+                    <h4 class="modal-title">Warning</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Silmek istediğinizden emin misiniz?</p>
+                    <p>Are you sure you want to delete?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left btn-ok" id="btn-conf"
-                            data-dismiss="modal">Evet
+                            data-dismiss="modal">Yes
                     </button>
-                    <button type="button" class="btn btn-outline" id="btn-close">Hayır</button>
+                    <button type="button" class="btn btn-outline" id="btn-close">No</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -197,7 +197,7 @@
 
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> Başarılı!</h4>
+                    <h4><i class="icon fa fa-ban"></i> Successful!</h4>
 
 
                     <ul class="messages">
@@ -242,10 +242,10 @@
 
 
 
-    {% if application.all %}
-        <section class="content">
 
+    <section class="content">
 
+        {% if application.all %}
             {% for competition in application %}
 
                 <div class="row">
@@ -254,7 +254,7 @@
                         <div class=" dash-center">
                             <div class="profile-left mb20">
                                 <h4><span class="label pull-left label-danger mr5"
-                                          style="margin: 0px 0px 0px 0px">Güncel Müsabaka</span></h4>
+                                          style="margin: 0px 0px 0px 0px">Current Competition</span></h4>
 
 
                                 <div class="profile-left-heading">
@@ -267,7 +267,7 @@
                                                 {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
                                                     <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
                                                        type="button" class="btn btn-danger"><i
-                                                            class="fa fa-edit"></i>Başvuru Yap
+                                                            class="fa fa-edit"></i>Make an application
                                                     </a>
                                                 {% endif %}
 
@@ -275,7 +275,7 @@
 
                                                     <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
                                                        type="button" class="btn btn-danger"><i
-                                                            class="fa fa-edit"></i>Başvuru yap
+                                                            class="fa fa-edit"></i>Make an application
                                                     </a>
                                                 {% endif %}
 
@@ -291,7 +291,7 @@
                                     <div class="row">
                                         <div class="col-xs-5 col-sm-4">
                                             <div class="pull-left">
-                                                <h4 class="panel-title">MÜSABAKANIN YERİ</h4>
+                                                <h4 class="panel-title">LOCATION OF THE COMPETITION</h4>
                                                 <p>
                                                     <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
                                                 </p>
@@ -299,7 +299,7 @@
                                         </div>
                                         <div class="col-xs-5 col-sm-4">
                                             <div class="pull-left">
-                                                <h4 class="panel-title">MÜSABAKANIN TARİHİ</h4>
+                                                <h4 class="panel-title">DATE OF THE COMPETITION</h4>
                                                 <p>
                                                     <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d " }}
                                                     - {{ competition.finishDate | date }}</p>
@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="col-xs-5 col-sm-4">
                                             <div class="pull-left">
-                                                <h4 class="panel-title">ONLİNE BAŞVURU TARİHİ</h4>
+                                                <h4 class="panel-title">DATE OF ONLINE APPLICATION</h4>
                                                 <p>
                                                     <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d " }}
                                                     - {{ competition.registerFinishDate | date }}</p>
@@ -325,10 +325,9 @@
 
                 </div>
             {% endfor %}
+        {% endif %}
 
-
-        </section>
-    {% endif %}
+    </section>
     <section class="content">
         <div class="row">
             <section class="col-lg-12 ">
@@ -339,7 +338,7 @@
 
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Müsabaka Filtrele</h3>
+                            <h3 class="box-title">Filter Competition</h3>
                         </div>
                         <form method="post" role="form">
 
@@ -371,7 +370,7 @@
                             <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Ara</button>
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
 
@@ -394,14 +393,14 @@
 
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Müsabakalar</h3>
+                            <h3 class="box-title">Competitions</h3>
                         </div>
                         <div class="box-header with-border">
                             <div class="btn-group">
                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                    <a href="{% url 'wushu:musabaka-ekle' %}"
+                                    <a href=""
                                        type="button" class="btn btn-success"><i
-                                            class="fa fa-edit"></i> Yeni Müsabaka Ekle
+                                            class="fa fa-edit"></i> Add New Competition
                                     </a>
                                 {% endif %}
                             </div>
@@ -411,18 +410,18 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>İsim</th>
-                                    <th>Başl. Tarihi</th>
-                                    <th>Bitiş. Tarihi</th>
-                                    <th>Yer</th>
-                                    <th>Branş</th>
-                                    <th>Alt Branş</th>
-                                    <th>Kayıt Durumu</th>
-                                    <th>Türü</th>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Location</th>
+                                    <th>Branch</th>
+                                    <th>Sub-Branch</th>
+                                    <th>Registration Status</th>
+                                    <th>Type</th>
                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                        <th>incele</th>
+                                        <th>Examine</th>
                                     {% else %}
-                                        <th>Başvur</th>
+                                        <th>Apply</th>
                                     {% endif %}
 
 
@@ -444,16 +443,16 @@
                                             <td>
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <div class="btn-group">
-                                                        <a href="{% url 'wushu:musabaka-duzenle' competition.pk %}"
+                                                        <a href=""
                                                            type="button" class="btn btn-warning"><i
-                                                                class="fa fa-edit"></i>İncele
+                                                                class="fa fa-edit"></i>Examine
                                                         </a>
                                                     </div>
                                                 {% elif user.groups.all.0.name == 'Antrenor' %}
                                                     <div class="btn-group">
                                                         <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
                                                            type="button" class="btn btn-warning"><i
-                                                                class="fa fa-edit"></i>İncele
+                                                                class="fa fa-edit"></i>Examine
                                                         </a>
                                                     </div>
                                                 {% endif %}
@@ -463,7 +462,7 @@
                                                     <a class="btn btn-danger"
                                                        data-toggle="modal"
                                                        onclick=deleteCompetition({{ competition.pk }})><i
-                                                            class="fa fa-trash"></i>Sil</a>
+                                                            class="fa fa-trash"></i>Delete</a>
                                                 {% endif %}
                                             </td>
 
@@ -494,18 +493,11 @@
             $('#musabakalar').DataTable({
                 dom: 'Bfrtip',
 
-                language: {
-                    buttons: {
-                        pageLength: {
-                            _: " %d  Tane Seçili",
-                            '-1': "Hepsi Seçili"
-                        }
-                    }
-                },
+
 
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
-                    ['10 tane', '25 tane ', '50 tane ', '100 Tane', 'Hepsini Getir']
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
                 ],
 
                 buttons: [
@@ -522,7 +514,7 @@
                     {
                         extend: 'colvis',
                         text: '<i class=" fa  fa-th-list"></i>',
-                        titleAttr: 'Ekle Çıkar'
+                        titleAttr: 'Add Subtract'
 
 
                     },
@@ -533,7 +525,7 @@
                         exportOptions: {
                             {#columns: [0, 1,':visible']#}
                         },
-                        titleAttr: 'Yazdır'
+                        titleAttr: 'Print'
                     },
                     {
                         extend: 'pdfHtml5',
@@ -542,7 +534,7 @@
                         exportOptions: {
                             {#columns: [0, 1,':visible']#}
                         },
-                        titleAttr: 'Pfd Kaydet'
+                        titleAttr: 'Save Pdf'
                     },
                     {
                         extend: 'excelHtml5',
@@ -556,7 +548,7 @@
                             {#columns: [0, 2, 1, 3, 4, 5]#}
 
                         },
-                        titleAttr: 'Excel Kaydet'
+                        titleAttr: 'Excel Save'
                     },
 
                     {
@@ -598,48 +590,48 @@
         })
     </script>
 
-    <script>
-
-
-        function deleteCompetition(id) {
-
-            console.log(id);
-            var html = ''
-            $("#modal-danger").on("shown.bs.modal", function (e) {
-                $("#btn-conf").click(function () {
-                    $.ajax({
-                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),
-                        type: "POST",
-                        data: {
-                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
-                            isActive: 'False'
-                        },
-                        success: function (result) {
-
-                            html = 'Müsabaka Başarıyla Silindi';
-                            debugger;
-                            $(".successModal").html(html);
-                            $('#modal-success').on("shown.bs.modal", function (e) {
-                                $(".btn-ok").click(function () {
-
-                                    window.location.replace("{% url "wushu:musabakalar" %}");
-
-                                });
-
-                            }).modal('show');
-
-
-                            console.log(result.status)
-                        }
-                    });
-                });
-            }).modal('show');
-            $('#btn-close').click(function () {
-                $('#modal-danger').modal('hide');
-            });
-
-        }
-    </script>
+{#    <script>#}
+{##}
+{##}
+{#        function deleteCompetition(id) {#}
+{##}
+{#            console.log(id);#}
+{#            var html = ''#}
+{#            $("#modal-danger").on("shown.bs.modal", function (e) {#}
+{#                $("#btn-conf").click(function () {#}
+{#                    $.ajax({#}
+{#                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),#}
+{#                        type: "POST",#}
+{#                        data: {#}
+{#                            'csrfmiddlewaretoken': "{{  csrf_token  }}",#}
+{#                            isActive: 'False'#}
+{#                        },#}
+{#                        success: function (result) {#}
+{##}
+{#                            html = 'Müsabaka Başarıyla Silindi';#}
+{#                            debugger;#}
+{#                            $(".successModal").html(html);#}
+{#                            $('#modal-success').on("shown.bs.modal", function (e) {#}
+{#                                $(".btn-ok").click(function () {#}
+{##}
+{#                                    window.location.replace("{% url "wushu:musabakalar" %}");#}
+{##}
+{#                                });#}
+{##}
+{#                            }).modal('show');#}
+{##}
+{##}
+{#                            console.log(result.status)#}
+{#                        }#}
+{#                    });#}
+{#                });#}
+{#            }).modal('show');#}
+{#            $('#btn-close').click(function () {#}
+{#                $('#modal-danger').modal('hide');#}
+{#            });#}
+{##}
+{#        }#}
+{#    </script>#}
 
 
 
