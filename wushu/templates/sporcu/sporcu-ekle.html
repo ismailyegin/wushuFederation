@@ -70,7 +70,6 @@
                                 <div class="col-lg-4">
 
 
-
                                     <div class="form-group">
                                         <label> {{ person_form.name.label }}</label>
                                         {{ person_form.name }}
@@ -85,7 +84,12 @@
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
-
+                                    {% if user.groups.all.0.name == "Admin" %}
+                                        <div class="form-group">
+                                            <label> {{ athlete_federation_form.federation.label }} </label>
+                                            {{ athlete_federation_form.federation }}
+                                        </div>
+                                    {% endif %}
 
                                 </div>
 

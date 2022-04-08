@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from wushu.Forms.JudgeFederationForm import JudgeFederationForm
 from wushu.Forms.JudgeForm import JudgeForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.models import Federation, Person, Judge
@@ -19,35 +20,67 @@ def return_add_judge(request):
         return redirect('accounts:login')
     person_form = PersonForm()
     judge_form = JudgeForm()
+    judge_federation_form = JudgeFederationForm()
+    user = request.user
 
     if request.method == 'POST':
         person_form = PersonForm(request.POST, request.FILES)
         judge_form = JudgeForm(request.POST, request.FILES)
-        federation = Federation.objects.get(user=request.user)
-        if person_form.is_valid() and judge_form.is_valid():
 
-            person = person_form.save(commit=False)
-            person.save()
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            judge_federation_form = JudgeFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and judge_form.is_valid() and judge_federation_form.is_valid():
 
-            judge_form = judge_form.save(commit=False)
+                person = person_form.save(commit=False)
+                person.save()
 
-            judge = Judge(
-                person=person, federation=federation, category=judge_form.category
-            )
-            judge.save()
+                category = judge_form.cleaned_data['category']
 
-            mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                federation = judge_federation_form.cleaned_data['federation']
 
-            messages.success(request, 'Judge Registered Successfully.')
+                judge = Judge(
+                    person=person, federation=federation, category=category
+                )
+                judge.save()
 
-            return redirect('wushu:judges')
+                mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-        else:
-            for x in person_form.errors.as_data():
-                messages.warning(request, person_form.errors[x][0])
+                messages.success(request, 'Judge Registered Successfully.')
 
-    return render(request, 'hakem/hakem-ekle.html', {'person_form': person_form, 'judge_form': judge_form, })
+                return redirect('wushu:judges')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+            federation = Federation.objects.get(user=request.user)
+            if person_form.is_valid() and judge_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                category = judge_form.cleaned_data['category']
+
+                judge = Judge(
+                    person=person, federation=federation, category=category
+                )
+                judge.save()
+
+                mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Judge Registered Successfully.')
+
+                return redirect('wushu:judges')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+    return render(request, 'hakem/hakem-ekle.html', {'person_form': person_form, 'judge_form': judge_form,
+                                                     'judge_federation_form': judge_federation_form, })
 
 
 @login_required
@@ -80,27 +113,51 @@ def updatejudges(request, pk):
         return redirect('accounts:login')
     judge = Judge.objects.get(pk=pk)
     person = Person.objects.get(pk=judge.person.pk)
+    user = request.user
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
     judge_form = JudgeForm(request.POST or None, request.FILES or None, instance=judge)
+    judge_federation_form = JudgeFederationForm(request.POST or None, request.FILES or None, instance=judge)
+
     say = 0
 
     if request.method == 'POST':
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
 
-        if person_form.is_valid() and judge_form.is_valid():
+            if person_form.is_valid() and judge_form.is_valid() and judge_federation_form.is_valid():
 
-            person_form.save()
-            judge_form.save()
-            messages.success(request, 'Judge Successfully Updated.')
+                person_form.save()
+                judge_form.save()
+                judge_federation_form.save()
 
-            mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                messages.success(request, 'Judge Successfully Updated.')
 
-            return redirect('wushu:update-judges', pk=pk)
+                mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-        else:
+                return redirect('wushu:update-judges', pk=pk)
 
-            messages.warning(request, 'Check Fields')
+            else:
+
+                messages.warning(request, 'Check Fields')
+
+        if user.groups.filter(name='Federation'):
+
+            if person_form.is_valid() and judge_form.is_valid():
+
+                person_form.save()
+                judge_form.save()
+                messages.success(request, 'Judge Successfully Updated.')
+
+                mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                return redirect('wushu:update-judges', pk=pk)
+
+            else:
+
+                messages.warning(request, 'Check Fields')
 
     return render(request, 'hakem/hakemDuzenle.html',
-                  {'person_form': person_form, 'judge': judge, 'say': say, 'judge_form': judge_form, })
+                  {'person_form': person_form, 'judge': judge, 'say': say, 'judge_form': judge_form,
+                   'judge_federation_form': judge_federation_form, })

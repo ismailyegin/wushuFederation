@@ -40,7 +40,7 @@ def return_federation_dashboard(request):
     #     return redirect('accounts:login')
     competitions = Competition.objects.all().order_by('-startDate')
     athletes = Athlete.objects.filter(federation__user=request.user)
-    return render(request, 'anasayfa/antrenor.html', {'application': competitions, 'athletes': athletes})
+    return render(request, 'anasayfa/federasyon.html', {'application': competitions, 'athletes': athletes})
 
 
 @login_required

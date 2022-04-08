@@ -11,7 +11,7 @@ class Federation(models.Model):
     modificationDate = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s %s' % (self.user.first_name, self.user.last_name)
+        return '%s' % self.person.country.name
 
     class Meta:
         ordering = ['pk']

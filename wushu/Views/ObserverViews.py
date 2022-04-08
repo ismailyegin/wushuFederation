@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from wushu.Forms.ObserverFederationForm import ObserverFederationForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.models import Federation, Person, Observer
 from wushu.services import general_methods
@@ -17,32 +18,62 @@ def return_add_observer(request):
         logout(request)
         return redirect('accounts:login')
     person_form = PersonForm()
+    observer_federation_form = ObserverFederationForm()
+    user = request.user
 
     if request.method == 'POST':
         person_form = PersonForm(request.POST, request.FILES)
-        federation = Federation.objects.get(user=request.user)
-        if person_form.is_valid():
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            observer_federation_form = ObserverFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and observer_federation_form.is_valid():
 
-            person = person_form.save(commit=False)
-            person.save()
+                person = person_form.save(commit=False)
+                person.save()
 
-            observer = Observer(
-                person=person, federation=federation
-            )
-            observer.save()
+                federation = observer_federation_form.cleaned_data['federation']
 
-            mesaj = str(observer.person.name) + ' ' + str(observer.person.surName) + ' observer registered'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                observer = Observer(
+                    person=person, federation=federation
+                )
+                observer.save()
 
-            messages.success(request, 'Observer Registered Successfully.')
+                mesaj = str(observer.person.name) + ' ' + str(observer.person.surName) + ' observer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-            return redirect('wushu:observers')
+                messages.success(request, 'Observer Registered Successfully.')
 
-        else:
-            for x in person_form.errors.as_data():
-                messages.warning(request, person_form.errors[x][0])
+                return redirect('wushu:observers')
 
-    return render(request, 'gozlemci/gozlemci-ekle.html', {'person_form': person_form, })
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+
+            federation = Federation.objects.get(user=request.user)
+            if person_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                observer = Observer(
+                    person=person, federation=federation
+                )
+                observer.save()
+
+                mesaj = str(observer.person.name) + ' ' + str(observer.person.surName) + ' observer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Observer Registered Successfully.')
+
+                return redirect('wushu:observers')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+    return render(request, 'gozlemci/gozlemci-ekle.html',
+                  {'person_form': person_form, 'observer_federation_form': observer_federation_form, })
 
 
 @login_required
@@ -75,25 +106,48 @@ def updateobservers(request, pk):
         return redirect('accounts:login')
     observer = Observer.objects.get(pk=pk)
     person = Person.objects.get(pk=observer.person.pk)
+    user = request.user
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
+    observer_federation_form = ObserverFederationForm(request.POST or None, request.FILES or None, instance=observer)
     say = 0
 
     if request.method == 'POST':
 
-        if person_form.is_valid():
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
 
-            person_form.save()
-            messages.success(request, 'Observer Successfully Updated.')
+            if person_form.is_valid() and observer_federation_form.is_valid():
 
-            mesaj = 'The observer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                person_form.save()
+                observer_federation_form.save()
 
-            return redirect('wushu:update-observers', pk=pk)
+                messages.success(request, 'Observer Successfully Updated.')
 
-        else:
+                mesaj = 'The observer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-            messages.warning(request, 'Check Fields')
+                return redirect('wushu:update-observers', pk=pk)
+
+            else:
+
+                messages.warning(request, 'Check Fields')
+
+        if user.groups.filter(name='Federation'):
+
+            if person_form.is_valid():
+
+                person_form.save()
+                messages.success(request, 'Observer Successfully Updated.')
+
+                mesaj = 'The observer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                return redirect('wushu:update-observers', pk=pk)
+
+            else:
+
+                messages.warning(request, 'Check Fields')
 
     return render(request, 'gozlemci/gozlemciDuzenle.html',
-                  {'person_form': person_form, 'observer': observer, 'say': say, })
+                  {'person_form': person_form, 'observer': observer, 'say': say,
+                   'observer_federation_form': observer_federation_form, })

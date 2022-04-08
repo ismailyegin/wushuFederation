@@ -14,7 +14,7 @@ class Coach(models.Model):
 
 
     def __str__(self):
-        return '%s %s' % (self.user.first_name, self.user.last_name)
+        return '%s %s' % (self.person.name, self.person.surName)
 
     class Meta:
         ordering = ['pk']

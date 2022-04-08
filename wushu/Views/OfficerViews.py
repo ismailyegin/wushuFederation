@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from wushu.Forms.OfficerFederationForm import OfficerFederationForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.models import Federation, Person, Officer
 from wushu.services import general_methods
@@ -17,32 +18,61 @@ def return_add_officer(request):
         logout(request)
         return redirect('accounts:login')
     person_form = PersonForm()
+    officer_federation_form = OfficerFederationForm()
+    user = request.user
 
     if request.method == 'POST':
         person_form = PersonForm(request.POST, request.FILES)
-        federation = Federation.objects.get(user=request.user)
-        if person_form.is_valid():
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            officer_federation_form = OfficerFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and officer_federation_form.is_valid():
 
-            person = person_form.save(commit=False)
-            person.save()
+                person = person_form.save(commit=False)
+                person.save()
 
-            officer = Officer(
-                person=person, federation=federation
-            )
-            officer.save()
+                federation = officer_federation_form.cleaned_data['federation']
 
-            mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                officer = Officer(
+                    person=person, federation=federation
+                )
+                officer.save()
 
-            messages.success(request, 'Officer Registered Successfully.')
+                mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-            return redirect('wushu:officers')
+                messages.success(request, 'Officer Registered Successfully.')
 
-        else:
-            for x in person_form.errors.as_data():
-                messages.warning(request, person_form.errors[x][0])
+                return redirect('wushu:officers')
 
-    return render(request, 'resmiGörevli/resmiGörevli-ekle.html', {'person_form': person_form, })
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+            federation = Federation.objects.get(user=request.user)
+            if person_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                officer = Officer(
+                    person=person, federation=federation
+                )
+                officer.save()
+
+                mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Officer Registered Successfully.')
+
+                return redirect('wushu:officers')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+    return render(request, 'resmiGörevli/resmiGörevli-ekle.html',
+                  {'person_form': person_form, 'officer_federation_form': officer_federation_form, })
 
 
 @login_required
@@ -75,25 +105,47 @@ def updateofficers(request, pk):
         return redirect('accounts:login')
     officer = Officer.objects.get(pk=pk)
     person = Person.objects.get(pk=officer.person.pk)
+    user = request.user
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
+    officer_federation_form = OfficerFederationForm(request.POST or None, request.FILES or None, instance=officer)
     say = 0
 
     if request.method == 'POST':
 
-        if person_form.is_valid():
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
 
-            person_form.save()
-            messages.success(request, 'Officer Successfully Updated.')
+            if person_form.is_valid() and officer_federation_form.is_valid():
 
-            mesaj = 'The officer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
-            log = general_methods.logwrite(request, request.user, mesaj)
+                person_form.save()
+                officer_federation_form.save()
 
-            return redirect('wushu:update-officers', pk=pk)
+                messages.success(request, 'Officer Successfully Updated.')
 
-        else:
+                mesaj = 'The officer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
 
-            messages.warning(request, 'Check Fields')
+                return redirect('wushu:update-officers', pk=pk)
+
+            else:
+
+                messages.warning(request, 'Check Fields')
+
+        if user.groups.filter(name='Federation'):
+            if person_form.is_valid():
+
+                person_form.save()
+                messages.success(request, 'Officer Successfully Updated.')
+
+                mesaj = 'The officer named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                return redirect('wushu:update-officers', pk=pk)
+
+            else:
+
+                messages.warning(request, 'Check Fields')
 
     return render(request, 'resmiGörevli/resmiGörevliDuzenle.html',
-                  {'person_form': person_form, 'officer': officer, 'say': say, })
+                  {'person_form': person_form, 'officer': officer, 'say': say,
+                   'officer_federation_form': officer_federation_form, })

@@ -86,8 +86,10 @@
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
-
-
+                                    <div class="form-group">
+                                        <label> {{ judge_form.category.label }} </label>
+                                        {{ judge_form.category }}
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-6">
@@ -105,10 +107,12 @@
                                         <label> {{ person_form.country.label }}</label>
                                         {{ person_form.country }}
                                     </div>
-                                    <div class="form-group">
-                                        <label> {{ judge_form.category.label }} </label>
-                                        {{ judge_form.category }}
-                                    </div>
+                                    {% if user.groups.all.0.name == "Admin" %}
+                                        <div class="form-group">
+                                            <label> {{ judge_federation_form.federation.label }} </label>
+                                            {{ judge_federation_form.federation }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row">
