@@ -117,12 +117,32 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.profileImage.label }}</label>
+
+                                        <center>
+                                            <img
+                                                    src="/media/{{ person_form.instance.profileImage }}"
+                                                    class="img-responsive img-bordered" alt="Resim Yok"
+                                                    style=" width:120px; height: 125px;"
+
+                                            ><br>
+                                        </center>
+
                                         {{ person_form.profileImage }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.pasaportImage.label }}</label>
+
+                                        <center>
+                                            <img
+                                                    src="/media/{{ person_form.instance.pasaportImage }}"
+                                                    class="img-responsive img-bordered" alt="Resim Yok"
+                                                    style=" width:110px; height: 120px;"
+
+                                            ><br>
+                                        </center>
+
                                         {{ person_form.pasaportImage }}
                                     </div>
                                 </div>
@@ -137,7 +157,29 @@
             </div>
         </form>
     </section>
+    <script>
+        function previewImage() {
+            var file = document.getElementById("id_profileImage").files;
+            if (file.length > 0) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    document.getElementById("preview").setAttribute("src", event.target.result);
+                }
+                fileReader.readAsDataURL(file[0]);
+            }
+        }
 
+        function previewImage2() {
+            var file = document.getElementById("id_lisansPhoto").files;
+            if (file.length > 0) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    document.getElementById("preview2").setAttribute("src", event.target.result);
+                }
+                fileReader.readAsDataURL(file[0]);
+            }
+        }
+    </script>
 {% endblock %}
 
 
