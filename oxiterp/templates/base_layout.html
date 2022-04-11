@@ -161,7 +161,7 @@
 
 
                                     {% elif user.groups.all.0.name == "Federation" %}
-                                        <small> Coach</small>
+                                        <small> Federation </small>
 
 
                                     {% else %}
@@ -194,48 +194,48 @@
                                 <div class="pull-left">
 
 
-                                    {% if user.groups.all.0.name == "Sporcu" %}
-                                        <a href="{% url "wushu:sporcu-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-                                    {% elif user.groups.all.0.name == "Admin" %}
-                                        <a href=""
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-                                    {% elif user.groups.all.0.name == "Hakem" %}
-                                        <a href="{% url "wushu:hakem-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-
-
-                                    {% elif user.groups.all.0.name == "Admin" %}
-                                        <a href="{% url "wushu:kullanici-duzenle" %}"
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-
-                                    {% elif user.groups.all.0.name == "Yonetim" %}
-                                        <a href="{% url "wushu:yonetim-kurul-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-
-                                    {% elif user.groups.all.0.name == "KulupUye" %}
-                                        <a href="{% url "wushu:kulup-uyesi-profil-guncelle" %}"
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-
-
-
-                                    {% elif user.groups.all.0.name == "Federation" %}
-                                        <a href=""
-                                           class="btn btn-default btn-flat">Profile Information</a>
-
-
-                                    {% else %}
-                                        <a><i class="fa fa-circle text-success"></i> {{ user.groups.all.0.name }}</a>
-                                    {% endif %}
-
-
-                                </div>
+{#                                    {% if user.groups.all.0.name == "Sporcu" %}#}
+{#                                        <a href="{% url "wushu:sporcu-profil-guncelle" %}"#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{#                                    {% elif user.groups.all.0.name == "Admin" %}#}
+{#                                        <a href=""#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{#                                    {% elif user.groups.all.0.name == "Hakem" %}#}
+{#                                        <a href="{% url "wushu:hakem-profil-guncelle" %}"#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{##}
+{##}
+{#                                    {% elif user.groups.all.0.name == "Admin" %}#}
+{#                                        <a href="{% url "wushu:kullanici-duzenle" %}"#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{##}
+{#                                    {% elif user.groups.all.0.name == "Yonetim" %}#}
+{#                                        <a href="{% url "wushu:yonetim-kurul-profil-guncelle" %}"#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{##}
+{#                                    {% elif user.groups.all.0.name == "KulupUye" %}#}
+{#                                        <a href="{% url "wushu:kulup-uyesi-profil-guncelle" %}"#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{##}
+{##}
+{##}
+{#                                    {% elif user.groups.all.0.name == "Federation" %}#}
+{#                                        <a href=""#}
+{#                                           class="btn btn-default btn-flat">Profile Information</a>#}
+{##}
+{##}
+{#                                    {% else %}#}
+{#                                        <a><i class="fa fa-circle text-success"></i> {{ user.groups.all.0.name }}</a>#}
+{#                                    {% endif %}#}
+{##}
+{##}
+{#                                </div>#}
                                 <div class="pull-right">
                                     <a href="{% url 'accounts:logout' %}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>

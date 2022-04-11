@@ -263,25 +263,33 @@
                                         - {{ competition.finishDate | date }}</h4>
                                     <center>
                                         <div class="box-header with-border">
-                                            <div class="btn-group">
-                                                {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                    <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
-                                                       type="button" class="btn btn-danger"><i
-                                                            class="fa fa-edit"></i>Make an application
+                                            {% if athletes %}
+                                                <div class="btn-group">
+                                                    {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                        <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
+                                                           type="button" class="btn btn-danger"><i
+                                                                class="fa fa-edit"></i>Make an application
+                                                        </a>
+                                                    {% endif %}
+
+                                                    {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+
+                                                        <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
+                                                           type="button" class="btn btn-danger"><i
+                                                                class="fa fa-edit"></i>Make an application
+                                                        </a>
+                                                    {% endif %}
+
+                                                </div>
+                                            {% else %}
+                                                <div class="btn-group">
+                                                    <a href="{% url "wushu:sporcu-ekle" %}"
+                                                       type="button" class="btn btn-success"><i
+                                                            class="fa fa-edit"></i> Add Athletes
                                                     </a>
-                                                {% endif %}
-
-                                                {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
-
-                                                    <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
-                                                       type="button" class="btn btn-danger"><i
-                                                            class="fa fa-edit"></i>Make an application
-                                                    </a>
-                                                {% endif %}
-
-                                            </div>
+                                                </div>
+                                            {% endif %}
                                         </div>
-
                                     </center>
 
                                 </div>
@@ -329,161 +337,96 @@
 
     </section>
     <section class="content">
+
         <div class="row">
-            <section class="col-lg-12 ">
 
-
-                <div class="box-body">
-
-
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Filter Competition</h3>
-                        </div>
-                        <form method="post" role="form">
-
-                            <div class="box-body">
-                                {% csrf_token %}
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label> {{ query.name.label }}</label>
-                                        {{ query.name }}
-                                    </div>
-                                </div>
-
-                                {#                                <div class="col-md-3">#}
-                                {#                                    <div class="form-group">#}
-                                {#                                        <label> {{ query.subBranch.label }}</label>#}
-                                {#                                        {{ query.subBranch }}#}
-                                {#                                    </div>#}
-                                {#                                </div>#}
-                                {#                                <div class="col-md-3">#}
-                                {#                                    <div class="form-group">#}
-                                {#                                        <label> {{ query.startDate.label }}</label>#}
-                                {#                                        {{ query.startDate }}#}
-                                {#                                    </div>#}
-                                {#                                </div>#}
-
-
-                            </div>
-
-                            <!-- /.box-body -->
-
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-
-
+            <div class="col-lg-12 ">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Competitions</h3>
                     </div>
-                    <!-- /.box -->
-
-
-                </div>
-            </section>
-        </div>
-
-        <div class="row">
-
-            <section class="col-lg-12 ">
-
-
-                <div class="box-body">
-
-
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Competitions</h3>
+                    <div class="box-header with-border">
+                        <div class="btn-group">
+                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                <a href="{% url "wushu:musabaka-ekle" %}"
+                                   type="button" class="btn btn-success"><i
+                                        class="fa fa-edit"></i> Add New Competition
+                                </a>
+                            {% endif %}
                         </div>
-                        <div class="box-header with-border">
-                            <div class="btn-group">
+                    </div>
+                    <div class="box-body">
+                        <table id="musabakalar" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Location</th>
+                                <th>Branch</th>
+                                <th>Sub-Branch</th>
+                                <th>Registration Status</th>
+                                <th>Type</th>
                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                    <a href=""
-                                       type="button" class="btn btn-success"><i
-                                            class="fa fa-edit"></i> Add New Competition
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <table id="musabakalar" class="table table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Location</th>
-                                    <th>Branch</th>
-                                    <th>Sub-Branch</th>
-                                    <th>Registration Status</th>
-                                    <th>Type</th>
-                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                        <th>Examine</th>
-                                    {% else %}
-                                        <th>Apply</th>
-                                    {% endif %}
-
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if competitions.all %}
-                                    {% for competition in competitions %}
-                                        <tr>
-                                            <td>{{ forloop.counter }} </td>
-                                            <td>{{ competition.name }}</td>
-                                            <td>{{ competition.startDate | date }} </td>
-                                            <td>{{ competition.finishDate | date }}</td>
-                                            <td>{{ competition.location }}</td>
-                                            <td>{{ competition.branch }}</td>
-                                            <td>{{ competition.subBranch }}</td>
-                                            <td>{{ competition.status }}</td>
-                                            <td>{{ competition.type }}</td>
-                                            <td>
-                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                    <div class="btn-group">
-                                                        <a href=""
-                                                           type="button" class="btn btn-warning"><i
-                                                                class="fa fa-edit"></i>Examine
-                                                        </a>
-                                                    </div>
-                                                {% elif user.groups.all.0.name == 'Antrenor' %}
-                                                    <div class="btn-group">
-                                                        <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
-                                                           type="button" class="btn btn-warning"><i
-                                                                class="fa fa-edit"></i>Examine
-                                                        </a>
-                                                    </div>
-                                                {% endif %}
-
-                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-
-                                                    <a class="btn btn-danger"
-                                                       data-toggle="modal"
-                                                       onclick=deleteCompetition({{ competition.pk }})><i
-                                                            class="fa fa-trash"></i>Delete</a>
-                                                {% endif %}
-                                            </td>
-
-                                        </tr>
-
-                                    {% endfor %}
+                                    <th>Examine</th>
+                                {% else %}
+                                    <th>Apply</th>
                                 {% endif %}
 
 
-                                </tbody>
-                            </table>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if competitions.all %}
+                                {% for competition in competitions %}
+                                    <tr>
+                                        <td>{{ forloop.counter }} </td>
+                                        <td>{{ competition.name }}</td>
+                                        <td>{{ competition.startDate | date }} </td>
+                                        <td>{{ competition.finishDate | date }}</td>
+                                        <td>{{ competition.location }}</td>
+                                        <td>{{ competition.branch }}</td>
+                                        <td>{{ competition.subBranch }}</td>
+                                        <td>{{ competition.status }}</td>
+                                        <td>{{ competition.type }}</td>
+                                        <td>
+                                            {% if user.groups.all.0.name == 'Federation' %}
+                                                <div class="btn-group">
+                                                    <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
+                                                       type="button" class="btn btn-warning"><i
+                                                            class="fa fa-edit"></i>Examine
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                <div class="btn-group">
+                                                    <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
+                                                       type="button" class="btn btn-warning"><i
+                                                            class="fa fa-edit"></i>Examine
+                                                    </a>
+                                                </div>
 
-                        </div>
+                                                <a class="btn btn-danger"
+                                                   data-toggle="modal"
+                                                   onclick=deleteCompetition({{ competition.pk }})><i
+                                                        class="fa fa-trash"></i>Delete</a>
+                                            {% endif %}
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+                            {% endif %}
+
+
+                            </tbody>
+                        </table>
+
                     </div>
-                    <!-- /.box -->
-
-
                 </div>
-            </section>
-
-
+                <!-- /.box -->
+            </div>
         </div>
         <!-- /.row (main row) -->
 
@@ -492,7 +435,6 @@
         $(function () {
             $('#musabakalar').DataTable({
                 dom: 'Bfrtip',
-
 
 
                 lengthMenu: [
@@ -590,54 +532,46 @@
         })
     </script>
 
-{#    <script>#}
-{##}
-{##}
-{#        function deleteCompetition(id) {#}
-{##}
-{#            console.log(id);#}
-{#            var html = ''#}
-{#            $("#modal-danger").on("shown.bs.modal", function (e) {#}
-{#                $("#btn-conf").click(function () {#}
-{#                    $.ajax({#}
-{#                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),#}
-{#                        type: "POST",#}
-{#                        data: {#}
-{#                            'csrfmiddlewaretoken': "{{  csrf_token  }}",#}
-{#                            isActive: 'False'#}
-{#                        },#}
-{#                        success: function (result) {#}
-{##}
-{#                            html = 'Müsabaka Başarıyla Silindi';#}
-{#                            debugger;#}
-{#                            $(".successModal").html(html);#}
-{#                            $('#modal-success').on("shown.bs.modal", function (e) {#}
-{#                                $(".btn-ok").click(function () {#}
-{##}
-{#                                    window.location.replace("{% url "wushu:musabakalar" %}");#}
-{##}
-{#                                });#}
-{##}
-{#                            }).modal('show');#}
-{##}
-{##}
-{#                            console.log(result.status)#}
-{#                        }#}
-{#                    });#}
-{#                });#}
-{#            }).modal('show');#}
-{#            $('#btn-close').click(function () {#}
-{#                $('#modal-danger').modal('hide');#}
-{#            });#}
-{##}
-{#        }#}
-{#    </script>#}
+    <script>
+        function deleteCompetition(id) {
+
+            console.log(id);
+            var html = ''
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        url: "{% url "wushu:musabaka-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False'
+                        },
+                        success: function (result) {
+
+                            html = 'Competition Successfully Deleted';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabakalar" %}");
+
+                                });
+
+                            }).modal('show');
 
 
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
 
-
-
-
+        }
+    </script>
 
 {% endblock %}
 

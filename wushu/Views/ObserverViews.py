@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from wushu.Forms.ObserverFederationForm import ObserverFederationForm
@@ -151,3 +152,25 @@ def updateobservers(request, pk):
     return render(request, 'gozlemci/gozlemciDuzenle.html',
                   {'person_form': person_form, 'observer': observer, 'say': say,
                    'observer_federation_form': observer_federation_form, })
+
+
+@login_required
+def delete_observer(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = Observer.objects.get(pk=pk)
+            log = 'The observer named ' + str(obj.person.name) + ' ' + str(obj.person.surName) + " has been deleted"
+            log = general_methods.logwrite(request, request.user, log)
+
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'delete successfully'})
+        except Observer.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})

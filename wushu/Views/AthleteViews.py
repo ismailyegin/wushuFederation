@@ -172,6 +172,28 @@ def updateathletes(request, pk):
 
 
 @login_required
+def delete_athlete(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = Athlete.objects.get(pk=pk)
+            log = 'The athlete named ' + str(obj.person.name) + ' ' + str(obj.person.surName) + " has been deleted"
+            log = general_methods.logwrite(request, request.user, log)
+
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'delete successfully'})
+        except Athlete.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+
+@login_required
 def return_taolu(request):
     perm = general_methods.control_access_antrenor(request)
 

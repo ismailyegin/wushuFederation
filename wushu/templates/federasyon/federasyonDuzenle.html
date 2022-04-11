@@ -49,15 +49,16 @@
 
     <section class="content-header">
         <h1>
-            Update Judge
+            Update Federations
 
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Update Judge</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Update Federations</a></li>
 
         </ol>
     </section>
     <section class="content">
+
         <form method="post" enctype="multipart/form-data" role="form">
             {% csrf_token %}
             <div class="row">
@@ -69,30 +70,36 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-6">
-
-
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label> {{ person_form.name.label }}</label>
-                                        {{ person_form.name }}
+                                        <label> {{ user_form.first_name.label }}</label>
+                                        {{ user_form.first_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> {{ person_form.surName.label }}</label>
-                                        {{ person_form.surName }}
+                                        <label> {{ user_form.email.label }}</label>
+                                        {{ user_form.email }}
                                     </div>
+
 
                                     <div class="form-group">
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
-                                    <div class="form-group">
-                                        <label> {{ judge_form.category.label }} </label>
-                                        {{ judge_form.category }}
+
+                                    <div class="form-check">
+                                        <label> {{ user_form.is_active.label }}</label>
+                                        {{ user_form.is_active }}
                                     </div>
+
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ user_form.last_name.label }}</label>
+                                        {{ user_form.last_name }}
+                                    </div>
 
                                     <div class="form-group">
                                         <label> {{ person_form.pasaport.label }}</label>
@@ -107,28 +114,23 @@
                                         <label> {{ person_form.country.label }}</label>
                                         {{ person_form.country }}
                                     </div>
-                                    {% if user.groups.all.0.name == "Admin" %}
-                                        <div class="form-group">
-                                            <label> {{ judge_federation_form.federation.label }} </label>
-                                            {{ judge_federation_form.federation }}
-                                        </div>
-                                    {% endif %}
+
+
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label> {{ person_form.profileImage.label }}</label>
                                         {{ person_form.profileImage }}
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.pasaportImage.label }}</label>
                                         {{ person_form.pasaportImage }}
                                     </div>
                                 </div>
+
+
                             </div>
+
                         </div>
                         <div class="box-footer">
                             <button class="btn btn-primary" type="submit">Save</button>
@@ -136,7 +138,10 @@
                     </div>
                 </div>
             </div>
+
         </form>
+
+
     </section>
 
 {% endblock %}
