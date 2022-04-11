@@ -1,5 +1,5 @@
 {% extends 'base_layout.html' %}
-
+{% load static %}
 {% block content %}
 
 
@@ -128,21 +128,124 @@
 
 
     <section class="content">
+        <form method="post" enctype="multipart/form-data" role="form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">General Information</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.name.label }}</label>
+                                        {{ person_form.name }}
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label> {{ person_form.surName.label }}</label>
+                                        {{ person_form.surName }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ judge_form.category.label }} </label>
+                                        {{ judge_form.category }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+{#                                    {% if user.groups.all.0.name == "Admin" %}#}
+                                        <div class="form-group">
+                                            <label> {{ judge_federation_form.federation.label }} </label>
+                                            {{ judge_federation_form.federation }}
+                                        </div>
+{#                                    {% endif %}#}
+
+
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <center>
+
+                                            <label> {{ person_form.profileImage.label }}</label>
+
+
+                                            <img src="{% static 'images/user.png' %} " id="preview"
+                                                 class="img-responsive img-rounded"
+                                                 style=" height: 125px;width: 130px;">
+
+                                            <p>
+
+                                                <input type="file" name="profileImage" accept="image/*"
+                                                       id="id_profileImage" name=""
+                                                       onchange="previewImage()">
+
+                                        </center>
+                                    </div>
+                                    <div class="form-group">
+                                        <center>
+                                            <label> {{ person_form.pasaportImage.label }}</label>
+                                            {% load static %}
+                                            <img src="{% static 'images/photo.png' %}" id="preview2"
+                                                 class="img-responsive img-rounded "
+                                                 style="height: 125px;width: 100px;">
+                                            <p>
+                                                <input accept="image/*" type="file" class="form-group"
+                                                       name="" required="" id="id_lisansPhoto"
+                                                       onchange="previewImage2()">
+
+                                            </p>
+                                        </center>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Judges</h3>
                     </div>
-                    <div class="box-header with-border">
-                        <div class="btn-group">
-                            <a href="{% url "wushu:add-judge" %}"
-                               type="button" class="btn btn-success"><i
-                                    class="fa fa-edit"></i> Add New Judge
-                            </a>
-                        </div>
-                    </div>
+{#                    <div class="box-header with-border">#}
+{#                        <div class="btn-group">#}
+{#                            <a href="{% url "wushu:add-judge" %}"#}
+{#                               type="button" class="btn btn-success"><i#}
+{#                                    class="fa fa-edit"></i> Add New Judge#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
                     <div class="box-body">
                         <table id="coaches" class="table table-bordered table-hover">
                             <thead>
@@ -191,7 +294,29 @@
         </div>
         <!-- /.row (main row) -->
     </section>
+    <script>
+        function previewImage() {
+            var file = document.getElementById("id_profileImage").files;
+            if (file.length > 0) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    document.getElementById("preview").setAttribute("src", event.target.result);
+                }
+                fileReader.readAsDataURL(file[0]);
+            }
+        }
 
+        function previewImage2() {
+            var file = document.getElementById("id_lisansPhoto").files;
+            if (file.length > 0) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    document.getElementById("preview2").setAttribute("src", event.target.result);
+                }
+                fileReader.readAsDataURL(file[0]);
+            }
+        }
+    </script>
     <script>
         $(function () {
             $('#coaches').DataTable({

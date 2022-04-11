@@ -98,7 +98,60 @@ def return_athletes(request):
     login_user = request.user
     user = User.objects.get(pk=login_user.pk)
     athletes = Athlete.objects.none()
+    person_form = PersonForm()
+    athlete_form = AthleteForm()
+    athlete_federation_form = AthleteFederationForm()
+    if request.method == 'POST':
+        person_form = PersonForm(request.POST, request.FILES)
+        athlete_form = AthleteForm(request.POST, request.FILES)
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            athlete_federation_form = AthleteFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and athlete_form.is_valid() and athlete_federation_form.is_valid():
 
+                person = person_form.save()
+
+                athlete = Athlete(
+                    person=person, federation=athlete_federation_form.cleaned_data['federation'],
+                    eeg=athlete_form.cleaned_data['eeg'].name, ekg=athlete_form.cleaned_data['ekg'].name
+                )
+                athlete.save()
+
+                mesaj = str(athlete.person.name) + ' ' + str(athlete.person.surName) + ' athlete registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Athlete Registered Successfully.')
+
+                return redirect('wushu:sporcular')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+
+            if person_form.is_valid() and athlete_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+                federation = Federation.objects.get(user=request.user)
+
+                athlete = athlete_form.save(commit=False)
+
+                athlete = Athlete(
+                    person=person, federation=federation, eeg=athlete.eeg, ekg=athlete.ekg
+                )
+                athlete.save()
+
+                mesaj = str(athlete.person.name) + ' ' + str(athlete.person.surName) + ' athlete registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Athlete Registered Successfully.')
+
+                return redirect('wushu:sporcular')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
     if user.groups.filter(name='Federation'):
         athletes = Athlete.objects.filter(federation__user=request.user)
 
@@ -106,7 +159,8 @@ def return_athletes(request):
         athletes = Athlete.objects.all()
 
     return render(request, 'sporcu/sporcular.html',
-                  {'athletes': athletes})
+                  {'athletes': athletes,'person_form': person_form, 'athlete_form': athlete_form,
+                                                       'athlete_federation_form': athlete_federation_form,})
 
 
 @login_required
@@ -195,7 +249,7 @@ def delete_athlete(request, pk):
 
 @login_required
 def return_taolu(request):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)
@@ -208,7 +262,7 @@ def return_taolu(request):
         if taolu_form.is_valid():
             taolu_form.save()
         else:
-            messages.warning(request, 'Alanları Kontrol Ediniz')
+            messages.warning(request, 'You Checked the Fields')
     categoryitem = TaoluCategory.objects.all().order_by('-creationDate')
     return render(request, 'kategori/TaoluCategori.html',
                   {'taolu_form': taolu_form, 'categoryitem': categoryitem})
@@ -216,7 +270,7 @@ def return_taolu(request):
 
 @login_required
 def categoryTaoluDelete(request, pk):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)
@@ -257,7 +311,7 @@ def categoryTaoluUpdate(request, pk):
 
 @login_required
 def return_taolu_years(request):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)
@@ -277,7 +331,7 @@ def return_taolu_years(request):
 
 @login_required
 def categoryTaoluyearsDelete(request, pk):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)
@@ -296,7 +350,7 @@ def categoryTaoluyearsDelete(request, pk):
 
 @login_required
 def categoryTaoluyearsUpdate(request, pk):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)
@@ -317,7 +371,7 @@ def categoryTaoluyearsUpdate(request, pk):
 
 @login_required
 def return_sanda_years(request):
-    perm = general_methods.control_access_antrenor(request)
+    perm = general_methods.control_access(request)
 
     if not perm:
         logout(request)

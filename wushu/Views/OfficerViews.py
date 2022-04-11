@@ -86,6 +86,57 @@ def return_officers(request):
     login_user = request.user
     user = User.objects.get(pk=login_user.pk)
     officers = Officer.objects.none()
+    person_form = PersonForm()
+    officer_federation_form = OfficerFederationForm()
+    if request.method == 'POST':
+        person_form = PersonForm(request.POST, request.FILES)
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            officer_federation_form = OfficerFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and officer_federation_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                federation = officer_federation_form.cleaned_data['federation']
+
+                officer = Officer(
+                    person=person, federation=federation
+                )
+                officer.save()
+
+                mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Officer Registered Successfully.')
+
+                return redirect('wushu:officers')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+            federation = Federation.objects.get(user=request.user)
+            if person_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                officer = Officer(
+                    person=person, federation=federation
+                )
+                officer.save()
+
+                mesaj = str(officer.person.name) + ' ' + str(officer.person.surName) + ' officer registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Officer Registered Successfully.')
+
+                return redirect('wushu:officers')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
 
     if user.groups.filter(name='Federation'):
         officers = Officer.objects.filter(federation__user=request.user)
@@ -94,7 +145,7 @@ def return_officers(request):
         officers = Officer.objects.all()
 
     return render(request, 'resmiGörevli/resmiGörevliler.html',
-                  {'officers': officers})
+                  {'officers': officers,'person_form': person_form, 'officer_federation_form': officer_federation_form,})
 
 
 @login_required

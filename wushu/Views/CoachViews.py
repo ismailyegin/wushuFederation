@@ -43,6 +43,74 @@ def return_add_coach(request):
 
                 messages.success(request, 'Coach Registered Successfully.')
 
+                return redirect('wushu:add-coach')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+        if user.groups.filter(name='Federation'):
+
+            if person_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                federation = Federation.objects.get(user=request.user)
+
+                coach = Coach(
+                    person=person, federation=federation
+                )
+                coach.save()
+
+                mesaj = str(coach.person.name) + ' ' + str(coach.person.surName) + ' coach registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Coach Registered Successfully.')
+
+                return redirect('wushu:add-coach')
+
+            else:
+                for x in person_form.errors.as_data():
+                    messages.warning(request, person_form.errors[x][0])
+
+    return render(request, 'antrenor/antrenor-ekle.html', {'person_form': person_form, 'coach_federation_form': coach_federation_form})
+
+
+@login_required
+def return_coaches(request):
+    perm = general_methods.control_access_antrenor(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+
+    login_user = request.user
+    user = User.objects.get(pk=login_user.pk)
+    coaches = Coach.objects.none()
+    person_form = PersonForm()
+    coach_federation_form = CoachFederationForm()
+    if request.method == 'POST':
+        person_form = PersonForm(request.POST, request.FILES)
+        if user.groups.filter(name__in=['Yonetim', 'Admin']):
+            coach_federation_form = CoachFederationForm(request.POST, request.FILES)
+            if person_form.is_valid() and coach_federation_form.is_valid():
+
+                person = person_form.save(commit=False)
+                person.save()
+
+                federation = coach_federation_form.cleaned_data['federation']
+
+                coach = Coach(
+                    person=person, federation=federation
+                )
+                coach.save()
+
+                mesaj = str(coach.person.name) + ' ' + str(coach.person.surName) + ' coach registered'
+                log = general_methods.logwrite(request, request.user, mesaj)
+
+                messages.success(request, 'Coach Registered Successfully.')
+
                 return redirect('wushu:coaches')
 
             else:
@@ -74,20 +142,6 @@ def return_add_coach(request):
                 for x in person_form.errors.as_data():
                     messages.warning(request, person_form.errors[x][0])
 
-    return render(request, 'antrenor/antrenor-ekle.html', {'person_form': person_form, 'coach_federation_form': coach_federation_form})
-
-
-@login_required
-def return_coaches(request):
-    perm = general_methods.control_access_antrenor(request)
-
-    if not perm:
-        logout(request)
-        return redirect('accounts:login')
-    login_user = request.user
-    user = User.objects.get(pk=login_user.pk)
-    coaches = Coach.objects.none()
-
     if user.groups.filter(name='Federation'):
         coaches = Coach.objects.filter(federation__user=request.user)
 
@@ -95,7 +149,7 @@ def return_coaches(request):
         coaches = Coach.objects.all()
 
     return render(request, 'antrenor/antrenorler.html',
-                  {'coaches': coaches})
+                  {'coaches': coaches,'person_form': person_form, 'coach_federation_form': coach_federation_form})
 
 
 @login_required
