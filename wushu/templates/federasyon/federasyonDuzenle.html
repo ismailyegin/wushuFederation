@@ -49,11 +49,11 @@
 
     <section class="content-header">
         <h1>
-            Add Competition
+            Update Federations
 
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Add Competition</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Update Federations</a></li>
 
         </ol>
     </section>
@@ -70,60 +70,72 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label> {{ competition_form.name.label }}</label>
-                                        {{ competition_form.name }}
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label> {{ competition_form.location.label }}</label>
-                                        {{ competition_form.location }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label> {{ competition_form.branch.label }}</label>
-                                        {{ competition_form.branch }}
-                                    </div>
-                                     <div class="form-group">
-                                        <label> {{ competition_form.subBranch.label }}</label>
-                                        {{ competition_form.subBranch }}
-                                    </div>
-                                      <div class="form-group">
-                                        <label> {{ competition_form.startDate.label }}</label>
-                                        {{ competition_form.startDate }}
+                                        <label> {{ user_form.first_name.label }}</label>
+                                        {{ user_form.first_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> {{ competition_form.finishDate.label }}</label>
-                                        {{ competition_form.finishDate }}
+                                        <label> {{ user_form.email.label }}</label>
+                                        {{ user_form.email }}
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label> {{ competition_form.status.label }}</label>
-                                        {{ competition_form.status }}
+                                        <label> {{ person_form.birthDate.label }}</label>
+                                        {{ person_form.birthDate }}
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label> {{ user_form.is_active.label }}</label>
+                                        {{ user_form.is_active }}
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-4">
+
+                                    <div class="form-group">
+                                        <label> {{ user_form.last_name.label }}</label>
+                                        {{ user_form.last_name }}
                                     </div>
 
                                     <div class="form-group">
-                                        <label> {{ competition_form.type.label }}</label>
-                                        {{ competition_form.type }}
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
                                     </div>
 
 
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label> {{ person_form.profileImage.label }}</label>
+                                        {{ person_form.profileImage }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaportImage.label }}</label>
+                                        {{ person_form.pasaportImage }}
+                                    </div>
+                                </div>
 
 
                             </div>
+
                         </div>
                         <div class="box-footer">
                             <button class="btn btn-primary" type="submit">Save</button>
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
 

@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from wushu.Forms.OfficerFederationForm import OfficerFederationForm
@@ -149,3 +150,25 @@ def updateofficers(request, pk):
     return render(request, 'resmiGörevli/resmiGörevliDuzenle.html',
                   {'person_form': person_form, 'officer': officer, 'say': say,
                    'officer_federation_form': officer_federation_form, })
+
+
+@login_required
+def delete_officer(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = Officer.objects.get(pk=pk)
+            log = 'The officer named ' + str(obj.person.name) + ' ' + str(obj.person.surName) + " has been deleted"
+            log = general_methods.logwrite(request, request.user, log)
+
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'delete successfully'})
+        except Officer.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})

@@ -2,21 +2,18 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
+from wushu.models import Person
 
 
 class UserSearchForm(ModelForm):
 
     class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email', 'is_active',)
-        labels = {'first_name': 'Ad', 'last_name': 'Soyad'}
+        model = Person
+        fields = ('name', 'surName')
+        labels = {'name': 'Name', 'surName': 'Surname'}
         widgets = {
-            'first_name': forms.TextInput(
-                attrs={'class': 'form-control ', 'placeholder': ' Ad', 'value': ''}),
-            'last_name': forms.TextInput(
-                attrs={'class': 'form-control ', 'placeholder': ' Soyad'}),
-            'email': forms.TextInput(attrs={'class': 'form-control ', 'placeholder': 'Email'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'iCheck-helper'}),
-            # 'password': forms.PasswordInput(attrs={'class': 'form-control ', 'placeholder': 'Şifre',}),
-
+            'name': forms.TextInput(
+                attrs={'class': 'form-control ', 'placeholder': ' Name', 'value': ''}),
+            'surName': forms.TextInput(
+                attrs={'class': 'form-control ', 'placeholder': ' Surname'}),
         }

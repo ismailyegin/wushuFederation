@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from wushu.Forms.JudgeFederationForm import JudgeFederationForm
@@ -161,3 +162,25 @@ def updatejudges(request, pk):
     return render(request, 'hakem/hakemDuzenle.html',
                   {'person_form': person_form, 'judge': judge, 'say': say, 'judge_form': judge_form,
                    'judge_federation_form': judge_federation_form, })
+
+
+@login_required
+def delete_judge(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = Judge.objects.get(pk=pk)
+            log = 'The judge named ' + str(obj.person.name) + ' ' + str(obj.person.surName) + " has been deleted"
+            log = general_methods.logwrite(request, request.user, log)
+
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'delete successfully'})
+        except Judge.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})

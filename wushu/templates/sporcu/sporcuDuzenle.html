@@ -70,50 +70,47 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label> {{ person_form.name.label }}</label>
                                         {{ person_form.name }}
                                     </div>
-                                </div>
-                                <div class="col-lg-3">
+
                                     <div class="form-group">
                                         <label> {{ person_form.surName.label }}</label>
                                         {{ person_form.surName }}
                                     </div>
-                                </div>
-                                <div class="col-lg-3">
+
                                     <div class="form-group">
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
-                                </div>
 
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label> {{ person_form.pasaport.label }}</label>
-                                        {{ person_form.pasaport }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label> {{ person_form.gender.label }}</label>
-                                        {{ person_form.gender }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label> {{ person_form.country.label }}</label>
-                                        {{ person_form.country }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
                                     {% if user.groups.all.0.name == "Admin" %}
                                         <div class="form-group">
                                             <label> {{ athlete_federation_form.federation.label }} </label>
                                             {{ athlete_federation_form.federation }}
                                         </div>
                                     {% endif %}
+
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.pasaport.label }}</label>
+                                        {{ person_form.pasaport }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.gender.label }}</label>
+                                        {{ person_form.gender }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> {{ person_form.country.label }}</label>
+                                        {{ person_form.country }}
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -164,11 +161,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="box-footer">
-                    <button class="btn btn-primary" type="submit">Save</button>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
