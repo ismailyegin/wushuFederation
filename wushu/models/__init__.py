@@ -21,3 +21,13 @@ from .Judge import Judge
 from .Observer import Observer
 from .Officer import Officer
 from .Coach import Coach
+from .SandaAthlete import SandaAthlete
+from .SandaCoach import SandaCoach
+from .SandaOfficer import SandaOfficer
+from .SandaObserver import SandaObserver
+from .SandaJudge import SandaJudge
+from .TaoluCoach import TaoluCoach
+from .TaoluObserver import TaoluObserver
+from .TaoluOfficer import TaoluOfficer
+from .TaoluJudge import TaoluJudge
+from .SandaWeightCategory import SandaWeightCategory
