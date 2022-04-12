@@ -209,7 +209,7 @@ def updatecoaches(request, pk):
 
 @login_required
 def delete_coach(request, pk):
-    perm = general_methods.control_access(request)
+    perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
