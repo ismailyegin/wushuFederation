@@ -13,7 +13,7 @@
                     <h4 class="modal-title">Uyarı</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Sporcu kaydedilmedi</p>
+                    <p id="taoluError"></p>
                 </div>
                 <div class="modal-footer">
 
@@ -420,7 +420,7 @@
                                                         <th>Name Surname</th>
                                                         <th id="display">İL</th>
                                                         <th id="display">İL</th>
-                                                        <th>Date of birth</th>
+                                                        <th>Year of Birth</th>
                                                         {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                             <th>Club</th>
                                                         {% endif %}
@@ -493,7 +493,7 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Name Surname</th>
-                                                            <th>Date of birth</th>
+                                                            <th>Year of Birth</th>
                                                             <th>Taolu Category</th>
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
@@ -506,12 +506,12 @@
                                                                 <tr>
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                                    <td>{{ athlete.athlete.person.birthDate }} </td>
+                                                                    <td>{{ athlete.athlete.person.birthDate.year }} </td>
                                                                     <td>{{ athlete.category }}</td>
                                                                     <td>
                                                                         {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                            BAYAN
-                                                                        {% else %}ERKEK
+                                                                            WOMAN
+                                                                        {% else %}MAN
                                                                         {% endif %}
                                                                     </td>
 
@@ -1227,6 +1227,7 @@
                                     } else {
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("taoluError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
 
 

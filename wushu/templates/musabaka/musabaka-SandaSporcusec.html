@@ -13,7 +13,7 @@
                     <h4 class="modal-title">Uyarı</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Sporcu kaydedilmedi</p>
+                    <p id="mesaj"></p>
                 </div>
                 <div class="modal-footer">
 
@@ -1122,7 +1122,6 @@
                             console.log($('#sanda').text())
 
                             sanda = document.getElementById('sanda').value;
-                            debugger;
                             let sandaWeight = document.getElementById('sanda-weight').value
                             athleteId = $('#sporcuSec').val();
 
@@ -1140,12 +1139,12 @@
 
                                 },
 
+
                                 success: function (result) {
 
                                     if (result.status == "Success") {
 
                                         html = 'Athlete Successfully Added.';
-                                        debugger;
                                         $(".successModal").html(html);
                                         $('#modal-success').on("shown.bs.modal", function (e) {
                                             $(".btn-ok").click(function () {
@@ -1158,10 +1157,11 @@
 
 
                                     } else {
+                                        debugger;
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("mesaj").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
-
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
