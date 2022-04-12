@@ -86,5 +86,9 @@ urlpatterns = [
     url(r'sporcu/sanda-ekleyas/Duzenle/(?P<pk>\d+)$', AthleteViews.categorySandayearsUpdate,
         name='yas-sanda-katagori-duzenle'),
 
-    url(r'competition/sanda-weight-category/$', CompetitionViews.return_sanda_weight_category, name='sanda-weight-category'),
+    url(r'competition/sanda-weight-category/$', CompetitionViews.return_sanda_weight_category,
+        name='sanda-weight-category'),
+    url(r'competition/sanda-weight-category-delete/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_delete, name='sanda-weight-category-delete'),
+    url(r'competition/sanda-weight-category-update/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_update,
+        name='sanda-weight-category-update'),
 ]

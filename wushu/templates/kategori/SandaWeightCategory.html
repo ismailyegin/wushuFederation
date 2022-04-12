@@ -195,14 +195,14 @@
                                             {% if sandaWeightCategory.isDuilian %}Evet {% else %} Hayır {% endif %}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{% url "wushu:taolu-katagori-duzenle" sandaWeightCategory.pk %}"
+                                                <a href="{% url "wushu:sanda-weight-category-update" sandaWeightCategory.pk %}"
                                                    type="button" class="btn btn-warning"><i
                                                         class="fa fa-edit"></i>İncele
                                                 </a>
 
                                                 <a class="btn btn-danger"
                                                    data-toggle="modal"
-                                                   onclick=deleteCategoryItem({{ sandaWeightCategory.pk }})><i
+                                                   onclick=deleteWeightCategory({{ sandaWeightCategory.pk }})><i
                                                         class="fa fa-trash"></i>Sil</a>
                                             </div>
                                         </td>
@@ -247,7 +247,7 @@
 
 
     <script>
-        function deleteCategoryItem(id) {
+        function deleteWeightCategory(id) {
 
             console.log(id);
             var html = ''
@@ -255,7 +255,7 @@
                 $("#btn-conf").click(function () {
                     $.ajax({
 
-                        url: "{% url "wushu:taolu-katagori-sil" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),
+                        url: "{% url "wushu:sanda-weight-category-delete" pk=212121223232323232 %}".replace(/212121223232323232/, id.toString()),
                         type: "POST",
                         data: {
                             'csrfmiddlewaretoken': "{{  csrf_token  }}",
@@ -263,13 +263,13 @@
                         },
                         success: function (result) {
 
-                            html = 'Kategori Başarıyla Silindi';
+                            html = 'Successfully Deleted';
                             debugger;
                             $(".successModal").html(html);
                             $('#modal-success').on("shown.bs.modal", function (e) {
                                 $(".btn-ok").click(function () {
 
-                                    window.location.replace("{% url "wushu:taolu-katagori" %}");
+                                    window.location.replace("{% url "wushu:sanda-weight-category" %}");
 
                                 });
 

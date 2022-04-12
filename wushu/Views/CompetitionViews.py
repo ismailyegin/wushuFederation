@@ -791,3 +791,45 @@ def return_sanda_weight_category(request):
     sandaWeightCategories = SandaWeightCategory.objects.all().order_by('-creationDate')
     return render(request, 'kategori/SandaWeightCategory.html',
                   {'sandaWeightCategoryForm': sandaWeightCategoryForm, 'sandaWeightCategories': sandaWeightCategories})
+
+
+
+@login_required
+def sanda_weight_category_delete(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            obj = SandaWeightCategory.objects.get(pk=pk)
+            obj.delete()
+            return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
+        except SandaWeightCategory.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+
+@login_required
+def sanda_weight_category_update(request, pk):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    weightCategory = SandaWeightCategory.objects.get(id=pk)
+    sanda_weight_form = SandaWeightCategoryForm(request.POST or None, instance=weightCategory)
+    if request.method == 'POST':
+        if sanda_weight_form.is_valid():
+            sanda_weight_form.save()
+
+            messages.success(request, 'Successfully Update')
+            return redirect('wushu:sanda-weight-category')
+        else:
+            messages.warning(request, 'Alanları Kontrol Ediniz')
+
+    return render(request, 'kategori/SandaWeightCategoryUpdate.html',
+                  {'sanda_weight_form': sanda_weight_form})
