@@ -442,7 +442,7 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
+                                                <table id="sanda1" class="table table-bordered table-hover" style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -501,7 +501,7 @@
                                             </style>
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
                                                 <div class="col-lg-12">
-                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                    <table id="taolu2" class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -588,7 +588,7 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
+                                                <table id="sanda2" class="table table-bordered table-hover" style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -641,7 +641,7 @@
                                             </style>
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
                                                 <div class="col-lg-12">
-                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                    <table id="taolu2" class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -720,7 +720,7 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
+                                                <table id="sanda3" class="table table-bordered table-hover" style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -773,7 +773,7 @@
                                             </style>
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
                                                 <div class="col-lg-12">
-                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                    <table id="taolu3" class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -852,7 +852,7 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
+                                                <table id="sanda4" class="table table-bordered table-hover" style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -905,7 +905,7 @@
                                             </style>
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
                                                 <div class="col-lg-12">
-                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                    <table id="taolu4" class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -984,7 +984,7 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
+                                                <table id="sanda5" class="table table-bordered table-hover" style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -1037,7 +1037,7 @@
                                             </style>
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
                                                 <div class="col-lg-12">
-                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                    <table id="taolu5" class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -1110,130 +1110,6 @@
 
 
     <script>
-        $(function () {
-
-            $('#sporcular').DataTable({
-
-                language: {
-
-                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-
-                },
-                'paging': true,
-                'searching': true,
-                'ordering': true,
-                'autoWidth': true,
-                "serverSide": true,
-                "processing": true,
-                'responsive': true,
-                'ajax': {
-
-                    "url": '{% url "wushu:sanda-sporcu-sec-ajax"%}',
-                    "methot": 'POST',
-                    "data": {
-
-                        "competition":{{ competition.pk }},
-
-                    },
-
-
-                },
-
-
-                'columns':
-                    [
-                        {'data': 'say'},
-                        {'data': 'name'},
-
-                        {
-                            "data": null,
-                            "bSortable": false,
-                            "mRender": function (data) {
-                                {#console.log(data);#}
-
-
-                                return '<div class="btn-group"><a type="button" class="btn btn-warning" onclick="sporcusec(1)"><i class="fa fa-edit"></i>' + 'Seç' + '</a></div>';
-                            }
-                        },
-
-
-                    ],
-                dom: 'Bfrtip',
-
-
-                lengthMenu: [
-                    [10, 25, 50, 100, -1],
-                    ['10 tane', '25 tane ', '50 tane ', '100 Tane', 'Hepsini Getir']
-                ],
-
-                'buttons': [
-
-
-                    {#'copy',#}
-                    {#'csv',#}
-
-                    {
-                        extend: "pageLength",
-                    },
-
-
-                    {
-                        extend: 'colvis',
-                        text: '<i class=" fa  fa-th-list"></i>',
-                        titleAttr: 'Ekle Çıkar'
-
-
-                    },
-                    {
-                        extend: 'print',
-                        title: 'Sporcular',
-                        text: '<i class="fa  fa-print"></i>',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
-                        },
-                        titleAttr: 'Yazdır'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        download: 'open',
-                        text: '<i class="fa fa-file-pdf-o"></i>',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
-                        },
-                        titleAttr: 'Pdf Kaydet'
-                    },
-
-                    {
-                        extend: 'excelHtml5',
-                        title: 'Sporcular',
-                        text: '<i class="fa fa-file-excel-o"></i>',
-                        messageTop: 'Twf Bilgi Sistemi ',
-                        footer: true,
-                        exportOptions: {
-                            {#yer degisimi de yapilabilir.#}
-                            columns: [0, 2, 1, 3, 4, 5]
-
-                        },
-                        titleAttr: 'Excel Kaydet'
-                    },
-                    {
-                        text: '<i class="fa fa-file-text-o"></i>',
-                        action: function (e, dt, button, config) {
-                            var data = dt.buttons.exportData();
-
-                            $.fn.dataTable.fileSave(
-                                new Blob([JSON.stringify(data)]),
-                                'Sporcular.json'
-                            );
-                        }
-                    }
-                ],
-
-
-            });
-
-
-        });
 
         function sporcuSec(id) {
             $("#modalsporcu").on("shown.bs.modal", function (e) {
@@ -1669,6 +1545,464 @@
             });
 
         }
+    </script>
+
+    <script>
+        $(function () {
+            $('#sanda1').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Athletes',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Athletes',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 2, 1, 3, 4, 5]
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Athletes.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
+
+            $('#sanda2').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Coaches',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Coaches',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 2, 1, 3, 4, 5]
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Coaches.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
+
+            $('#sanda3').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Observers',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Observers',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 2, 1, 3, 4, 5]
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Observers.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
+
+            $('#sanda4').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Officers',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Officers',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 2, 1, 3, 4, 5]
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Officers.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
+
+            $('#sanda5').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Referees',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Referees',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 2, 1, 3, 4, 5]
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Referees.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
+        });
     </script>
 
     <script>
