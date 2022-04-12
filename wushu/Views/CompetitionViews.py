@@ -164,18 +164,25 @@ def musabaka_sanda(request, pk):
     officers = None
     judges = None
 
-    federation = Federation.objects.get(user=request.user)
-    athleteSec = Athlete.objects.filter(federation=federation)
-    antrenorSec = Coach.objects.filter(federation=federation)
-    gozlemciSec = Observer.objects.filter(federation=federation)
-    resmiGorevliSec = Officer.objects.filter(federation=federation)
-    hakemSec = Judge.objects.filter(federation=federation)
+    federations = None
+    athleteSec = None
+    antrenorSec = None
+    gozlemciSec = None
+    resmiGorevliSec = None
+    hakemSec = None
 
     user = request.user
 
     if request.user.groups.filter(name__in=['Admin']):
         competition_form = CompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
+            federations = Federation.objects.all()
+            athleteSec = Athlete.objects.all()
+            antrenorSec = Coach.objects.all()
+            gozlemciSec = Observer.objects.all()
+            resmiGorevliSec = Officer.objects.all()
+            hakemSec = Judge.objects.all()
+
             athletes = SandaAthlete.objects.filter(competition=musabaka)
             coaches = SandaCoach.objects.filter(competition=musabaka)
             observers = SandaObserver.objects.filter(competition=musabaka)
@@ -186,6 +193,13 @@ def musabaka_sanda(request, pk):
     if request.user.groups.filter(name__in=['Federation']):
         competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
+            federation = Federation.objects.get(user=request.user)
+            athleteSec = Athlete.objects.filter(federation=federation)
+            antrenorSec = Coach.objects.filter(federation=federation)
+            gozlemciSec = Observer.objects.filter(federation=federation)
+            resmiGorevliSec = Officer.objects.filter(federation=federation)
+            hakemSec = Judge.objects.filter(federation=federation)
+
             athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
             coaches = SandaCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
             observers = SandaObserver.objects.filter(competition=musabaka).filter(observer__federation__user=request.user)
@@ -198,7 +212,8 @@ def musabaka_sanda(request, pk):
                   {'competition': musabaka, 'categoryitemm': categoryitemm, 'athletes': athletes,
                    'categori': categori, 'athleteSec': athleteSec, 'antrenorSec': antrenorSec,
                    'gozlemciSec': gozlemciSec, 'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec,
-                   'coaches': coaches, 'observers': observers, 'officers': officers, 'judges': judges, })
+                   'coaches': coaches, 'observers': observers, 'officers': officers, 'judges': judges,
+                   'federations': federations, })
 
 
 @login_required
@@ -225,24 +240,42 @@ def musabaka_taolu(request, pk):
 
     user = request.user
 
-    federation = Federation.objects.get(user=request.user)
-    athleteSec = Athlete.objects.filter(federation=federation)
-    antrenorSec = Coach.objects.filter(federation=federation)
-    gozlemciSec = Observer.objects.filter(federation=federation)
-    resmiGorevliSec = Officer.objects.filter(federation=federation)
-    hakemSec = Judge.objects.filter(federation=federation)
+    federations = None
+    athleteSec = None
+    antrenorSec = None
+    gozlemciSec = None
+    resmiGorevliSec = None
+    hakemSec = None
 
     if request.user.groups.filter(name__in=['Admin']):
         competition_form = CompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
             athletes = SandaAthlete.objects.filter(competition=musabaka)
         elif musabaka.subBranch == EnumFields.TAOLU.value:
+            federations = Federation.objects.all()
+            athleteSec = Athlete.objects.all()
+            antrenorSec = Coach.objects.all()
+            gozlemciSec = Observer.objects.all()
+            resmiGorevliSec = Officer.objects.all()
+            hakemSec = Judge.objects.all()
+
             athletes = TaoluAthlete.objects.filter(competition=musabaka)
+            coaches = TaoluCoach.objects.filter(competition=musabaka)
+            observers = TaoluObserver.objects.filter(competition=musabaka)
+            officers = TaoluOfficer.objects.filter(competition=musabaka)
+            judges = TaoluJudge.objects.filter(competition=musabaka)
     if request.user.groups.filter(name__in=['Federation']):
         competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
             athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
         elif musabaka.subBranch == EnumFields.TAOLU.value:
+            federation = Federation.objects.get(user=request.user)
+            athleteSec = Athlete.objects.filter(federation=federation)
+            antrenorSec = Coach.objects.filter(federation=federation)
+            gozlemciSec = Observer.objects.filter(federation=federation)
+            resmiGorevliSec = Officer.objects.filter(federation=federation)
+            hakemSec = Judge.objects.filter(federation=federation)
+
             athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
             coaches = TaoluCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
             observers = TaoluObserver.objects.filter(competition=musabaka).filter(
@@ -260,7 +293,7 @@ def musabaka_taolu(request, pk):
                    'user_form': user_form, 'person_form': person_form, 'judge_form': judge_form, 'athletes': athletes,
                    'categori': categori, 'athleteSec': athleteSec, 'coaches': coaches, 'observers': observers,
                    'officers': officers, 'judges': judges, 'antrenorSec': antrenorSec, 'gozlemciSec': gozlemciSec,
-                   'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec, })
+                   'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec, 'federations': federations, })
 
 
 @login_required

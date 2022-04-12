@@ -37,7 +37,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <a style="" href="{% url "wushu:sporcu-ekle" %}" class="btn btn-success" type="button">
+                        <a style="" href="{% url "wushu:sporcular" %}" class="btn btn-success" type="button">
                             <i class="fa fa-plus"></i> Yeni Sporcu Ekle
                         </a>
                     </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <a style="" href="{% url "wushu:add-coach" %}" class="btn btn-success" type="button">
+                        <a style="" href="{% url "wushu:coaches" %}" class="btn btn-success" type="button">
                             <i class="fa fa-plus"></i> Yeni Antrenor Ekle
                         </a>
                     </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <a style="" href="{% url "wushu:add-observer" %}" class="btn btn-success" type="button">
+                        <a style="" href="{% url "wushu:observers" %}" class="btn btn-success" type="button">
                             <i class="fa fa-plus"></i> Yeni Gözlemci Ekle
                         </a>
                     </div>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <a style="" href="{% url "wushu:add-officer" %}" class="btn btn-success" type="button">
+                        <a style="" href="{% url "wushu:officers" %}" class="btn btn-success" type="button">
                             <i class="fa fa-plus"></i> Yeni Resmi Görevli Ekle
                         </a>
                     </div>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
-                        <a style="" href="{% url "wushu:add-judge" %}" class="btn btn-success" type="button">
+                        <a style="" href="{% url "wushu:judges" %}" class="btn btn-success" type="button">
                             <i class="fa fa-plus"></i> Yeni Hakem Ekle
                         </a>
                     </div>
@@ -506,19 +506,14 @@
                                                                 <tr>
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
-                                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
-
                                                                     <td>{{ athlete.athlete.person.birthDate }} </td>
-                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                                        <td>{{ athlete.athlete.licenses.last.sportsClub }}</td>
-                                                                    {% endif %}
                                                                     <td>{{ athlete.category }}</td>
                                                                     <td>
                                                                         {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                            BAYAN </td>
+                                                                            BAYAN
                                                                         {% else %}ERKEK
                                                                         {% endif %}
+                                                                    </td>
 
                                                                     <td>
                                                                         <div class="btn-group">
