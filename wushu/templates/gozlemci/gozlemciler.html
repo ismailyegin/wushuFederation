@@ -153,12 +153,12 @@
                                         <label> {{ person_form.birthDate.label }}</label>
                                         {{ person_form.birthDate }}
                                     </div>
-{#                                    {% if user.groups.all.0.name == "Admin" %}#}
+                                    {% if user.groups.all.0.name == "Admin" %}
                                         <div class="form-group">
                                             <label> {{ observer_federation_form.federation.label }} </label>
                                             {{ observer_federation_form.federation }}
                                         </div>
-{#                                    {% endif %}#}
+                                    {% endif %}
                                 </div>
 
                                 <div class="col-lg-4">
