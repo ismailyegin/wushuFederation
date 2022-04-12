@@ -10,14 +10,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Uyarı</h4>
+                    <h4 class="modal-title">Warning</h4>
                 </div>
                 <div class="modal-body">
                     <p id="taoluError"></p>
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn  btn-outline btn-ok" id="btn-kural ">Kapat</button>
+                    <button type="button" class="btn  btn-outline btn-ok" id="btn-kural ">Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -33,31 +33,31 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Ek Bilgileri Giriniz</h4>
+                    <h4 class="modal-title">Enter Additional Information</h4>
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:sporcular" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Yeni Sporcu Ekle
+                            <i class="fa fa-plus"></i> Add New Athlete
                         </a>
                     </div>
 
-                    <label for="sporcuSec">Sporcu</label>
+                    <label for="sporcuSec">Athlete</label>
                     <select style="width: 100%" id="sporcuSec"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for athlete in athleteSec %}
                             <option value="{{ athlete.pk }}">{{ athlete.person.name }} {{ athlete.person.surName }}</option>
                         {% endfor %}
                     </select>
 
 
-                    <label for="inputState"> Taolu Kategori</label>
+                    <label for="inputState"> Taolu Category</label>
                     <select style="width: 100%" id="taolucategory"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for item in category %}
                             <option value="{{ item.pk }}">{{ item }}</option>
                         {% endfor %}
@@ -76,7 +76,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder"
-                            data-dismiss="modal">Kaydet
+                            data-dismiss="modal">Save
                     </button>
                 </div>
             </div>
@@ -92,20 +92,20 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Ek Bilgileri Giriniz</h4>
+                    <h4 class="modal-title">Enter Additional Information</h4>
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:coaches" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Yeni Antrenor Ekle
+                            <i class="fa fa-plus"></i> Add New Coach
                         </a>
                     </div>
 
-                    <label for="antrenorSec">Antrenör</label>
+                    <label for="antrenorSec">Coach</label>
                     <select style="width: 100%" id="antrenorSec"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for antrenor in antrenorSec %}
                             <option value="{{ antrenor.pk }}">{{ antrenor.person.name }} {{ antrenor.person.surName }}</option>
                         {% endfor %}
@@ -116,7 +116,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder2"
-                            data-dismiss="modal">Kaydet
+                            data-dismiss="modal">Save
                     </button>
                 </div>
             </div>
@@ -132,12 +132,12 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Ek Bilgileri Giriniz</h4>
+                    <h4 class="modal-title">Enter Additional Information</h4>
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:observers" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Yeni Gözlemci Ekle
+                            <i class="fa fa-plus"></i> Add New Observer
                         </a>
                     </div>
 
@@ -145,7 +145,7 @@
                     <select style="width: 100%" id="gozlemciSec"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for gozlemci in gozlemciSec %}
                             <option value="{{ gozlemci.pk }}">{{ gozlemci.person.name }} {{ gozlemci.person.surName }}</option>
                         {% endfor %}
@@ -156,7 +156,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder3"
-                            data-dismiss="modal">Kaydet
+                            data-dismiss="modal">Save
                     </button>
                 </div>
             </div>
@@ -172,12 +172,12 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Ek Bilgileri Giriniz</h4>
+                    <h4 class="modal-title">Enter Additional Information</h4>
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:officers" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Yeni Resmi Görevli Ekle
+                            <i class="fa fa-plus"></i> Add New Official
                         </a>
                     </div>
 
@@ -185,7 +185,7 @@
                     <select style="width: 100%" id="resmiGorevliSec"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for resmiGorevli in resmiGorevliSec %}
                             <option value="{{ resmiGorevli.pk }}">{{ resmiGorevli.person.name }} {{ resmiGorevli.person.surName }}</option>
                         {% endfor %}
@@ -196,7 +196,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder4"
-                            data-dismiss="modal">Kaydet
+                            data-dismiss="modal">Save
                     </button>
                 </div>
             </div>
@@ -212,20 +212,20 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Ek Bilgileri Giriniz</h4>
+                    <h4 class="modal-title">Enter Additional Information</h4>
                 </div>
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:judges" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Yeni Hakem Ekle
+                            <i class="fa fa-plus"></i> Add New Referee
                         </a>
                     </div>
 
-                    <label for="hakemSec">Hakem</label>
+                    <label for="hakemSec">Judge</label>
                     <select style="width: 100%" id="hakemSec"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
-                        <option selected>Seçiniz...</option>
+                        <option selected>Choose...</option>
                         {% for hakem in hakemSec %}
                             <option value="{{ hakem.pk }}">{{ hakem.person.name }} {{ hakem.person.surName }}</option>
                         {% endfor %}
@@ -236,7 +236,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder5"
-                            data-dismiss="modal">Kaydet
+                            data-dismiss="modal">Save
                     </button>
                 </div>
             </div>
@@ -255,14 +255,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">İşlem Başarılı</h4>
+                    <h4 class="modal-title">Transaction Successful</h4>
                 </div>
                 <div class="modal-body successModal">
-                    Başarılı bir şekilde eklendi
+                    successfully added
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-outline btn-ok">Tamam</button>
+                    <button type="button" class="btn btn-outline btn-ok">OK</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -277,16 +277,16 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Uyarı</h4>
+                    <h4 class="modal-title">Warning</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Silmek istediğinizden emin misiniz?</p>
+                    <p>Are you sure you want to delete?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left btn-ok" id="btn-conf"
-                            data-dismiss="modal">Evet
+                            data-dismiss="modal">Yes
                     </button>
-                    <button type="button" class="btn btn-outline" id="btn-close">Hayır</button>
+                    <button type="button" class="btn btn-outline" id="btn-close">No</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -304,7 +304,7 @@
 
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> Hata!</h4>
+                    <h4><i class="icon fa fa-ban"></i> Error!</h4>
 
 
                     <ul class="messages">
@@ -323,7 +323,7 @@
 
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> Başarılı!</h4>
+                    <h4><i class="icon fa fa-ban"></i> Successful!</h4>
 
 
                     <ul class="messages">
@@ -376,20 +376,19 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#sporcuIslemleri" data-toggle="tab" aria-expanded="true">Sporcu İşlemleri</a>
+                            <a href="#sporcuIslemleri" data-toggle="tab" aria-expanded="true">Athlete Transactions</a>
                         </li>
                         <li>
-                            <a href="#antrenorIslemleri" data-toggle="tab" aria-expanded="true">Antrenör İşlemleri</a>
+                            <a href="#antrenorIslemleri" data-toggle="tab" aria-expanded="true">Coach Transactions</a>
                         </li>
                         <li>
-                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Gözlemci İşlemleri</a>
+                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Observer Transactions</a>
                         </li>
                         <li>
-                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Resmi Görevli
-                                İşlemleri</a>
+                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Officials Transactions</a>
                         </li>
                         <li>
-                            <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Hakem İşlemleri</a>
+                            <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Referee Transactions</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -398,7 +397,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Eklenen Sporcular </h3>
+                                        <h3 class="box-title">Added Athletes </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -454,8 +453,8 @@
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
                                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -465,7 +464,7 @@
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                                             <a onclick="deleteAthlete(1, {{ athlete.id }})"
                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>Remove
+                                                                                    class="fa fa-edit"></i>delete
                                                                             </a>
                                                                         {% endif %}
 
@@ -521,7 +520,7 @@
                                                                                 <a onclick="deleteAthlete(1, {{ athlete.id }})"
                                                                                    type="button"
                                                                                    class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>Remove
+                                                                                        class="fa fa-edit"></i>delete
                                                                                 </a>
                                                                             {% endif %}
 
@@ -555,7 +554,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Eklenen Antrenörler </h3>
+                                        <h3 class="box-title">Added Coaches </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -611,8 +610,8 @@
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
                                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -622,7 +621,7 @@
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                                             <a onclick="deleteAthlete({{ athlete.id }})"
                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>Remove
+                                                                                    class="fa fa-edit"></i>delete
                                                                             </a>
                                                                         {% endif %}
 
@@ -665,8 +664,8 @@
                                                                     <td>{{ coach.coach.person.birthDate }} </td>
                                                                     <td>
                                                                         {% if coach.coach.person.gender == "Kadın" %}
-                                                                            BAYAN </td>
-                                                                        {% else %}ERKEK
+                                                                            WOMAN </td>
+                                                                        {% else %}MAN
                                                                         {% endif %}
 
                                                                     <td>
@@ -675,7 +674,7 @@
                                                                                 <a onclick="deleteCoach(2, {{ coach.id }})"
                                                                                    type="button"
                                                                                    class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>Remove
+                                                                                        class="fa fa-edit"></i>delete
                                                                                 </a>
                                                                             {% endif %}
 
@@ -709,7 +708,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Eklenen Gözlemciler </h3>
+                                        <h3 class="box-title">Added Observers </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -765,8 +764,8 @@
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
                                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -776,7 +775,7 @@
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                                             <a onclick="deleteAthlete({{ athlete.id }})"
                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>Remove
+                                                                                    class="fa fa-edit"></i>delete
                                                                             </a>
                                                                         {% endif %}
 
@@ -819,8 +818,8 @@
                                                                     <td>{{ observer.observer.person.birthDate }} </td>
                                                                     <td>
                                                                         {% if observer.observer.person.gender == "Kadın" %}
-                                                                            BAYAN </td>
-                                                                        {% else %}ERKEK
+                                                                            WOMAN </td>
+                                                                        {% else %}MAN
                                                                         {% endif %}
 
                                                                     <td>
@@ -829,7 +828,7 @@
                                                                                 <a onclick="deleteObserver(3, {{ observer.id }})"
                                                                                    type="button"
                                                                                    class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>Remove
+                                                                                        class="fa fa-edit"></i>delete
                                                                                 </a>
                                                                             {% endif %}
 
@@ -863,7 +862,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Eklenen Resmi Görevliler </h3>
+                                        <h3 class="box-title">Added Officials </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -919,8 +918,8 @@
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
                                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -930,7 +929,7 @@
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                                             <a onclick="deleteAthlete({{ athlete.id }})"
                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>Remove
+                                                                                    class="fa fa-edit"></i>delete
                                                                             </a>
                                                                         {% endif %}
 
@@ -973,8 +972,8 @@
                                                                     <td>{{ officer.officer.person.birthDate }} </td>
                                                                     <td>
                                                                         {% if officer.officer.person.gender == "Kadın" %}
-                                                                            BAYAN </td>
-                                                                        {% else %}ERKEK
+                                                                            WOMAN </td>
+                                                                        {% else %}MAN
                                                                         {% endif %}
 
                                                                     <td>
@@ -983,7 +982,7 @@
                                                                                 <a onclick="deleteOfficer(4, {{ officer.id }})"
                                                                                    type="button"
                                                                                    class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>Remove
+                                                                                        class="fa fa-edit"></i>delete
                                                                                 </a>
                                                                             {% endif %}
 
@@ -1017,7 +1016,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Eklenen Hakemler </h3>
+                                        <h3 class="box-title">Added Referees </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -1073,8 +1072,8 @@
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
                                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -1084,7 +1083,7 @@
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                                             <a onclick="deleteAthlete({{ athlete.id }})"
                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>Remove
+                                                                                    class="fa fa-edit"></i>delete
                                                                             </a>
                                                                         {% endif %}
 
@@ -1127,8 +1126,8 @@
                                                                     <td>{{ judge.judge.person.birthDate }} </td>
                                                                     <td>
                                                                         {% if judge.judge.person.gender == "Kadın" %}
-                                                                            BAYAN </td>
-                                                                        {% else %}ERKEK
+                                                                            WOMAN </td>
+                                                                        {% else %}MAN
                                                                         {% endif %}
 
                                                                     <td>
@@ -1137,7 +1136,7 @@
                                                                                 <a onclick="deleteJudge(5, {{ judge.id }})"
                                                                                    type="button"
                                                                                    class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>Remove
+                                                                                        class="fa fa-edit"></i>delete
                                                                                 </a>
                                                                             {% endif %}
 
@@ -1245,7 +1244,7 @@
                             });
                         } else {
 
-                            alert("Lütfen eksik alanlari giriniz");
+                            alert("Please enter the missing fields");
 
                         }
 
@@ -1327,7 +1326,7 @@
                             });
                         } else {
 
-                            alert("Lütfen eksik alanlari giriniz");
+                            alert("Please enter the missing fields");
 
                         }
 
@@ -1409,7 +1408,7 @@
                             });
                         } else {
 
-                            alert("Lütfen eksik alanlari giriniz");
+                            alert("Please enter the missing fields");
 
                         }
 
@@ -1491,7 +1490,7 @@
                             });
                         } else {
 
-                            alert("Lütfen eksik alanlari giriniz");
+                            alert("Please enter the missing fields");
 
                         }
 
@@ -1573,7 +1572,7 @@
                             });
                         } else {
 
-                            alert("Lütfen eksik alanlari giriniz");
+                            alert("Please enter the missing fields");
 
                         }
 
