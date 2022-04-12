@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-outline btn-ok">Ok</button>
+                    <button type="button" class="btn btn-outline btn-ok">OK</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -251,8 +251,8 @@
                                                 {% endif %}
                                                 <td>{{ athlete.athlete_yas_category }} - {{ athlete.competitiontype }}</td>
                                                 <td>{% if athlete.athlete.person.gender == "Kadın" %}
-                                                    BAYAN </td>
-                                                {% else %}ERKEK
+                                                    WOMAN </td>
+                                                {% else %}MAN
                                                 {% endif %}
 
                                                 <td>{{ athlete.competition.subBranch }}</td>
@@ -262,7 +262,7 @@
                                                         {% if competition.status == 'Ön Kayıt Açık' %}
                                                             <a onclick="deleteAthlete({{ athlete.id }})"
                                                                type="button" class="btn btn-danger"><i
-                                                                    class="fa fa-edit"></i>Remove
+                                                                    class="fa fa-edit"></i>delete
                                                             </a>
                                                         {% endif %}
 
@@ -320,8 +320,8 @@
                                                     {% endif %}
                                                     <td>{{ athlete.years }} - {{ athlete.category }}</td>
                                                     <td>{% if athlete.athlete.person.gender == "Kadın" %}
-                                                        BAYAN </td>
-                                                    {% else %}ERKEK
+                                                        WOMAN </td>
+                                                    {% else %}MAN
                                                     {% endif %}
 
                                                     <td>{{ athlete.competition.subBranch }}</td>
@@ -330,7 +330,7 @@
                                                             {% if competition.status == 'Ön Kayıt Açık' %}
                                                                 <a onclick="deleteAthlete({{ athlete.id }})"
                                                                    type="button" class="btn btn-danger"><i
-                                                                        class="fa fa-edit"></i>Remove
+                                                                        class="fa fa-edit"></i>delete
                                                                 </a>
                                                             {% endif %}
 
@@ -370,6 +370,12 @@
             debugger;
             $('#taolu').DataTable({
                 dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
 
 
                 lengthMenu: [
@@ -450,6 +456,12 @@
             });
             $('#sporcular').DataTable({
                 dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
 
 
                 lengthMenu: [
