@@ -145,12 +145,12 @@
                         <div class="inner">
                             <h3>{{ application.all.count }}</h3>
 
-                            <p>Number of Active Competitions</p>
+                            <p>Active Competitions</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:musabakalar'%}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -161,12 +161,12 @@
                         <div class="inner">
                             <h3>{{ athletes.count }}</h3>
 
-                            <p>Number of Athletes</p>
+                            <p>Athletes</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:sporcular' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -178,12 +178,12 @@
                         <div class="inner">
                             <h3>{{ coaches.count }}</h3>
 
-                            <p>Number of Coaches</p>
+                            <p>Coaches</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:coaches' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -195,12 +195,12 @@
                         <div class="inner">
                             <h3>{{ observers.count }}</h3>
 
-                            <p>Number of Observer</p>
+                            <p>Observer</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:observers' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -212,12 +212,12 @@
                         <div class="inner">
                             <h3>{{ officers.count }}</h3>
 
-                            <p>Number of Officers</p>
+                            <p>Officers</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:officers' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -229,12 +229,12 @@
                         <div class="inner">
                             <h3>{{ judges.count }}</h3>
 
-                            <p>Number of Referees</p>
+                            <p>Referees</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{% url 'wushu:judges' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -298,7 +298,7 @@
                                     <div class="row">
                                         <div class="col-xs-5 col-sm-4">
                                             <div class="pull-left">
-                                                <h4 class="panel-title">LOCATION OF THE COMPETITION</h4>
+                                                <h4 class="panel-title">LOCATION</h4>
                                                 <p>
                                                     <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
                                                 </p>

@@ -36,8 +36,8 @@ class Person(models.Model):
     name = models.CharField(max_length=120, null=True, blank=True)
     surName = models.CharField(max_length=120, null=True, blank=True)
     pasaport = models.CharField(max_length=120, null=True, blank=True)
-    pasaportImage = models.ImageField(upload_to='pasaport/', null=True, blank=True, default='pasaport/user.png',
-                                      verbose_name='pasaport Picture')
+    pasaportImage = models.ImageField(upload_to='Passport/', null=True, blank=True, default='Passport/user.png',
+                                      verbose_name='Passport Picture')
     profileImage = models.ImageField(upload_to='profile/', null=True, blank=True, default='profile/user.png',
                                      verbose_name='Profile Picture')
 
