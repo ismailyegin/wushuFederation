@@ -263,7 +263,35 @@
                                         - {{ competition.finishDate | date }}</h4>
                                     <center>
                                         <div class="box-header with-border">
-                                            {% if athletes %}
+                                            {% if user.groups.all.0.name == 'Federation' %}
+                                                {% if athletes %}
+                                                    <div class="btn-group">
+                                                        {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                            <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
+                                                               type="button" class="btn btn-danger"><i
+                                                                    class="fa fa-edit"></i>Make an application
+                                                            </a>
+                                                        {% endif %}
+
+                                                        {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+
+                                                            <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
+                                                               type="button" class="btn btn-danger"><i
+                                                                    class="fa fa-edit"></i>Make an application
+                                                            </a>
+                                                        {% endif %}
+
+                                                    </div>
+                                                {% else %}
+                                                    <div class="btn-group">
+                                                        <a href="{% url "wushu:sporcu-ekle" %}"
+                                                           type="button" class="btn btn-success"><i
+                                                                class="fa fa-edit"></i> Add Athletes
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                 <div class="btn-group">
                                                     {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
                                                         <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
@@ -280,13 +308,6 @@
                                                         </a>
                                                     {% endif %}
 
-                                                </div>
-                                            {% else %}
-                                                <div class="btn-group">
-                                                    <a href="{% url "wushu:sporcu-ekle" %}"
-                                                       type="button" class="btn btn-success"><i
-                                                            class="fa fa-edit"></i> Add Athletes
-                                                    </a>
                                                 </div>
                                             {% endif %}
                                         </div>
