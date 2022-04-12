@@ -59,10 +59,10 @@
                         <option value="2">Tuishou</option>
 
                     </select>
-                    <label for="inputState">Yaş Kategorisi</label>
-                    <select id="sanda-yas" style="width: 100%;" class=" form-control">
-                        {% for item in categoryitemm %}
-                            <option value="{{ item.pk }}">{{ item.categoryYear }}</option>
+                    <label for="inputState">Weight Category</label>
+                    <select id="sanda-weight" style="width: 100%;" class=" form-control">
+                        {% for item in weightCategory %}
+                            <option value="{{ item.pk }}">{{ item.categoryName }}</option>
                         {% endfor %}
                     </select>
 
@@ -446,11 +446,11 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name Surname</th>
-                                                        <th>Date of birth</th>
-                                                        <th>Age - Sanda Category</th>
+                                                        <th>Name</th>
+                                                        <th>Year of Birth</th>
+                                                        <th>Weight Category</th>
                                                         <th>Gender</th>
-                                                        <th>Sub-Branch</th>
+                                                        <th>Branch</th>
                                                         <th>Transactions</th>
 
                                                     </tr>
@@ -462,17 +462,15 @@
                                                             <tr>
                                                                 <td>{{ forloop.counter }} </td>
                                                                 <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                                <td>{{ athlete.athlete.person.birthDate }} </td>
-                                                                <td>{{ athlete.athlete_yas_category }}
-                                                                    - {{ athlete.competitiontype }}</td>
+                                                                <td>{{ athlete.athlete.person.birthDate.year }} </td>
+                                                                <td>{{ athlete.weight_category }}</td>
                                                                 <td>
                                                                     {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        BAYAN </td>
-                                                                    {% else %}ERKEK
+                                                                        WOMAN </td>
+                                                                    {% else %}MAN
                                                                     {% endif %}
 
-                                                                <td>{{ athlete.competition.subBranch }}</td>
-
+                                                                <td>{{ athlete.competitiontype }}</td>
                                                                 <td>
                                                                     <div class="btn-group">
                                                                         {% if competition.status == 'Ön Kayıt Açık' %}
@@ -1125,7 +1123,7 @@
 
                             sanda = document.getElementById('sanda').value;
                             debugger;
-                            let sanda_yas = document.getElementById('sanda-yas').value
+                            let sandaWeight = document.getElementById('sanda-weight').value
                             athleteId = $('#sporcuSec').val();
 
 
@@ -1137,7 +1135,7 @@
                                     sanda: sanda,
                                     competition: {{ competition.pk }},
                                     athleteId: athleteId,
-                                    yas: sanda_yas,
+                                    sandaWeight: sandaWeight,
                                     id: id,
 
                                 },

@@ -16,6 +16,7 @@ class SandaAthlete(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     competitiontype = models.CharField(max_length=128, verbose_name='Yaş Kategorisi', choices=SANDA_YAS_TYPE)
     athlete_yas_category = models.CharField(max_length=100, null=True, blank=True)
+    weight_category = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.athlete.person.name, self.athlete.person.surName)

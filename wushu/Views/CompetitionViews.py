@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 
+from wushu.Forms.SandaWeightCategoryForm import SandaWeightCategoryForm
 from wushu.Forms.CompetitionForm import CompetitionForm
 from wushu.Forms.DisabledCompetitionForm import DisabledCompetitionForm
 from wushu.Forms.JudgeForm import JudgeForm
@@ -16,7 +17,7 @@ from wushu.Forms.UserForm import UserForm
 from wushu.Forms.competitonSearchForm import CompetitionSearchForm
 from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, \
     EnumFields, \
-    TaoluAthlete, SandaAthlete, Coach, Observer, Officer, Judge
+    TaoluAthlete, SandaAthlete, Coach, Observer, Officer, Judge, SandaWeightCategory
 from wushu.models.SandaCoach import SandaCoach
 from wushu.models.SandaJudge import SandaJudge
 from wushu.models.SandaObserver import SandaObserver
@@ -155,7 +156,7 @@ def musabaka_sanda(request, pk):
         return redirect('accounts:login')
 
     musabaka = Competition.objects.get(pk=pk)
-    categoryitemm = YearsSandaCategory.objects.all().order_by('-creationDate')
+    weightCategory = SandaWeightCategory.objects.all().order_by('categoryName')
 
     categori = None
     athletes = None
@@ -209,7 +210,7 @@ def musabaka_sanda(request, pk):
             athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
 
     return render(request, 'musabaka/musabaka-SandaSporcusec.html',
-                  {'competition': musabaka, 'categoryitemm': categoryitemm, 'athletes': athletes,
+                  {'competition': musabaka, 'weightCategory': weightCategory, 'athletes': athletes,
                    'categori': categori, 'athleteSec': athleteSec, 'antrenorSec': antrenorSec,
                    'gozlemciSec': gozlemciSec, 'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec,
                    'coaches': coaches, 'observers': observers, 'officers': officers, 'judges': judges,
@@ -705,7 +706,7 @@ def musabaka_sanda_sporcu_ekle(request):
                         competition=compettion,
                         athlete=athlete,
                         competitiontype=sanda,
-                        athlete_yas_category=YearsSandaCategory.objects.get(pk=int(request.POST.get('yas'))).categoryYear
+                        weight_category=SandaWeightCategory.objects.get(pk=int(request.POST.get('sandaWeight'))).categoryName
                     )
                     sandaAthlete.save()
                     mesaj = str(
@@ -768,3 +769,25 @@ def musabaka_sanda_sporcu_ekle(request):
 
     else:
         return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+
+
+@login_required
+def return_sanda_weight_category(request):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    sandaWeightCategoryForm = SandaWeightCategoryForm()
+
+    if request.method == 'POST':
+
+        sandaWeightCategoryForm = SandaWeightCategoryForm(request.POST)
+        if sandaWeightCategoryForm.is_valid():
+            sandaWeightCategoryForm.save()
+        else:
+            messages.warning(request, 'Check Field')
+    sandaWeightCategories = SandaWeightCategory.objects.all().order_by('-creationDate')
+    return render(request, 'kategori/SandaWeightCategory.html',
+                  {'sandaWeightCategoryForm': sandaWeightCategoryForm, 'sandaWeightCategories': sandaWeightCategories})

@@ -72,6 +72,7 @@ urlpatterns = [
     url(r'musabaka/taoluekle/$', AthleteViews.return_taolu, name='taolu-katagori'),
     url(r'musabaka/taolu/sil/(?P<pk>\d+)$', AthleteViews.categoryTaoluDelete, name='taolu-katagori-sil'),
     url(r'musabaka/taolu/Duzenle/(?P<pk>\d+)$', AthleteViews.categoryTaoluUpdate, name='taolu-katagori-duzenle'),
+
     # Taoulu yaş eklendisi
     url(r'musabaka/taoluekleyas/$', AthleteViews.return_taolu_years, name='yas-taolu-katagori'),
     url(r'musabaka/taoluekleyas/sil/(?P<pk>\d+)$', AthleteViews.categoryTaoluyearsDelete,
@@ -84,4 +85,6 @@ urlpatterns = [
     url(r'sporcu/sanda-ekleyas/sil/(?P<pk>\d+)$', AthleteViews.categorySandayearsDelete, name='yas-sanda-katagori-sil'),
     url(r'sporcu/sanda-ekleyas/Duzenle/(?P<pk>\d+)$', AthleteViews.categorySandayearsUpdate,
         name='yas-sanda-katagori-duzenle'),
+
+    url(r'competition/sanda-weight-category/$', CompetitionViews.return_sanda_weight_category, name='sanda-weight-category'),
 ]
