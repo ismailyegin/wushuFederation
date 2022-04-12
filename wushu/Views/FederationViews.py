@@ -69,10 +69,47 @@ def return_federations(request):
     if not perm:
         logout(request)
         return redirect('accounts:login')
+    person_form = PersonForm()
+    user_form = UserForm()
+    if request.method == 'POST':
+        person_form = PersonForm(request.POST, request.FILES)
+        user_form = UserForm(request.POST, request.FILES)
+
+        if person_form.is_valid() and user_form.is_valid():
+            user = User()
+            user.username = user_form.cleaned_data['email']
+            user.first_name = user_form.cleaned_data['first_name']
+            user.last_name = user_form.cleaned_data['last_name']
+            user.email = user_form.cleaned_data['email']
+            password = User.objects.make_random_password()
+            user.set_password(password)
+            # user.is_active = user_form.cleaned_data['is_active']
+            user.save()
+
+            person = person_form.save(commit=False)
+            person.name = user.first_name
+            person.surName = user.last_name
+            person.save()
+
+            federasyon = Federation(
+                person=person, user=user
+            )
+            federasyon.save()
+
+            mesaj = str(federasyon.person.name) + ' ' + str(federasyon.person.surName) + ' athlete registered'
+            log = general_methods.logwrite(request, request.user, mesaj)
+
+            messages.success(request, 'Federation Registered Successfully.')
+
+            return redirect('wushu:federations')
+
+        else:
+            for x in person_form.errors.as_data():
+                messages.warning(request, person_form.errors[x][0])
 
     federations = Federation.objects.all()
 
-    return render(request, 'federasyon/federasyonlar.html', {'federations': federations})
+    return render(request, 'federasyon/federasyonlar.html', {'federations': federations,'person_form': person_form, 'user_form': user_form, })
 
 
 @login_required
@@ -99,7 +136,7 @@ def update_federation(request, pk):
             userUpdate.first_name = user_form.cleaned_data['first_name']
             userUpdate.last_name = user_form.cleaned_data['last_name']
             userUpdate.email = userUpdate.username
-            userUpdate.is_active = user_form.cleaned_data['is_active']
+            # userUpdate.is_active = user_form.cleaned_data['is_active']
             userUpdate.save()
 
             messages.success(request, 'Federation Successfully Updated.')
@@ -293,7 +330,8 @@ def delete_federation(request, pk):
 
             federation.delete()
 
-            log = 'The federation named ' + str(federation.user.first_name) + ' ' + str(federation.user.last_name) + " has been deleted"
+            log = 'The federation named ' + str(federation.user.first_name) + ' ' + str(
+                federation.user.last_name) + " has been deleted"
             log = general_methods.logwrite(request, request.user, log)
 
             return JsonResponse({'status': 'Success', 'messages': 'delete successfully'})

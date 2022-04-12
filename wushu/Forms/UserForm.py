@@ -7,8 +7,12 @@ from django.db import models
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'is_active', 'email', )
-        labels = {'first_name': 'Name(*)', 'last_name': 'Surname(*)', 'email': 'Email(*)', 'is_active': 'Is Active'}
+        fields = ('first_name', 'last_name',
+                  # 'is_active',
+                  'email', )
+        labels = {'first_name': 'Name(*)', 'last_name': 'Surname(*)', 'email': 'Email(*)',
+                  # 'is_active': 'Is Active'
+                  }
         widgets = {
             'first_name': forms.TextInput(
                 attrs={'class': 'form-control ', 'value': '', 'required': 'required'}),
@@ -16,7 +20,7 @@ class UserForm(ModelForm):
                 attrs={'class': 'form-control ', 'required': 'required'}),
             'email': forms.TextInput(attrs={'class': 'form-control ', 'required': 'required'}),
 
-            'is_active': forms.CheckboxInput(attrs={'class': 'iCheck-helper', 'required': 'required'}),
+            # 'is_active': forms.CheckboxInput(attrs={'class': 'iCheck-helper', 'required': 'required'}),
 
         }
 
