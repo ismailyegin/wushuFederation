@@ -16,7 +16,15 @@ from wushu.Forms.UserForm import UserForm
 from wushu.Forms.competitonSearchForm import CompetitionSearchForm
 from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTaoluCategory, Federation, Athlete, \
     EnumFields, \
-    TaoluAthlete, SandaAthlete
+    TaoluAthlete, SandaAthlete, Coach, Observer, Officer, Judge
+from wushu.models.SandaCoach import SandaCoach
+from wushu.models.SandaJudge import SandaJudge
+from wushu.models.SandaObserver import SandaObserver
+from wushu.models.SandaOfficer import SandaOfficer
+from wushu.models.TaoluCoach import TaoluCoach
+from wushu.models.TaoluJudge import TaoluJudge
+from wushu.models.TaoluOfficer import TaoluOfficer
+from wushu.models.TaoluObserver import TaoluObserver
 from wushu.services import general_methods
 
 
@@ -30,9 +38,16 @@ def return_competitions(request):
     competition = Competition.objects.filter(registerStartDate__lte=timezone.now(),
                                              registerFinishDate__gte=timezone.now())
     competitions = Competition.objects.all().order_by('-startDate')
+    if request.user.groups.filter(name='Federation'):
+        athletes = Athlete.objects.filter(federation__user=request.user)
+    elif request.user.groups.filter(name='Admin'):
+        athletes = Athlete.objects.all()
+    else:
+        athletes = None
 
     return render(request, 'musabaka/musabakalar.html', {'competitions': competitions,
-                                                         'application': competition, })
+                                                         'application': competition,
+                                                         'athletes': athletes, })
 
 
 @login_required
@@ -133,7 +148,7 @@ def musabaka_sil(request, pk):
 
 @login_required
 def musabaka_sanda(request, pk):
-    perm = general_methods.control_access(request)
+    perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
@@ -141,13 +156,54 @@ def musabaka_sanda(request, pk):
 
     musabaka = Competition.objects.get(pk=pk)
     categoryitemm = YearsSandaCategory.objects.all().order_by('-creationDate')
+
+    categori = None
+    athletes = None
+    coaches = None
+    observers = None
+    officers = None
+    judges = None
+
+    federation = Federation.objects.get(user=request.user)
+    athleteSec = Athlete.objects.filter(federation=federation)
+    antrenorSec = Coach.objects.filter(federation=federation)
+    gozlemciSec = Observer.objects.filter(federation=federation)
+    resmiGorevliSec = Officer.objects.filter(federation=federation)
+    hakemSec = Judge.objects.filter(federation=federation)
+
+    user = request.user
+
+    if request.user.groups.filter(name__in=['Admin']):
+        competition_form = CompetitionForm(request.POST or None, instance=musabaka)
+        if musabaka.subBranch == EnumFields.SANDA.value:
+            athletes = SandaAthlete.objects.filter(competition=musabaka)
+            coaches = SandaCoach.objects.filter(competition=musabaka)
+            observers = SandaObserver.objects.filter(competition=musabaka)
+            officers = SandaOfficer.objects.filter(competition=musabaka)
+            judges = SandaJudge.objects.filter(competition=musabaka)
+        elif musabaka.subBranch == EnumFields.TAOLU.value:
+            athletes = TaoluAthlete.objects.filter(competition=musabaka)
+    if request.user.groups.filter(name__in=['Federation']):
+        competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
+        if musabaka.subBranch == EnumFields.SANDA.value:
+            athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
+            coaches = SandaCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
+            observers = SandaObserver.objects.filter(competition=musabaka).filter(observer__federation__user=request.user)
+            officers = SandaOfficer.objects.filter(competition=musabaka).filter(officer__federation__user=request.user)
+            judges = SandaJudge.objects.filter(competition=musabaka).filter(judge__federation__user=request.user)
+        elif musabaka.subBranch == EnumFields.TAOLU.value:
+            athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
+
     return render(request, 'musabaka/musabaka-SandaSporcusec.html',
-                  {'competition': musabaka, 'categoryitemm': categoryitemm})
+                  {'competition': musabaka, 'categoryitemm': categoryitemm, 'athletes': athletes,
+                   'categori': categori, 'athleteSec': athleteSec, 'antrenorSec': antrenorSec,
+                   'gozlemciSec': gozlemciSec, 'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec,
+                   'coaches': coaches, 'observers': observers, 'officers': officers, 'judges': judges, })
 
 
 @login_required
 def musabaka_taolu(request, pk):
-    perm = general_methods.control_access(request)
+    perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
@@ -159,23 +215,57 @@ def musabaka_taolu(request, pk):
     musabaka = Competition.objects.get(pk=pk)
     yearscategory = YearsTaoluCategory.objects.all()
     category = TaoluCategory.objects.all()
+
+    categori = None
+    athletes = None
+    coaches = None
+    observers = None
+    officers = None
+    judges = None
+
+    user = request.user
+
+    federation = Federation.objects.get(user=request.user)
+    athleteSec = Athlete.objects.filter(federation=federation)
+    antrenorSec = Coach.objects.filter(federation=federation)
+    gozlemciSec = Observer.objects.filter(federation=federation)
+    resmiGorevliSec = Officer.objects.filter(federation=federation)
+    hakemSec = Judge.objects.filter(federation=federation)
+
+    if request.user.groups.filter(name__in=['Admin']):
+        competition_form = CompetitionForm(request.POST or None, instance=musabaka)
+        if musabaka.subBranch == EnumFields.SANDA.value:
+            athletes = SandaAthlete.objects.filter(competition=musabaka)
+        elif musabaka.subBranch == EnumFields.TAOLU.value:
+            athletes = TaoluAthlete.objects.filter(competition=musabaka)
+    if request.user.groups.filter(name__in=['Federation']):
+        competition_form = DisabledCompetitionForm(request.POST or None, instance=musabaka)
+        if musabaka.subBranch == EnumFields.SANDA.value:
+            athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
+        elif musabaka.subBranch == EnumFields.TAOLU.value:
+            athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
+            coaches = TaoluCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
+            observers = TaoluObserver.objects.filter(competition=musabaka).filter(
+                observer__federation__user=request.user)
+            officers = TaoluOfficer.objects.filter(competition=musabaka).filter(officer__federation__user=request.user)
+            judges = TaoluJudge.objects.filter(competition=musabaka).filter(judge__federation__user=request.user)
+
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         person_form = PersonForm(request.POST, request.FILES)
         judge_form = JudgeForm(request.POST)
 
     return render(request, 'musabaka/musabaka-taolu-sporcu-sec.html',
-                  {'competition': musabaka,
-                   'yearscategory': yearscategory,
-                   'category': category,
-                   'user_form': user_form,
-                   'person_form': person_form,
-                   'judge_form': judge_form})
+                  {'competition': musabaka, 'yearscategory': yearscategory, 'category': category,
+                   'user_form': user_form, 'person_form': person_form, 'judge_form': judge_form, 'athletes': athletes,
+                   'categori': categori, 'athleteSec': athleteSec, 'coaches': coaches, 'observers': observers,
+                   'officers': officers, 'judges': judges, 'antrenorSec': antrenorSec, 'gozlemciSec': gozlemciSec,
+                   'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec, })
 
 
 @login_required
 def return_sporcu_sec_taolu(request):
-    perm = general_methods.control_access(request)
+    perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
@@ -293,22 +383,72 @@ def musabaka_taolu_sporcu_ekle(request):
 
         try:
             compettion = Competition.objects.get(pk=request.POST.get('competition'))
-            category = TaoluCategory.objects.get(pk=request.POST.get('category'))
-            athlete = Athlete.objects.get(pk=request.POST.get('athlete'))
-            years = YearsTaoluCategory.objects.get(pk=request.POST.get('years'))
+            id = int(request.POST.get('id'))
+            # years = YearsTaoluCategory.objects.get(pk=request.POST.get('years'))
             # YearsTaoluCategory
             if compettion.subBranch == EnumFields.SUBBRANCH.TAOLU.value:
-                taoluAthlete = TaoluAthlete(
-                    competition=compettion,
-                    category=category,
-                    athlete=athlete,
-                    years=years,
-                )
-                taoluAthlete.save()
-                mesaj = str(
-                    compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
-                log = general_methods.logwrite(request, request.user, mesaj)
-                return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
+                if id == 1:
+                    category = TaoluCategory.objects.get(pk=request.POST.get('category'))
+                    athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
+                    taoluAthlete = TaoluAthlete(
+                        competition=compettion,
+                        category=category,
+                        athlete=athlete,
+                    )
+                    taoluAthlete.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
+
+                elif id == 2:
+                    coach = Coach.objects.get(pk=request.POST.get('antrenorId'))
+                    taoluCoach = TaoluCoach(
+                        competition=compettion,
+                        coach=coach,
+                    )
+                    taoluCoach.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + taoluCoach.coach.person.name + ' ' + taoluCoach.coach.person.surName + '  added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+
+                elif id == 3:
+                    observer = Observer.objects.get(pk=request.POST.get('gozlemciId'))
+                    taoluObserver = TaoluObserver(
+                        competition=compettion,
+                        observer=observer,
+                    )
+                    taoluObserver.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + taoluObserver.observer.person.name + ' ' + taoluObserver.observer.person.surName + '  added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Observer Successfully Added'})
+
+                elif id == 4:
+                    officer = Officer.objects.get(pk=request.POST.get('resmiGorevliId'))
+                    taoluOfficer = TaoluOfficer(
+                        competition=compettion,
+                        officer=officer,
+                    )
+                    taoluOfficer.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + taoluOfficer.officer.person.name + ' ' + taoluOfficer.officer.person.surName + '  added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
+
+                elif id == 5:
+                    judge = Judge.objects.get(pk=request.POST.get('hakemId'))
+                    taoluJudge = TaoluJudge(
+                        competition=compettion,
+                        judge=judge,
+                    )
+                    taoluJudge.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + taoluJudge.judge.person.name + ' ' + taoluJudge.judge.person.surName + '  added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+
             else:
                 return JsonResponse({'status': 'Fail', 'msg': 'The sub-category of the competition is not Sanda'})
 
@@ -332,8 +472,22 @@ def musabaka_sporcu_sil_taolu(request, pk):
         return redirect('accounts:login')
     if request.method == 'POST' and request.is_ajax():
         try:
-            athlete = TaoluAthlete.objects.get(pk=pk)
-            athlete.delete()
+            id = int(request.POST.get('id'))
+            if id == 1:
+                athlete = TaoluAthlete.objects.get(pk=pk)
+                athlete.delete()
+            elif id == 2:
+                coach = TaoluCoach.objects.get(pk=pk)
+                coach.delete()
+            elif id == 3:
+                observer = TaoluObserver.objects.get(pk=pk)
+                observer.delete()
+            elif id == 4:
+                officer = TaoluOfficer.objects.get(pk=pk)
+                officer.delete()
+            elif id == 5:
+                judge = TaoluJudge.objects.get(pk=pk)
+                judge.delete()
             return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
         except SandaAthlete.DoesNotExist:
             return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
@@ -351,8 +505,22 @@ def musabaka_sporcu_sil(request, pk):
         return redirect('accounts:login')
     if request.method == 'POST' and request.is_ajax():
         try:
-            athlete = SandaAthlete.objects.get(pk=pk)
-            athlete.delete()
+            id = int(request.POST.get('id'))
+            if id == 1:
+                athlete = SandaAthlete.objects.get(pk=pk)
+                athlete.delete()
+            elif id == 2:
+                coach = SandaCoach.objects.get(pk=pk)
+                coach.delete()
+            elif id == 3:
+                observer = SandaObserver.objects.get(pk=pk)
+                observer.delete()
+            elif id == 4:
+                officer = SandaOfficer.objects.get(pk=pk)
+                officer.delete()
+            elif id == 5:
+                judge = SandaJudge.objects.get(pk=pk)
+                judge.delete()
             return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
         except SandaAthlete.DoesNotExist:
             return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
@@ -363,7 +531,7 @@ def musabaka_sporcu_sil(request, pk):
 
 @login_required
 def return_sporcu_sec_sanda(request):
-    perm = general_methods.control_access(request)
+    perm = general_methods.control_access_antrenor(request)
 
     if not perm:
         logout(request)
@@ -488,7 +656,7 @@ def musabaka_sanda_sporcu_ekle(request):
 
         try:
             compettion = Competition.objects.get(pk=request.POST.get('competition'))
-            athlete = Athlete.objects.get(pk=request.POST.get('athlete'))
+            id = int(request.POST.get('id'))
             if request.POST.get('sanda'):
                 if 0 == int(request.POST.get('sanda')):
                     sanda = 'Sanda'
@@ -498,17 +666,63 @@ def musabaka_sanda_sporcu_ekle(request):
                     sanda = 'Tuishou'
 
             if compettion.subBranch == EnumFields.SUBBRANCH.SANDA.value:
-                sandaAthlete = SandaAthlete(
-                    competition=compettion,
-                    athlete=athlete,
-                    competitiontype=sanda,
-                    athlete_yas_category=YearsSandaCategory.objects.get(pk=int(request.POST.get('yas'))).categoryYear
-                )
-                sandaAthlete.save()
-                mesaj = str(
-                    compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
-                log = general_methods.logwrite(request, request.user, mesaj)
-                return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
+                if id == 1:
+                    athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
+                    sandaAthlete = SandaAthlete(
+                        competition=compettion,
+                        athlete=athlete,
+                        competitiontype=sanda,
+                        athlete_yas_category=YearsSandaCategory.objects.get(pk=int(request.POST.get('yas'))).categoryYear
+                    )
+                    sandaAthlete.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
+                elif id == 2:
+                    coach = Coach.objects.get(pk=request.POST.get('coachId'))
+                    sandaCoach = SandaCoach(
+                        competition=compettion,
+                        coach=coach,
+                    )
+                    sandaCoach.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + sandaCoach.coach.person.name + ' ' + sandaCoach.coach.person.surName + 'added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+                elif id == 3:
+                    observer = Observer.objects.get(pk=request.POST.get('observerId'))
+                    sandaObserver = SandaObserver(
+                        competition=compettion,
+                        observer=observer,
+                    )
+                    sandaObserver.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + sandaObserver.observer.person.name + ' ' + sandaObserver.observer.person.surName + 'added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Observer Successfully Added'})
+                elif id == 4:
+                    officer = Officer.objects.get(pk=request.POST.get('officerId'))
+                    sandaOfficer = SandaOfficer(
+                        competition=compettion,
+                        officer=officer,
+                    )
+                    sandaOfficer.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + sandaOfficer.officer.person.name + ' ' + sandaOfficer.officer.person.surName + 'added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
+                elif id == 5:
+                    judge = Judge.objects.get(pk=request.POST.get('judgeId'))
+                    sandaJudge = SandaJudge(
+                        competition=compettion,
+                        judge=judge,
+                    )
+                    sandaJudge.save()
+                    mesaj = str(
+                        compettion.name) + ' to the competition ' + sandaJudge.judge.person.name + ' ' + sandaJudge.judge.person.surName + 'added'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
             else:
                 return JsonResponse({'status': 'Fail', 'msg': 'The sub-category of the competition is not Sanda'})
 

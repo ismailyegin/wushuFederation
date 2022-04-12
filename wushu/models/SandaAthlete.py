@@ -18,7 +18,7 @@ class SandaAthlete(models.Model):
     athlete_yas_category = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return '%s %s' % (self.athlete.user.first_name, self.athlete.user.last_name)
+        return '%s %s' % (self.athlete.person.name, self.athlete.person.surName)
 
     class Meta:
         default_permissions = ()

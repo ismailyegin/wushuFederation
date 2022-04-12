@@ -36,8 +36,24 @@
                     <h4 class="modal-title">Ek Bilgileri Seçiniz</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="modal-header">
+                        <a style="" href="{% url "wushu:sporcu-ekle" %}" class="btn btn-success" type="button">
+                            <i class="fa fa-plus"></i> Yeni Sporcu Ekle
+                        </a>
+                    </div>
+
+                    <label for="sporcuSec">Sporcu</label>
+                    <select style="width: 100%" id="sporcuSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Seçiniz...</option>
+                        {% for athlete in athleteSec %}
+                            <option value="{{ athlete.pk }}">{{ athlete.person.name }} {{ athlete.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
                     <label for="inputState">Müsabaka Türü</label>
-                    <select id="sanda" class="form-control" style="width: 100%;" >
+                    <select id="sanda" class="form-control" style="width: 100%;">
                         <option value="0" selected>Sanda</option>
                         <option value="1">Light Sanda</option>
                         <option value="2">Tuishou</option>
@@ -57,7 +73,6 @@
                     <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder"
                             data-dismiss="modal">Kaydet
                     </button>
-                    <button type="button" class="btn  btn-default" id="btn-closereddet">Geri Dön</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -65,6 +80,197 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal modal-dialog " tabindex="-1" role="dialog" id="modalantrenor"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Ek Bilgileri Seçiniz</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <a style="" href="{% url "wushu:add-coach" %}" class="btn btn-success" type="button">
+                            <i class="fa fa-plus"></i> Yeni Antrenor Ekle
+                        </a>
+                    </div>
+
+                    <label for="antrenorSec">Antrenör</label>
+                    <select style="width: 100%" id="antrenorSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Seçiniz...</option>
+                        {% for antrenor in antrenorSec %}
+                            <option value="{{ antrenor.pk }}">{{ antrenor.person.name }} {{ antrenor.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {#                    <label for="inputState">Müsabaka Türü</label>#}
+                    {#                    <select id="sanda" class="form-control" style="width: 100%;">#}
+                    {#                        <option value="0" selected>Sanda</option>#}
+                    {#                        <option value="1">Light Sanda</option>#}
+                    {#                        <option value="2">Tuishou</option>#}
+                    {##}
+                    {#                    </select>#}
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder2"
+                            data-dismiss="modal">Kaydet
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-dialog " tabindex="-1" role="dialog" id="modalgozlemci"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Ek Bilgileri Seçiniz</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <a style="" href="{% url "wushu:add-observer" %}" class="btn btn-success" type="button">
+                            <i class="fa fa-plus"></i> Yeni Gözlemci Ekle
+                        </a>
+                    </div>
+
+                    <label for="gozlemciSec">Gözlemci</label>
+                    <select style="width: 100%" id="gozlemciSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Seçiniz...</option>
+                        {% for gozlemci in gozlemciSec %}
+                            <option value="{{ gozlemci.pk }}">{{ gozlemci.person.name }} {{ gozlemci.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {#                    <label for="inputState">Müsabaka Türü</label>#}
+                    {#                    <select id="sanda" class="form-control" style="width: 100%;">#}
+                    {#                        <option value="0" selected>Sanda</option>#}
+                    {#                        <option value="1">Light Sanda</option>#}
+                    {#                        <option value="2">Tuishou</option>#}
+                    {##}
+                    {#                    </select>#}
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder3"
+                            data-dismiss="modal">Kaydet
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-dialog " tabindex="-1" role="dialog" id="modalresmigorevli"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Ek Bilgileri Seçiniz</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <a style="" href="{% url "wushu:add-officer" %}" class="btn btn-success" type="button">
+                            <i class="fa fa-plus"></i> Yeni Gözlemci Ekle
+                        </a>
+                    </div>
+
+                    <label for="resmiGorevliSec">Resmi Görevli</label>
+                    <select style="width: 100%" id="resmiGorevliSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Seçiniz...</option>
+                        {% for resmiGorevli in resmiGorevliSec %}
+                            <option value="{{ resmiGorevli.pk }}">{{ resmiGorevli.person.name }} {{ resmiGorevli.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {#                    <label for="inputState">Müsabaka Türü</label>#}
+                    {#                    <select id="sanda" class="form-control" style="width: 100%;">#}
+                    {#                        <option value="0" selected>Sanda</option>#}
+                    {#                        <option value="1">Light Sanda</option>#}
+                    {#                        <option value="2">Tuishou</option>#}
+                    {##}
+                    {#                    </select>#}
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder4"
+                            data-dismiss="modal">Kaydet
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-dialog " tabindex="-1" role="dialog" id="modalhakem"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Ek Bilgileri Seçiniz</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <a style="" href="{% url "wushu:add-judge" %}" class="btn btn-success" type="button">
+                            <i class="fa fa-plus"></i> Yeni Hakem Ekle
+                        </a>
+                    </div>
+
+                    <label for="hakemSec">Hakem</label>
+                    <select style="width: 100%" id="hakemSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Seçiniz...</option>
+                        {% for hakem in hakemSec %}
+                            <option value="{{ hakem.pk }}">{{ hakem.person.name }} {{ hakem.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {#                    <label for="inputState">Müsabaka Türü</label>#}
+                    {#                    <select id="sanda" class="form-control" style="width: 100%;">#}
+                    {#                        <option value="0" selected>Sanda</option>#}
+                    {#                        <option value="1">Light Sanda</option>#}
+                    {#                        <option value="2">Tuishou</option>#}
+                    {##}
+                    {#                    </select>#}
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder5"
+                            data-dismiss="modal">Kaydet
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
 
 
@@ -195,54 +401,704 @@
 
         <div class="row">
 
-            <section class="col-lg-12 ">
+            <div class="col-lg-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#sporcuIslemleri" data-toggle="tab" aria-expanded="true">Sporcu İşlemleri</a>
+                        </li>
+                        <li>
+                            <a href="#antrenorIslemleri" data-toggle="tab" aria-expanded="true">Antrenör İşlemleri</a>
+                        </li>
+                        <li>
+                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Gözlemci İşlemleri</a>
+                        </li>
+                        <li>
+                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Resmi Görevli
+                                İşlemleri</a>
+                        </li>
+                        <li>
+                            <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Hakem İşlemleri</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="sporcuIslemleri">
+                            <div class="box">
+                                <div class="row">
+
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Eklenen Sporcular </h3>
+                                    </div>
+                                    <div class="box-header with-border">
+
+                                        <div class="btn-group">
+
+                                            <a onclick="sporcuSec(1)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Athlete
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                <table id="" class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name Surname</th>
+                                                        <th>Date of birth</th>
+                                                        <th>Age - Sanda Category</th>
+                                                        <th>Gender</th>
+                                                        <th>Sub-Branch</th>
+                                                        <th>Transactions</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% if athletes %}
+                                                        {% for athlete in athletes %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }} </td>
+                                                                <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
+                                                                <td>{{ athlete.athlete.person.birthDate }} </td>
+                                                                <td>{{ athlete.athlete_yas_category }}
+                                                                    - {{ athlete.competitiontype }}</td>
+                                                                <td>
+                                                                    {% if athlete.athlete.person.gender == "Kadın" %}
+                                                                        BAYAN </td>
+                                                                    {% else %}ERKEK
+                                                                    {% endif %}
+
+                                                                <td>{{ athlete.competition.subBranch }}</td>
+
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                            <a onclick="deleteAthlete(1, {{ athlete.id }})"
+                                                                               type="button" class="btn btn-danger"><i
+                                                                                    class="fa fa-edit"></i>Remove
+                                                                            </a>
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+                                                    {% endif %}
 
 
-                <div class="box-body">
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Taolu Category</th>
+                                                            <th>Gender</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if athletes %}
+                                                            {% for athlete in athletes %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
+                                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
+                                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
+
+                                                                    <td>{{ athlete.athlete.person.birthDate }} </td>
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ athlete.athlete.licenses.last.sportsClub }}</td>
+                                                                    {% endif %}
+                                                                    <td>{{ athlete.category }}</td>
+                                                                    <td>
+                                                                        {% if athlete.athlete.person.gender == "Kadın" %}
+                                                                            BAYAN </td>
+                                                                        {% else %}ERKEK
+                                                                        {% endif %}
+
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteAthlete(1, {{ athlete.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>Remove
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
 
 
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Sporcu Seç </h3>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
                         </div>
 
-                        <div class="btn-group">
+                        <div class="tab-pane" id="antrenorIslemleri">
+                            <div class="box">
+                                <div class="row">
 
-                            <a href="{% url "wushu:musabaka-duzenle" competition.pk %}"
-                               type="button" class="btn btn-success"><i
-                                    class="fa fa-edit"></i>Eklenen Sporcular
-                            </a>
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Eklenen Antrenörler </h3>
+                                    </div>
+                                    <div class="box-header with-border">
 
+                                        <div class="btn-group">
+
+                                            <a onclick="antrenorSec(2)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Coach
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                <table id="" class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name Surname</th>
+                                                        <th>Date of birth</th>
+                                                        <th>Gender</th>
+                                                        <th>Transactions</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% if coaches %}
+                                                        {% for coach in coaches %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }} </td>
+                                                                <td>{{ coach.coach.person.name }} {{ coach.coach.person.surName }} </td>
+                                                                <td>{{ coach.coach.person.birthDate }} </td>
+                                                                <td>
+                                                                    {% if coach.coach.person.gender == "Kadın" %}
+                                                                        BAYAN
+                                                                    {% else %}ERKEK
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                            <a onclick="deleteCoach(2, {{ coach.id }})"
+                                                                               type="button" class="btn btn-danger"><i
+                                                                                    class="fa fa-edit"></i>Remove
+                                                                            </a>
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+                                                    {% endif %}
+
+
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Gender</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if coaches %}
+                                                            {% for coach in coaches %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ coach.coach.person.name }} {{ coach.coach.person.surName }} </td>
+                                                                    <td>{{ coach.coach.person.birthDate }} </td>
+                                                                    <td>
+                                                                        {% if coach.coach.person.gender == "Kadın" %}
+                                                                            BAYAN </td>
+                                                                        {% else %}ERKEK
+                                                                        {% endif %}
+
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteCoach(2, {{ coach.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>Remove
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
                         </div>
-                        <div class="box-body berktug">
-                            <form method="post" enctype="multipart/form-data" role="form">
-                                {% csrf_token %}
-                                <table id="sporcular" class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Ad Soyad</th>
-                                        <th>Seç</th>
+
+                        <div class="tab-pane" id="gozlemciIslemleri">
+                            <div class="box">
+                                <div class="row">
+
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Eklenen Gözlemciler </h3>
+                                    </div>
+                                    <div class="box-header with-border">
+
+                                        <div class="btn-group">
+
+                                            <a onclick="gozlemciSec(3)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Observer
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                <table id="" class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name Surname</th>
+                                                        <th>Date of birth</th>
+                                                        <th>Gender</th>
+                                                        <th>Transactions</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% if observers %}
+                                                        {% for observer in observers %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }} </td>
+                                                                <td>{{ observer.observer.person.name }} {{ observer.observer.person.surName }} </td>
+                                                                <td>{{ observer.observer.person.birthDate }} </td>
+                                                                <td>
+                                                                    {% if observer.observer.person.gender == "Kadın" %}
+                                                                        BAYAN
+                                                                    {% else %}ERKEK
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                            <a onclick="deleteObserver(3, {{ observer.id }})"
+                                                                               type="button" class="btn btn-danger"><i
+                                                                                    class="fa fa-edit"></i>Remove
+                                                                            </a>
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+                                                    {% endif %}
 
 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Gender</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if observers %}
+                                                            {% for observer in observers %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ observer.observer.person.name }} {{ observer.observer.person.surName }} </td>
+                                                                    <td>{{ observer.observer.person.birthDate }} </td>
+                                                                    <td>
+                                                                        {% if observer.observer.person.gender == "Kadın" %}
+                                                                            BAYAN </td>
+                                                                        {% else %}ERKEK
+                                                                        {% endif %}
+
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteObserver(3, {{ observer.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>Remove
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
 
 
-                                    </tbody>
-                                </table>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
 
 
-                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
                         </div>
+
+                        <div class="tab-pane" id="resmiGorevliIslemleri">
+                            <div class="box">
+                                <div class="row">
+
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Eklenen Resmi Görevliler </h3>
+                                    </div>
+                                    <div class="box-header with-border">
+
+                                        <div class="btn-group">
+
+                                            <a onclick="resmiGorevliSec(4)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Officer
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                <table id="" class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name Surname</th>
+                                                        <th>Date of birth</th>
+                                                        <th>Gender</th>
+                                                        <th>Transactions</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% if officers %}
+                                                        {% for officer in officers %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }} </td>
+                                                                <td>{{ officer.officer.person.name }} {{ officer.officer.person.surName }} </td>
+                                                                <td>{{ officer.officer.person.birthDate }} </td>
+                                                                <td>
+                                                                    {% if officer.officer.person.gender == "Kadın" %}
+                                                                        BAYAN
+                                                                    {% else %}ERKEK
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                            <a onclick="deleteOfficer(4, {{ officer.id }})"
+                                                                               type="button" class="btn btn-danger"><i
+                                                                                    class="fa fa-edit"></i>Remove
+                                                                            </a>
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+                                                    {% endif %}
+
+
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Gender</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if officers %}
+                                                            {% for officer in officers %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ officer.officer.person.name }} {{ officer.officer.person.surName }} </td>
+                                                                    <td>{{ officer.officer.person.birthDate }} </td>
+                                                                    <td>
+                                                                        {% if officer.officer.person.gender == "Kadın" %}
+                                                                            BAYAN </td>
+                                                                        {% else %}ERKEK
+                                                                        {% endif %}
+
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteOfficer(4, {{ officer.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>Remove
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="hakemIslemleri">
+                            <div class="box">
+                                <div class="row">
+
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Eklenen Hakemler </h3>
+                                    </div>
+                                    <div class="box-header with-border">
+
+                                        <div class="btn-group">
+
+                                            <a onclick="hakemSec(5)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Referee
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                <table id="" class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name Surname</th>
+                                                        <th>Date of birth</th>
+                                                        <th>Gender</th>
+                                                        <th>Transactions</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% if judges %}
+                                                        {% for judge in judges %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }} </td>
+                                                                <td>{{ judge.judge.person.name }} {{ judge.judge.person.surName }} </td>
+                                                                <td>{{ judge.judge.person.birthDate }} </td>
+                                                                <td>
+                                                                    {% if judge.judge.person.gender == "Kadın" %}
+                                                                        BAYAN
+                                                                    {% else %}ERKEK
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                            <a onclick="deleteJudge(5, {{ judge.id }})"
+                                                                               type="button" class="btn btn-danger"><i
+                                                                                    class="fa fa-edit"></i>Remove
+                                                                            </a>
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        {% endfor %}
+                                                    {% endif %}
+
+
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu" class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Gender</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if judges %}
+                                                            {% for judge in judges %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ judge.judge.person.name }} {{ judge.judge.person.surName }} </td>
+                                                                    <td>{{ judge.judge.person.birthDate }} </td>
+                                                                    <td>
+                                                                        {% if judge.judge.person.gender == "Kadın" %}
+                                                                            BAYAN </td>
+                                                                        {% else %}ERKEK
+                                                                        {% endif %}
+
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteJudge(5, {{ judge.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>Remove
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
+                        </div>
+
                     </div>
-                    <!-- /.box -->
-
-
                 </div>
-            </section>
-
+            </div>
 
         </div>
         <!-- /.row (main row) -->
@@ -296,7 +1152,7 @@
                                 {#console.log(data);#}
 
 
-                                return '<div class="btn-group"><a type="button" class="btn btn-warning" onclick="sporcusec(' + data.pk + ')"><i class="fa fa-edit"></i>' + 'Seç' + '</a></div>';
+                                return '<div class="btn-group"><a type="button" class="btn btn-warning" onclick="sporcusec(1)"><i class="fa fa-edit"></i>' + 'Seç' + '</a></div>';
                             }
                         },
 
@@ -379,7 +1235,7 @@
 
         });
 
-        function sporcusec(id) {
+        function sporcuSec(id) {
             $("#modalsporcu").on("shown.bs.modal", function (e) {
 
                 $("#btn-gonder").click(function () {
@@ -388,12 +1244,13 @@
                         e.handled = true;
 
 
-                        if ($('#sanda').val() != 'Seçiniz...' && id != null) {
+                        if ($('#sanda').val() != 'Seçiniz...' && id != null && $('#sporcuSec').val()) {
                             console.log($('#sanda').text())
 
                             sanda = document.getElementById('sanda').value;
                             debugger;
                             let sanda_yas = document.getElementById('sanda-yas').value
+                            athleteId = $('#sporcuSec').val();
 
 
                             $.ajax({
@@ -403,8 +1260,9 @@
                                     'csrfmiddlewaretoken': "{{  csrf_token  }}",
                                     sanda: sanda,
                                     competition: {{ competition.pk }},
-                                    athlete: id,
-                                    yas: sanda_yas
+                                    athleteId: athleteId,
+                                    yas: sanda_yas,
+                                    id: id,
 
                                 },
 
@@ -412,16 +1270,24 @@
 
                                     if (result.status == "Success") {
 
-                                        html = 'Sporcu Başarıyla Eklendi .';
+                                        html = 'Athlete Successfully Added.';
                                         debugger;
                                         $(".successModal").html(html);
-                                        alert('Başarılı bir şekilde eklendi')
-                                        window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
 
                                     } else {
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
                                             $(".btn-ok").click(function () {
+
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
@@ -455,6 +1321,576 @@
             });
 
         }
+
+        function antrenorSec(id) {
+            $("#modalantrenor").on("shown.bs.modal", function (e) {
+
+                $("#btn-gonder2").click(function () {
+
+                    if (e.handled !== true) {
+                        e.handled = true;
+
+
+                        if ($('#sanda').val() != 'Seçiniz...' && id != null && $('#antrenorSec').val()) {
+                            console.log($('#sanda').text())
+
+                            sanda = document.getElementById('sanda').value;
+                            debugger;
+                            let sanda_yas = document.getElementById('sanda-yas').value
+                            coachId = $('#antrenorSec').val();
+
+
+                            $.ajax({
+                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                type: "POST",
+                                data: {
+                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                    sanda: sanda,
+                                    competition: {{ competition.pk }},
+                                    coachId: coachId,
+                                    yas: sanda_yas,
+                                    id: id,
+
+                                },
+
+                                success: function (result) {
+
+                                    if (result.status == "Success") {
+
+                                        html = 'Coach Successfully Added.';
+                                        debugger;
+                                        $(".successModal").html(html);
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
+
+                                    } else {
+
+                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
+
+                                        }).modal('show');
+
+
+                                    }
+
+
+                                }
+                            });
+                        } else {
+
+                            alert("Lütfen eksik alanlari giriniz");
+
+                        }
+
+                    }
+                });
+
+
+            }).modal('show');
+            $('#btn-closereddet').click(function () {
+
+
+                $('#modalantrenor').modal('hide');
+                $('.modal').modal('hide');
+
+            });
+
+        }
+
+        function gozlemciSec(id) {
+            $("#modalgozlemci").on("shown.bs.modal", function (e) {
+
+                $("#btn-gonder3").click(function () {
+
+                    if (e.handled !== true) {
+                        e.handled = true;
+
+
+                        if ($('#sanda').val() != 'Seçiniz...' && id != null && $('#gozlemciSec').val()) {
+                            console.log($('#sanda').text())
+
+                            sanda = document.getElementById('sanda').value;
+                            debugger;
+                            let sanda_yas = document.getElementById('sanda-yas').value
+                            observerId = $('#gozlemciSec').val();
+
+
+                            $.ajax({
+                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                type: "POST",
+                                data: {
+                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                    sanda: sanda,
+                                    competition: {{ competition.pk }},
+                                    observerId: observerId,
+                                    yas: sanda_yas,
+                                    id: id,
+
+                                },
+
+                                success: function (result) {
+
+                                    if (result.status == "Success") {
+
+                                        html = 'Observer Successfully Added.';
+                                        debugger;
+                                        $(".successModal").html(html);
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
+
+                                    } else {
+
+                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
+
+                                        }).modal('show');
+
+
+                                    }
+
+
+                                }
+                            });
+                        } else {
+
+                            alert("Lütfen eksik alanlari giriniz");
+
+                        }
+
+                    }
+                });
+
+
+            }).modal('show');
+            $('#btn-closereddet').click(function () {
+
+
+                $('#modalgozlemci').modal('hide');
+                $('.modal').modal('hide');
+
+            });
+
+        }
+
+        function resmiGorevliSec(id) {
+            $("#modalresmigorevli").on("shown.bs.modal", function (e) {
+
+                $("#btn-gonder4").click(function () {
+
+                    if (e.handled !== true) {
+                        e.handled = true;
+
+
+                        if ($('#sanda').val() != 'Seçiniz...' && id != null && $('#resmiGorevliSec').val()) {
+                            console.log($('#sanda').text())
+
+                            sanda = document.getElementById('sanda').value;
+                            debugger;
+                            let sanda_yas = document.getElementById('sanda-yas').value
+                            officerId = $('#resmiGorevliSec').val();
+
+
+                            $.ajax({
+                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                type: "POST",
+                                data: {
+                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                    sanda: sanda,
+                                    competition: {{ competition.pk }},
+                                    officerId: officerId,
+                                    yas: sanda_yas,
+                                    id: id,
+
+                                },
+
+                                success: function (result) {
+
+                                    if (result.status == "Success") {
+
+                                        html = 'Officer Successfully Added.';
+                                        debugger;
+                                        $(".successModal").html(html);
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
+
+                                    } else {
+
+                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
+
+                                        }).modal('show');
+
+
+                                    }
+
+
+                                }
+                            });
+                        } else {
+
+                            alert("Lütfen eksik alanlari giriniz");
+
+                        }
+
+                    }
+                });
+
+
+            }).modal('show');
+            $('#btn-closereddet').click(function () {
+
+
+                $('#modalresmigorevli').modal('hide');
+                $('.modal').modal('hide');
+
+            });
+
+        }
+
+        function hakemSec(id) {
+            $("#modalhakem").on("shown.bs.modal", function (e) {
+
+                $("#btn-gonder5").click(function () {
+
+                    if (e.handled !== true) {
+                        e.handled = true;
+
+
+                        if ($('#sanda').val() != 'Seçiniz...' && id != null && $('#hakemSec').val()) {
+                            console.log($('#sanda').text())
+
+                            sanda = document.getElementById('sanda').value;
+                            debugger;
+                            let sanda_yas = document.getElementById('sanda-yas').value
+                            judgeId = $('#hakemSec').val();
+
+
+                            $.ajax({
+                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                type: "POST",
+                                data: {
+                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                    sanda: sanda,
+                                    competition: {{ competition.pk }},
+                                    judgeId: judgeId,
+                                    yas: sanda_yas,
+                                    id: id,
+
+                                },
+
+                                success: function (result) {
+
+                                    if (result.status == "Success") {
+
+                                        html = 'Referee Successfully Added.';
+                                        debugger;
+                                        $(".successModal").html(html);
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
+
+                                    } else {
+
+                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
+
+                                        }).modal('show');
+
+
+                                    }
+
+
+                                }
+                            });
+                        } else {
+
+                            alert("Lütfen eksik alanlari giriniz");
+
+                        }
+
+                    }
+                });
+
+
+            }).modal('show');
+            $('#btn-closereddet').click(function () {
+
+
+                $('#modalhakem').modal('hide');
+                $('.modal').modal('hide');
+
+            });
+
+        }
+    </script>
+
+    <script>
+        function deleteAthlete(id, athleteId) {
+
+            console.log(id);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, athleteId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, athleteId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                        },
+                        success: function (result) {
+
+                            html = 'Athlete Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
+
+        function deleteCoach(id, coachId) {
+
+            console.log(id);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, coachId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, coachId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                        },
+                        success: function (result) {
+
+                            html = 'Coach Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
+
+        function deleteObserver(id, observerId) {
+
+            console.log(id);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, observerId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, observerId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                        },
+                        success: function (result) {
+
+                            html = 'Observer Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
+
+        function deleteOfficer(id, officerId) {
+
+            console.log(id);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, officerId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, officerId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                        },
+                        success: function (result) {
+
+                            html = 'Officer Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
+
+        function deleteJudge(id, judgeId) {
+
+            console.log(id);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, judgeId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, judgeId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                        },
+                        success: function (result) {
+
+                            html = 'Referee Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
     </script>
 
 {% endblock %}
