@@ -21,13 +21,19 @@ class PersonForm(ModelForm):
 
             'birthDate': forms.DateInput(
                 attrs={'class': 'form-control  pull-right datemask2013', 'autocomplete': 'on',
-                        'required': 'required'}),
+                       'required': 'required'}),
 
             'gender': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                           'style': 'width: 100%; '}),
 
             'country': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                            'style': 'width: 100%;', 'required': 'required'}),
+
+            'profileImage': forms.FileInput(attrs={'id': 'id_profileImage', 'name': 'profileImage',
+                                                   'onchange': 'previewImage()', }),
+
+            'pasaportImage': forms.FileInput(attrs={'id': 'id_passportImage', 'name': 'passportImage',
+                                                   'onchange': 'previewImage2()', }),
 
         }
 

@@ -183,42 +183,40 @@
 
 
                                 </div>
+
                                 <div class="col-lg-4">
                                     <div class="form-group">
+
                                         <center>
 
-                                            <label> {{ person_form.profileImage.label }}</label>
+                                            <label for="id_profileImage"> {{ person_form.profileImage.label }}
 
+                                                <img src="{% static 'images/user.png' %} " id="preview"
+                                                     class="img-responsive img-rounded"
+                                                     style=" height: 125px;width: 130px;">
 
-                                            <img src="{% static 'images/user.png' %} " id="preview"
-                                                 class="img-responsive img-rounded"
-                                                 style=" height: 125px;width: 130px;">
-
-                                            <p>
-
-                                                <input type="file" name="profileImage" accept="image/*"
-                                                       id="id_profileImage" name=""
-                                                       onchange="previewImage()">
-
+                                            </label>
+                                            {{ person_form.profileImage }}
                                         </center>
+
                                     </div>
                                     <div class="form-group">
+
+
                                         <center>
-                                            <label> {{ person_form.pasaportImage.label }}</label>
-                                            {% load static %}
-                                            <img src="{% static 'images/photo.png' %}" id="preview2"
-                                                 class="img-responsive img-rounded "
-                                                 style="height: 125px;width: 100px;">
-                                            <p>
-                                                <input accept="image/*" type="file" class="form-group"
-                                                       name="" required="" id="id_lisansPhoto"
-                                                       onchange="previewImage2()">
-
-                                            </p>
+                                            <label for="id_passportImage"> {{ person_form.pasaportImage.label }}
+                                                {% load static %}
+                                                <img src="{% static 'images/photo.png' %}" id="preview2"
+                                                     class="img-responsive img-rounded "
+                                                     style="height: 125px;width: 130px;">
+                                            </label>
+                                            {{ person_form.pasaportImage }}
                                         </center>
-                                    </div>
-                                </div>
 
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
@@ -307,13 +305,13 @@
         }
 
         function previewImage2() {
-            var file = document.getElementById("id_lisansPhoto").files;
-            if (file.length > 0) {
-                var fileReader = new FileReader();
-                fileReader.onload = function (event) {
+            var file2 = document.getElementById("id_passportImage").files;
+            if (file2.length > 0) {
+                var fileReader2 = new FileReader();
+                fileReader2.onload = function (event) {
                     document.getElementById("preview2").setAttribute("src", event.target.result);
                 }
-                fileReader.readAsDataURL(file[0]);
+                fileReader2.readAsDataURL(file2[0]);
             }
         }
     </script>
