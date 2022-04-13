@@ -150,7 +150,7 @@
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
-                        <a href="{% url 'wushu:musabakalar' %}" class="small-box-footer">
+                        <a href="{% url 'wushu:musabakalar'%}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -195,7 +195,7 @@
                         <div class="inner">
                             <h3>{{ observers.count }}</h3>
 
-                            <p>Observer</p>
+                            <p>Observers</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
@@ -244,89 +244,97 @@
         </section>
         <section class="content">
 
-            {% if application.all %}
-                {% for competition in application %}
+        {% if application.all %}
+            {% for competition in application %}
 
-                    <div class="row">
-                        <section class="col-lg-12 ">
+                <div class="row">
+                    <section class="col-lg-12 ">
 
-                            <div class=" dash-center">
-                                <div class="profile-left mb20">
-                                    <h4><span class="label pull-left label-danger mr5"
-                                              style="margin: 0px 0px 0px 0px">Current Competition</span></h4>
+                        <div class=" dash-center">
+                            <div class="profile-left mb20">
+                                <h4><span class="label pull-left label-danger mr5"
+                                          style="margin: 0px 0px 0px 0px">Current Competition</span></h4>
 
 
-                                    <div class="profile-left-heading">
-                                        <h2 class="profile-name">{{ competition.name }}</h2>
-                                        <h4 class="profile-designation">{{ competition.startDate |date:"d " }}
-                                            - {{ competition.finishDate | date }}</h4>
-                                        <center>
-                                            <div class="box-header with-border">
-                                                <div class="btn-group">
-                                                    {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                        <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
-                                                           type="button" class="btn btn-danger"><i
-                                                                class="fa fa-edit"></i>Make an application
-                                                        </a>
-                                                    {% endif %}
+                                <div class="profile-left-heading">
+                                    <h2 class="profile-name">{{ competition.name }}</h2>
+                                    <h4 class="profile-designation">{{ competition.startDate |date:"d " }}
+                                        - {{ competition.finishDate | date }}</h4>
+                                    <center>
+                                        <div class="box-header with-border">
+                                                        {% if athletes %}
+                                                            <div class="btn-group">
+                                                                {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                                    <a href="{% url "wushu:musabaka-sanda-ekle" competition.pk %}"
+                                                                       type="button" class="btn btn-danger"><i
+                                                                            class="fa fa-edit"></i>Make an application
+                                                                    </a>
+                                                                {% endif %}
 
-                                                    {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                                {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
 
-                                                        <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
-                                                           type="button" class="btn btn-danger"><i
-                                                                class="fa fa-edit"></i>Make an application
-                                                        </a>
-                                                    {% endif %}
+                                                                    <a href="{% url "wushu:musabaka-taolu-ekle" competition.pk %}"
+                                                                       type="button" class="btn btn-danger"><i
+                                                                            class="fa fa-edit"></i>Make an application
+                                                                    </a>
+                                                                {% endif %}
 
-                                                </div>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="btn-group">
+                                                                <a href="{% url "wushu:sporcu-ekle" %}"
+                                                                   type="button" class="btn btn-success"><i
+                                                                        class="fa fa-edit"></i> Add Athletes
+                                                                </a>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                    </center>
 
+                                </div>
+                                <div class="profile-left-body">
+
+
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-4">
+                                            <div class="pull-left">
+                                                <h4 class="panel-title">LOCATION</h4>
+                                                <p>
+                                                    <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
+                                                </p>
                                             </div>
-                                        </center>
-
-                                    </div>
-                                    <div class="profile-left-body">
-
-
-                                        <div class="row">
-                                            <div class="col-xs-5 col-sm-4">
-                                                <div class="pull-left">
-                                                    <h4 class="panel-title">LOCATION</h4>
-                                                    <p>
-                                                        <i class="glyphicon glyphicon-map-marker mr5"></i>{{ competition.location }}
-                                                    </p>
-                                                </div>
+                                        </div>
+                                        <div class="col-xs-5 col-sm-4">
+                                            <div class="pull-left">
+                                                <h4 class="panel-title">DATE</h4>
+                                                <p>
+                                                    <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d " }}
+                                                    - {{ competition.finishDate | date }}</p>
                                             </div>
-                                            <div class="col-xs-5 col-sm-4">
-                                                <div class="pull-left">
-                                                    <h4 class="panel-title">DATE OF THE COMPETITION</h4>
-                                                    <p>
-                                                        <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d " }}
-                                                        - {{ competition.finishDate | date }}</p>
-                                                </div>
+                                        </div>
+                                        <div class="col-xs-5 col-sm-4">
+                                            <div class="pull-left">
+                                                <h4 class="panel-title">REGISTERATION DATE</h4>
+                                                <p>
+                                                    <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d " }}
+                                                    - {{ competition.registerFinishDate | date }}</p>
                                             </div>
-                                            <div class="col-xs-5 col-sm-4">
-                                                <div class="pull-left">
-                                                    <h4 class="panel-title">DATE OF ONLINE APPLICATION</h4>
-                                                    <p>
-                                                        <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d " }}
-                                                        - {{ competition.registerFinishDate | date }}</p>
-                                                </div>
-                                            </div>
+                                        </div>
 
-                                        </div><!-- row -->
+                                    </div><!-- row -->
 
 
-                                    </div>
-                                </div><!-- profile-left -->
-                                <br>
-                            </div>
-                        </section>
+                                </div>
+                            </div><!-- profile-left -->
+                            <br>
+                        </div>
+                    </section>
 
-                    </div>
-                {% endfor %}
-            {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-        </section>
+    </section>
     </section>
 
 {% endblock %}
