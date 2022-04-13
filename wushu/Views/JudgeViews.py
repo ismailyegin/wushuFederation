@@ -47,7 +47,7 @@ def return_add_judge(request):
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
 
-                messages.success(request, 'Judge Registered Successfully.')
+                messages.success(request, 'Referee Registered Successfully.')
 
                 return redirect('wushu:judges')
 
@@ -72,7 +72,7 @@ def return_add_judge(request):
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
 
-                messages.success(request, 'Judge Registered Successfully.')
+                messages.success(request, 'Referee Registered Successfully.')
 
                 return redirect('wushu:judges')
 
@@ -120,7 +120,7 @@ def return_judges(request):
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
 
-                messages.success(request, 'Judge Registered Successfully.')
+                messages.success(request, 'Referee Registered Successfully.')
 
                 return redirect('wushu:judges')
 
@@ -145,7 +145,7 @@ def return_judges(request):
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
 
-                messages.success(request, 'Judge Registered Successfully.')
+                messages.success(request, 'Referee Registered Successfully.')
 
                 return redirect('wushu:judges')
 
@@ -190,7 +190,7 @@ def updatejudges(request, pk):
                 judge_form.save()
                 judge_federation_form.save()
 
-                messages.success(request, 'Judge Successfully Updated.')
+                messages.success(request, 'Referee Successfully Updated.')
 
                 mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
                 log = general_methods.logwrite(request, request.user, mesaj)
@@ -207,7 +207,7 @@ def updatejudges(request, pk):
 
                 person_form.save()
                 judge_form.save()
-                messages.success(request, 'Judge Successfully Updated.')
+                messages.success(request, 'Referee Successfully Updated.')
 
                 mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
                 log = general_methods.logwrite(request, request.user, mesaj)
