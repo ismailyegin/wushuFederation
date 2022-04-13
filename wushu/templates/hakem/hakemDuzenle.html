@@ -121,15 +121,18 @@
                                         <label> {{ person_form.profileImage.label }}</label>
 
                                         <center>
-                                            <img
-                                                    src="/media/{{ person_form.instance.profileImage }}"
-                                                    class="img-responsive img-bordered" alt="Resim Yok"
-                                                    style=" width:120px; height: 125px;"
+                                            <label for="id_profileImage"> {{ person_form.profileImage.label }}
+                                                <img
+                                                        src="/media/{{ person_form.instance.profileImage }}"
+                                                        class="img-responsive img-bordered" alt="Resim Yok" id="preview"
+                                                        style=" width:100px; height: 100px;"
 
-                                            ><br>
+                                                ><br>
+                                            </label>
                                         </center>
 
                                         {{ person_form.profileImage }}
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -137,12 +140,14 @@
                                         <label> {{ person_form.pasaportImage.label }}</label>
 
                                         <center>
-                                            <img
-                                                    src="/media/{{ person_form.instance.pasaportImage }}"
-                                                    class="img-responsive img-bordered" alt="Resim Yok"
-                                                    style=" width:110px; height: 120px;"
+                                            <label for="id_passportImage"> {{ person_form.pasaportImage.label }}
+                                                <img
+                                                        src="/media/{{ person_form.instance.pasaportImage }}"
+                                                        class="img-responsive img-bordered" alt="Resim Yok" id="preview2"
+                                                        style=" width:100px; height: 100px;"
 
-                                            ><br>
+                                                ><br>
+                                            </label>
                                         </center>
 
                                         {{ person_form.pasaportImage }}
@@ -169,15 +174,14 @@
                 fileReader.readAsDataURL(file[0]);
             }
         }
-
         function previewImage2() {
-            var file = document.getElementById("id_lisansPhoto").files;
-            if (file.length > 0) {
-                var fileReader = new FileReader();
-                fileReader.onload = function (event) {
+            var file2 = document.getElementById("id_passportImage").files;
+            if (file2.length > 0) {
+                var fileReader2 = new FileReader();
+                fileReader2.onload = function (event) {
                     document.getElementById("preview2").setAttribute("src", event.target.result);
                 }
-                fileReader.readAsDataURL(file[0]);
+                fileReader2.readAsDataURL(file2[0]);
             }
         }
     </script>
