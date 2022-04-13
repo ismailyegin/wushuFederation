@@ -1,6 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from wushu.models import Competition, Coach, Observer, Officer, Judge
 from wushu.models.Athlete import Athlete
@@ -38,7 +39,8 @@ def return_federation_dashboard(request):
         logout(request)
 
         return redirect('accounts:login')
-    competitions = Competition.objects.all().order_by('-startDate')
+    competitions = Competition.objects.filter(registerStartDate__lte=timezone.now(),
+                                             registerFinishDate__gte=timezone.now())
     athletes = Athlete.objects.filter(federation__user=request.user)
     coaches = Coach.objects.filter(federation__user=request.user)
     observers = Observer.objects.filter(federation__user=request.user)

@@ -36,8 +36,14 @@ def return_competitions(request):
     if not perm:
         logout(request)
         return redirect('accounts:login')
-    competition = Competition.objects.filter(registerStartDate__lte=timezone.now(),
-                                             registerFinishDate__gte=timezone.now())
+    if request.user.groups.filter(name='Federation'):
+        competition = Competition.objects.filter(registerStartDate__lte=timezone.now(),
+                                                 registerFinishDate__gte=timezone.now())
+    elif request.user.groups.filter(name='Admin'):
+        competition = Competition.objects.all()
+    else:
+        competition = None
+    
     competitions = Competition.objects.all().order_by('-startDate')
     if request.user.groups.filter(name='Federation'):
         athletes = Athlete.objects.filter(federation__user=request.user)
