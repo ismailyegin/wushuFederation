@@ -258,8 +258,13 @@
 
                                     <div class="profile-left-heading">
                                         <h2 class="profile-name">{{ competition.name }}</h2>
-                                        <h4 class="profile-designation">{{ competition.startDate |date:"d F" }}
-                                            - {{ competition.finishDate | date:"d F Y" }}</h4>
+                                        <h4 class="profile-designation">
+                                            {% load i18n %}
+                                            {% language 'en' %}
+                                            {{ competition.startDate |date:"d F" }}
+                                            - {{ competition.finishDate | date:"d F Y" }}
+                                            {% endlanguage %}
+                                        </h4>
                                         <center>
                                             <div class="box-header with-border">
                                                 <div class="btn-group">
@@ -299,16 +304,24 @@
                                                 <div class="pull-left">
                                                     <h4 class="panel-title">DATE</h4>
                                                     <p>
-                                                        <i class="fa fa-calendar mr5"></i> {{ competition.startDate |date:"d F" }}
-                                                        - {{ competition.finishDate | date:"d F Y" }}</p>
+                                                        <i class="fa fa-calendar mr5"></i>
+                                                        {% language 'en' %}
+                                                        {{ competition.startDate |date:"d F" }}
+                                                        - {{ competition.finishDate | date:"d F Y" }}
+                                                        {% endlanguage %}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-xs-5 col-sm-4">
                                                 <div class="pull-left">
                                                     <h4 class="panel-title">REGISTERATION DATE</h4>
                                                     <p>
-                                                        <i class="fa fa-calendar mr5"></i>{{ competition.registerStartDate |date:"d F" }}
-                                                        - {{ competition.registerFinishDate | date:"d F Y" }}</p>
+                                                        <i class="fa fa-calendar mr5"></i>
+                                                        {% language 'en' %}
+                                                        {{ competition.registerStartDate |date:"d F" }}
+                                                        - {{ competition.registerFinishDate | date:"d F Y" }}
+                                                        {% endlanguage %}
+                                                    </p>
                                                 </div>
                                             </div>
 
