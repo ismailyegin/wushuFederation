@@ -43,7 +43,7 @@
                     </div>
 
                     <label for="sporcuSec">Athlete</label>
-                    <select style="width: 100%" id="sporcuSec"
+                    <select style="width: 100%" id="sporcuSec" name="sporcuSec" onchange="get_category()"
                             class="form-control select2 select2-hidden-accessible"
                             tabindex="-1" aria-hidden="true">
                         <option selected>Choose...</option>
@@ -60,10 +60,11 @@
 
                     </select>
                     <label for="inputState">Weight Category</label>
-                    <select id="sanda-weight" style="width: 100%;" class=" form-control">
-                        {% for item in weightCategory %}
-                            <option value="{{ item.pk }}">{{ item.categoryName }}</option>
-                        {% endfor %}
+                    <select id="sanda-weight" name='sanda-weight' style="width: 100%;" class=" form-control">
+                        {#                        {% for item in weightCategory %}#}
+                        {#                            <option value="{{ item.pk }}">{{ item.categoryName }}</option>#}
+                        {#                        {% endfor %}#}
+                        <option value=""></option>
                     </select>
 
                 </div>
@@ -411,10 +412,12 @@
                             <a href="#antrenorIslemleri" data-toggle="tab" aria-expanded="true">Coach Registration</a>
                         </li>
                         <li>
-                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Observer Registration</a>
+                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Observer
+                                Registration</a>
                         </li>
                         <li>
-                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Official Registration</a>
+                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Official
+                                Registration</a>
                         </li>
                         <li>
                             <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Referee Registration</a>
@@ -441,7 +444,8 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="sanda1" class="table table-bordered table-hover" style="width: 100%;">
+                                                <table id="sanda1" class="table table-bordered table-hover"
+                                                       style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -464,7 +468,7 @@
                                                                 <td>{{ athlete.athlete.person.birthDate.year }} </td>
                                                                 <td>{{ athlete.weight_category }}</td>
                                                                 <td>
-                                                                    {% if athlete.athlete.person.gender == "Kadın" %}
+                                                                    {% if athlete.athlete.person.gender == "WOMAN" %}
                                                                         WOMAN </td>
                                                                     {% else %}MAN
                                                                     {% endif %}
@@ -585,7 +589,8 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="sanda2" class="table table-bordered table-hover" style="width: 100%;">
+                                                <table id="sanda2" class="table table-bordered table-hover"
+                                                       style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -717,7 +722,8 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="sanda3" class="table table-bordered table-hover" style="width: 100%;">
+                                                <table id="sanda3" class="table table-bordered table-hover"
+                                                       style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -849,7 +855,8 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="sanda4" class="table table-bordered table-hover" style="width: 100%;">
+                                                <table id="sanda4" class="table table-bordered table-hover"
+                                                       style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -981,7 +988,8 @@
 
                                         <div class="box-body">
                                             {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="sanda5" class="table table-bordered table-hover" style="width: 100%;">
+                                                <table id="sanda5" class="table table-bordered table-hover"
+                                                       style="width: 100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -2214,6 +2222,44 @@
             });
 
         };
+    </script>
+
+    <script>
+        function get_category() {
+            debugger;
+
+            var e = document.getElementById("sporcuSec");
+            var athleteId = e.options[e.selectedIndex].value;
+            $.ajax({
+                url: "{% url 'wushu:get_weight_category' %}",
+                type: "post", // or "get"
+                async: false,
+                data: {
+                    athleteId: athleteId,
+                },
+                headers: { "X-CSRFToken": '{{csrf_token}}' },
+
+                success: function (result) {
+                    debugger;
+
+                    let select = document.getElementById("sanda-weight");
+
+                    select.options[select.options.length] = new Option('Text 1', 'Value1');
+
+                    $('#sanda-weight').empty();
+
+                    $('#loading').show();
+
+                    for (let i = 0; i < result.sandaWeightCategory.length; i++) {
+                        select.options[select.options.length] = new Option(result.sandaWeightCategory[i].categoryName, result.sandaWeightCategory[i].id);
+                    }
+
+                    $('#loading').hide();
+
+
+                }
+            });
+        }
     </script>
 
 {% endblock %}
