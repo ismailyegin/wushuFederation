@@ -273,6 +273,60 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal modal-dialog " role="dialog" id="modalotel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Select Hotel Information</h4>
+                </div>
+                <div class="modal-body">
+
+                    <label for="personSec">Persons</label>
+                    <select style="width: 100%" id="personSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Choose...</option>
+                        {% for person in otelSec %}
+                            <option value="{{ person.person.pk }}">{{ person.person.name }} {{ person.person.surName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="otelSec">Hotel Room</label>
+                    <select style="width: 100%" id="otelSec"
+                            class="form-control select2 select2-hidden-accessible"
+                            tabindex="-1" aria-hidden="true">
+                        <option selected>Choose...</option>
+                        {% for hotelId, hotelRoom in hotels %}
+                            <option value="{{ hotelRoom }}">{{ hotelRoom }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="form-group">
+                        <label for="registerStartDate">Entry Date</label>
+                        <input id="registerStartDate" type="date" class="form-control datepicker pull-right"
+                               autocomplete="on" onkeydown="return true">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerFinishDate">Release Date</label>
+                        <input id="registerFinishDate" type="date" class="form-control datepicker pull-right"
+                               autocomplete="on" onkeydown="return true">
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-default pull-left btn-ok" id="btn-gonder6"
+                            data-dismiss="modal">Save
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 
 
     <!-- success modal -->
@@ -421,6 +475,9 @@
                         </li>
                         <li>
                             <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Referee Registration</a>
+                        </li>
+                        <li>
+                            <a href="#otelIslemleri" data-toggle="tab" aria-expanded="true">Otel Registration</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -1101,6 +1158,156 @@
                             </div>
                         </div>
 
+                        <div class="tab-pane" id="otelIslemleri">
+                            <div class="box">
+                                <div class="row">
+
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Added Otel Registration </h3>
+                                    </div>
+                                    <div class="box-header with-border">
+
+                                        <div class="btn-group">
+
+                                            <a onclick="otelSec(6)"
+                                               type="button" class="btn btn-success"><i
+                                                    class="fa fa-edit"></i>Add Otel Registration
+                                            </a>
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
+                                                 <div class="col-lg-12">
+                                                    <table id="sanda6" class="table table-bordered table-hover"
+                                                           style="width: 100%;">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            {% if user.groups.all.0.name == 'Admin' %}
+                                                                <th>Federation</th>
+                                                            {% endif %}
+                                                            <th>Room-Price</th>
+                                                            <th>Entry Date</th>
+                                                            <th>Release Date</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if sandaHotels.all %}
+                                                            {% for sandaHotel in sandaHotels %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ sandaHotel.hotel.person.name }} {{ sandaHotel.hotel.person.surName }} </td>
+                                                                    {% if user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ sandaHotel.hotel.federation.person.country }}</td>
+                                                                    {% endif %}
+                                                                    <td>{{ sandaHotel.hotel.name }} </td>
+                                                                    <td>
+                                                                        {{ sandaHotel.hotel.registerStartDate }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ sandaHotel.hotel.registerFinishDate }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteHotel(6, {{ sandaHotel.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>delete
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            {% endif %}
+                                            <style>
+                                                #display {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
+                                                <div class="col-lg-12">
+                                                    <table id="taolu6" class="table table-bordered table-hover"
+                                                           style="width: 100%;">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name Surname</th>
+                                                            {% if user.groups.all.0.name == 'Admin' %}
+                                                                <th>Federation</th>
+                                                            {% endif %}
+                                                            <th>Room-Price</th>
+                                                            <th>Entry Date</th>
+                                                            <th>Release Date</th>
+                                                            <th>Transactions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {% if taoluHotels.all %}
+                                                            {% for taoluHotel in taoluHotels %}
+                                                                <tr>
+                                                                    <td>{{ forloop.counter }} </td>
+                                                                    <td>{{ taoluHotel.hotel.person.name }} {{ taoluHotel.hotel.person.surName }} </td>
+                                                                    {% if user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ taoluHotel.hotel.federation.person.country }}</td>
+                                                                    {% endif %}
+                                                                    <td>{{ taoluHotel.hotel.name }} </td>
+                                                                    <td>
+                                                                        {{ taoluHotel.hotel.registerStartDate }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ taoluHotel.hotel.registerFinishDate }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="btn-group">
+                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
+                                                                                <a onclick="deleteHotel(6, {{ taoluHotel.id }})"
+                                                                                   type="button"
+                                                                                   class="btn btn-danger"><i
+                                                                                        class="fa fa-edit"></i>delete
+                                                                                </a>
+                                                                            {% endif %}
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            {% endfor %}
+                                                        {% endif %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /.box -->
+
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1537,6 +1744,95 @@
 
 
                 $('#modalhakem').modal('hide');
+                $('.modal').modal('hide');
+
+            });
+
+        }
+
+        function otelSec(id) {
+            debugger;
+            $("#modalotel").on("shown.bs.modal", function (e) {
+
+                $("#btn-gonder6").click(function () {
+
+                    if (e.handled !== true) {
+                        e.handled = true;
+
+
+                        if (id != null && $('#otelSec').val()) {
+
+
+                            personId = $('#personSec').val();
+                            hotelRoom = $('#otelSec').val();
+                            registerStartDate = $('#registerStartDate').val();
+                            registerFinishDate = $('#registerFinishDate').val();
+                            debugger;
+
+                            $.ajax({
+                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                type: "POST",
+                                data: {
+                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                    competition: {{ competition.pk }},
+                                    personId: personId,
+                                    id: id,
+                                    hotelRoom: hotelRoom,
+                                    registerStartDate: registerStartDate,
+                                    registerFinishDate: registerFinishDate,
+                                },
+
+                                success: function (result) {
+
+                                    if (result.status == "Success") {
+
+                                        html = 'Hotel registration has been made.';
+                                        debugger;
+                                        $(".successModal").html(html);
+                                        $('#modal-success').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                            });
+
+                                        }).modal('show');
+
+
+                                    } else {
+
+                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            $(".btn-ok").click(function () {
+
+
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
+
+                                        }).modal('show');
+
+
+                                    }
+
+
+                                }
+                            });
+                        } else {
+
+                            alert("Please enter the missing fields");
+
+                        }
+
+
+                    }
+                });
+
+
+            }).modal('show');
+            $('#btn-closereddet').click(function () {
+
+
+                $('#modalotel').modal('hide');
                 $('.modal').modal('hide');
 
             });
@@ -1999,6 +2295,97 @@
 
 
             });
+
+            $('#sanda6').DataTable({
+
+
+                dom: 'Bfrtip',
+
+                language: {
+
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
+
+                },
+
+
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
+                ],
+
+                'buttons': [
+
+
+                    'copy',
+                    'csv',
+
+                    {
+                        extend: "pageLength",
+                    },
+
+
+                    {
+                        extend: 'colvis',
+                        text: '<i class=" fa  fa-th-list"></i>',
+                        titleAttr: 'Add Subtract'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Hotels',
+                        text: '<i class="fa  fa-print"></i>',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        titleAttr: 'Print'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        titleAttr: 'Save Pdf'
+                    },
+
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Hotels',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        footer: true,
+                        exportOptions: {
+                            columns: ':visible'
+
+                        },
+                        titleAttr: 'Excel Save'
+                    },
+                    {
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        action: function (e, dt, button, config) {
+                            var data = dt.buttons.exportData();
+
+                            $.fn.dataTable.fileSave(
+                                new Blob([JSON.stringify(data)]),
+                                'Hotels.json'
+                            );
+                        }
+                    }
+
+
+                ],
+
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'responsive': true,
+
+
+            });
         });
     </script>
 
@@ -2222,6 +2609,52 @@
             });
 
         };
+
+        function deleteHotel(id, hotelId) {
+
+            console.log(id);
+            console.log(hotelId);
+            var html = '';
+            $("#modal-danger").on("shown.bs.modal", function (e) {
+                $("#btn-conf").click(function () {
+                    $.ajax({
+                        {% if  competition.subBranch == 'TAOLU' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir_taolu" pk=212121223232323232 %}".replace(/212121223232323232/, hotelId.toString()),
+                        {% elif  competition.subBranch == 'SANDA' %}
+                            url: "{% url "wushu:musabaka-sporcu-kaldir" pk=212121223232323232 %}".replace(/212121223232323232/, hotelId.toString()),
+                        {% endif %}
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                            isActive: 'False',
+                            id: id,
+                            hotelId: hotelId,
+                        },
+                        success: function (result) {
+
+                            html = 'Registration Successfully Deleted.';
+                            debugger;
+                            $(".successModal").html(html);
+                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                $(".btn-ok").click(function () {
+
+                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+
+                                });
+
+                            }).modal('show');
+
+
+                            console.log(result.status)
+                        }
+                    });
+                });
+            }).modal('show');
+            $('#btn-close').click(function () {
+                $('#modal-danger').modal('hide');
+            });
+
+        };
     </script>
 
     <script>
@@ -2261,6 +2694,8 @@
             });
         }
     </script>
+
+
 
 {% endblock %}
 

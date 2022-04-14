@@ -21,6 +21,7 @@ from wushu.models import Competition, YearsSandaCategory, TaoluCategory, YearsTa
     TaoluAthlete, SandaAthlete, Coach, Observer, Officer, Judge, SandaWeightCategory, Person
 from wushu.models.Hotel import Hotel
 from wushu.models.SandaCoach import SandaCoach
+from wushu.models.SandaHotel import SandaHotel
 from wushu.models.SandaJudge import SandaJudge
 from wushu.models.SandaObserver import SandaObserver
 from wushu.models.SandaOfficer import SandaOfficer
@@ -175,6 +176,8 @@ def musabaka_sanda(request, pk):
     observers = None
     officers = None
     judges = None
+    taoluHotels = None
+    hotels = None
 
     federations = None
     athleteSec = None
@@ -182,6 +185,7 @@ def musabaka_sanda(request, pk):
     gozlemciSec = None
     resmiGorevliSec = None
     hakemSec = None
+    otelSec = None
 
     user = request.user
 
@@ -194,12 +198,15 @@ def musabaka_sanda(request, pk):
             gozlemciSec = Observer.objects.all()
             resmiGorevliSec = Officer.objects.all()
             hakemSec = Judge.objects.all()
+            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
 
             athletes = SandaAthlete.objects.filter(competition=musabaka)
             coaches = SandaCoach.objects.filter(competition=musabaka)
             observers = SandaObserver.objects.filter(competition=musabaka)
             officers = SandaOfficer.objects.filter(competition=musabaka)
             judges = SandaJudge.objects.filter(competition=musabaka)
+            sandaHotels = SandaHotel.objects.filter(competition=musabaka)
+            hotels = Hotel.HOTELTYPE
         elif musabaka.subBranch == EnumFields.TAOLU.value:
             athletes = TaoluAthlete.objects.filter(competition=musabaka)
     if request.user.groups.filter(name__in=['Federation']):
@@ -211,6 +218,7 @@ def musabaka_sanda(request, pk):
             gozlemciSec = Observer.objects.filter(federation=federation)
             resmiGorevliSec = Officer.objects.filter(federation=federation)
             hakemSec = Judge.objects.filter(federation=federation)
+            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
 
             athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
             coaches = SandaCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
@@ -218,6 +226,8 @@ def musabaka_sanda(request, pk):
                 observer__federation__user=request.user)
             officers = SandaOfficer.objects.filter(competition=musabaka).filter(officer__federation__user=request.user)
             judges = SandaJudge.objects.filter(competition=musabaka).filter(judge__federation__user=request.user)
+            sandaHotels = SandaHotel.objects.filter(competition=musabaka).filter(hotel__federation__user=request.user)
+            hotels = Hotel.HOTELTYPE
         elif musabaka.subBranch == EnumFields.TAOLU.value:
             athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
 
@@ -226,7 +236,7 @@ def musabaka_sanda(request, pk):
                    'categori': categori, 'athleteSec': athleteSec, 'antrenorSec': antrenorSec,
                    'gozlemciSec': gozlemciSec, 'resmiGorevliSec': resmiGorevliSec, 'hakemSec': hakemSec,
                    'coaches': coaches, 'observers': observers, 'officers': officers, 'judges': judges,
-                   'federations': federations, })
+                   'federations': federations, 'otelSec': otelSec, 'sandaHotels': sandaHotels, 'hotels': hotels, })
 
 
 @login_required
@@ -628,6 +638,11 @@ def musabaka_sporcu_sil(request, pk):
             elif id == 5:
                 judge = SandaJudge.objects.get(pk=pk)
                 judge.delete()
+            elif id == 6:
+                sandaHotel = SandaHotel.objects.get(pk=pk)
+                hotel = sandaHotel.hotel
+                sandaHotel.delete()
+                hotel.delete()
             return JsonResponse({'status': 'Success', 'messages': 'save successfully'})
         except SandaAthlete.DoesNotExist:
             return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
@@ -858,6 +873,41 @@ def musabaka_sanda_sporcu_ekle(request):
                         compettion.name) + ' to the competition ' + sandaJudge.judge.person.name + ' ' + sandaJudge.judge.person.surName + 'added'
                     log = general_methods.logwrite(request, request.user, mesaj)
                     return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+                elif id == 6:
+                    federation = None
+                    personId = int(request.POST.get('personId'))
+                    name = request.POST.get('hotelRoom')
+                    registerStartDate = request.POST.get('registerStartDate')
+                    registerFinishDate = request.POST.get('registerFinishDate')
+                    person = Person.objects.get(pk=personId)
+                    if request.user.groups.filter(name='Admin'):
+                        if Athlete.objects.filter(person=person):
+                            federation = Athlete.objects.get(person=person).federation
+                        elif Coach.objects.filter(person=person):
+                            federation = Coach.objects.get(person=person).federation
+                        elif Observer.objects.filter(person=person):
+                            federation = Observer.objects.get(person=person).federation
+                        elif Officer.objects.filter(person=person):
+                            federation = Officer.objects.get(person=person).federation
+                        elif Judge.objects.filter(person=person):
+                            federation = Judge.objects.get(person=person).federation
+                    elif request.user.groups.filter(name='Federation'):
+                        federation = Federation.objects.get(user=request.user)
+
+                    hotel = Hotel(
+                        person=person, name=name, registerStartDate=registerStartDate,
+                        registerFinishDate=registerFinishDate, federation=federation
+                    )
+                    hotel.save()
+
+                    sandaHotel = SandaHotel(
+                        hotel=hotel, competition=compettion
+                    )
+                    sandaHotel.save()
+
+                    mesaj = ' Hotel registration has been made.'
+                    log = general_methods.logwrite(request, request.user, mesaj)
+                    return JsonResponse({'status': 'Success', 'messages': 'Hotel registration has been made.'})
             else:
                 return JsonResponse({'status': 'Fail', 'msg': 'The sub-category of the competition is not Sanda'})
 
