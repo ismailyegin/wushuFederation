@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
+from rest_framework.decorators import api_view
 
 from wushu.Forms.SandaWeightCategoryForm import SandaWeightCategoryForm
 from wushu.Forms.CompetitionForm import CompetitionForm
@@ -26,6 +27,7 @@ from wushu.models.TaoluCoach import TaoluCoach
 from wushu.models.TaoluJudge import TaoluJudge
 from wushu.models.TaoluOfficer import TaoluOfficer
 from wushu.models.TaoluObserver import TaoluObserver
+from wushu.serializers.SandaWeightCategorySerializer import SandaWeightCategorySerializer
 from wushu.services import general_methods
 
 
@@ -43,7 +45,7 @@ def return_competitions(request):
         competition = Competition.objects.all()
     else:
         competition = None
-    
+
     competitions = Competition.objects.all().order_by('-startDate')
     if request.user.groups.filter(name='Federation'):
         athletes = Athlete.objects.filter(federation__user=request.user)
@@ -877,3 +879,41 @@ def sanda_weight_category_update(request, pk):
 
     return render(request, 'kategori/SandaWeightCategoryUpdate.html',
                   {'sanda_weight_form': sanda_weight_form})
+
+
+@api_view(http_method_names=['POST'])
+def get_weight_category(request):
+    if request.POST:
+        try:
+            athleteId = request.POST.get('athleteId')
+            athlete = Athlete.objects.get(pk=athleteId)
+            ageGroup = ''
+            if athlete.person.birthDate.year == 2015 or athlete.person.birthDate.year == 2016:
+                ageGroup = '6-7'
+            elif athlete.person.birthDate.year == 2013 or athlete.person.birthDate.year == 2014:
+                ageGroup = '8-9'
+            elif athlete.person.birthDate.year == 2011 or athlete.person.birthDate.year == 2012:
+                ageGroup = '10-11'
+            elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010:
+                ageGroup = '12-13'
+            elif athlete.person.birthDate.year == 2008:
+                ageGroup = '14'
+            elif athlete.person.birthDate.year == 2006 or athlete.person.birthDate.year == 2007:
+                ageGroup = '15-16'
+            elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005:
+                ageGroup = '17-18'
+            elif athlete.person.birthDate.year == 2001 or athlete.person.birthDate.year == 2004:
+                ageGroup = '18-21'
+
+            gender = athlete.person.gender.lower()
+            sandaWeightCategory = SandaWeightCategory.objects.filter(gender=gender).filter(ageGroup=ageGroup)
+
+            dataSandaWeightCategory = SandaWeightCategorySerializer(sandaWeightCategory, many=True)
+            responseData = dict()
+            responseData['sandaWeightCategory'] = dataSandaWeightCategory.data
+
+            return JsonResponse(responseData, safe=True)
+
+        except Exception as e:
+
+            return JsonResponse({'status': 'Fail', 'msg': e})

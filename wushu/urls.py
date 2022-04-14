@@ -90,7 +90,9 @@ urlpatterns = [
 
     url(r'competition/sanda-weight-category/$', CompetitionViews.return_sanda_weight_category,
         name='sanda-weight-category'),
-    url(r'competition/sanda-weight-category-delete/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_delete, name='sanda-weight-category-delete'),
+    url(r'competition/sanda-weight-category-delete/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_delete,
+        name='sanda-weight-category-delete'),
     url(r'competition/sanda-weight-category-update/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_update,
         name='sanda-weight-category-update'),
+    url(r'competition/get_sanda-weight-category', CompetitionViews.get_weight_category, name='get_weight_category'),
 ]
