@@ -30,10 +30,10 @@ class PersonForm(ModelForm):
                                            'style': 'width: 100%;', 'required': 'required'}),
 
             'profileImage': forms.FileInput(attrs={'id': 'id_profileImage', 'name': 'profileImage',
-                                                   'onchange': 'previewImage()', }),
+                                                   'onchange': 'previewImage()', 'required': 'required' }),
 
             'pasaportImage': forms.FileInput(attrs={'id': 'id_passportImage', 'name': 'passportImage',
-                                                   'onchange': 'previewImage2()', }),
+                                                   'onchange': 'previewImage2()', 'required': 'required' }),
 
         }
 
