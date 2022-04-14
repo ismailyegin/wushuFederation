@@ -29,12 +29,6 @@ class PersonForm(ModelForm):
             'country': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',
                                            'style': 'width: 100%;', 'required': 'required'}),
 
-            'profileImage': forms.FileInput(attrs={'id': 'id_profileImage', 'name': 'profileImage',
-                                                   'onchange': 'previewImage()', 'required': 'required' }),
-
-            'pasaportImage': forms.FileInput(attrs={'id': 'id_passportImage', 'name': 'passportImage',
-                                                   'onchange': 'previewImage2()', 'required': 'required' }),
-
         }
 
     def clean_tc(self):
