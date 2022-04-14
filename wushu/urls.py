@@ -69,6 +69,8 @@ urlpatterns = [
     url(r'federation/federations/$', FederationViews.return_federations, name='federations'),
     url(r'federation/delete-federation/(?P<pk>\d+)$', FederationViews.delete_federation, name='delete-federation'),
 
+    url(r'federation/registration-list/$', FederationViews.registration_list, name='registration-list'),
+
     url(r'musabaka/taoluekle/$', AthleteViews.return_taolu, name='taolu-katagori'),
     url(r'musabaka/taolu/sil/(?P<pk>\d+)$', AthleteViews.categoryTaoluDelete, name='taolu-katagori-sil'),
     url(r'musabaka/taolu/Duzenle/(?P<pk>\d+)$', AthleteViews.categoryTaoluUpdate, name='taolu-katagori-duzenle'),

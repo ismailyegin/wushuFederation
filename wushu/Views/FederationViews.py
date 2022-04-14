@@ -9,7 +9,9 @@ from wushu.Forms.AthleteForm import AthleteForm
 from wushu.Forms.JudgeForm import JudgeForm
 from wushu.Forms.PersonForm import PersonForm
 from wushu.Forms.UserForm import UserForm
-from wushu.models import Athlete, Person, Federation, Coach, Observer, Officer, Judge
+from wushu.models import Athlete, Person, Federation, Coach, Observer, Officer, Judge, Competition, SandaAthlete, \
+    TaoluAthlete, SandaCoach, SandaObserver, SandaOfficer, SandaJudge, TaoluCoach, TaoluObserver, TaoluOfficer, \
+    TaoluJudge
 from wushu.services import general_methods
 
 
@@ -109,7 +111,8 @@ def return_federations(request):
 
     federations = Federation.objects.all()
 
-    return render(request, 'federasyon/federasyonlar.html', {'federations': federations,'person_form': person_form, 'user_form': user_form, })
+    return render(request, 'federasyon/federasyonlar.html',
+                  {'federations': federations, 'person_form': person_form, 'user_form': user_form, })
 
 
 @login_required
@@ -340,3 +343,52 @@ def delete_federation(request, pk):
 
     else:
         return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+
+def registration_list(request):
+    perm = general_methods.control_access_antrenor(request)
+    user = request.user
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+
+    athletes = None
+    coaches = None
+    observers = None
+    officers = None
+    judges = None
+    sandaAthlete = SandaAthlete.objects.all()
+    sandaCoach = SandaCoach.objects.all()
+    sandaObserver = SandaObserver.objects.all()
+    sandaOfficer = SandaOfficer.objects.all()
+    sandaJudge = SandaJudge.objects.all()
+
+    taoluAthlete = TaoluAthlete.objects.all()
+    taoluCoach = TaoluCoach.objects.all()
+    taoluObserver = TaoluObserver.objects.all()
+    taoluOfficer = TaoluOfficer.objects.all()
+    taoluJudge = TaoluJudge.objects.all()
+
+    countSandaCoach = sandaAthlete.all().count()
+
+
+    if user.groups.filter(name__in=['Yonetim', 'Admin']):
+        athletes = Athlete.objects.all()
+        coaches = Coach.objects.all()
+        observers = Observer.objects.all()
+        officers = Officer.objects.all()
+        judges = Judge.objects.all()
+
+    elif user.groups.filter(name='Federation'):
+        athletes = Athlete.objects.filter(federation__user=request.user)
+        coaches = Coach.objects.filter(federation__user=request.user)
+        observers = Observer.objects.filter(federation__user=request.user)
+        officers = Officer.objects.filter(federation__user=request.user)
+        judges = Judge.objects.filter(federation__user=request.user)
+
+    return render(request, 'federasyon/kayit-listele.html',
+                  {'athletes': athletes, 'coaches': coaches, 'observers': observers, 'officers': officers,
+                   'judges': judges, 'sandaAthlete': sandaAthlete, 'sandaCoach': sandaCoach,
+                   'sandaObserver': sandaObserver, 'sandaOfficer': sandaOfficer, 'sandaJudge': sandaJudge,
+                   'taoluAthlete': taoluAthlete, 'taoluCoach': taoluCoach, 'taoluObserver': taoluObserver,
+                   'taoluOfficer': taoluOfficer, 'taoluJudge': taoluJudge, 'countSandaCoach': countSandaCoach, })
