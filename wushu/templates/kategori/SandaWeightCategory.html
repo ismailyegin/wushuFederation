@@ -155,12 +155,12 @@
                                     {{ sandaWeightCategoryForm.categoryName }}
                                 </div>
                                 <div class="form-group">
-                                    <label> {{ sandaWeightCategoryForm.explanation.label }}</label>
-                                    {{ sandaWeightCategoryForm.explanation }}
+                                    <label> {{ sandaWeightCategoryForm.gender.label }}</label>
+                                    {{ sandaWeightCategoryForm.gender }}
                                 </div>
                                 <div class="form-group">
-                                    <label> {{ sandaWeightCategoryForm.isDuilian.label }}</label>
-                                    {{ sandaWeightCategoryForm.isDuilian }}
+                                    <label> {{ sandaWeightCategoryForm.ageGroup.label }}</label>
+                                    {{ sandaWeightCategoryForm.ageGroup }}
                                 </div>
 
                                 <div class="box-footer">
@@ -176,8 +176,9 @@
                             <thead>
                             <tr>
                                 <th>No</th>
-                                <th>kategori Adı</th>
-                                <th>Duilian mı?</th>
+                                <th>Weight Category</th>
+                                <th>Gender</th>
+                                <th>Age Group</th>
                                 <th>Güncelleme/Silme</th>
                             </tr>
                             </thead>
@@ -191,8 +192,8 @@
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ sandaWeightCategory.categoryName }}</td>
 
-                                        <td>
-                                            {% if sandaWeightCategory.isDuilian %}Evet {% else %} Hayır {% endif %}</td>
+                                        <td>{{ sandaWeightCategory.gender }}</td>
+                                        <td>{{ sandaWeightCategory.ageGroup }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:sanda-weight-category-update" sandaWeightCategory.pk %}"
