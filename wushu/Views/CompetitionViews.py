@@ -198,7 +198,19 @@ def musabaka_sanda(request, pk):
             gozlemciSec = Observer.objects.all()
             resmiGorevliSec = Officer.objects.all()
             hakemSec = Judge.objects.all()
-            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
+
+            taoluHotelPersons = TaoluHotel.objects.all().values('hotel__person')
+            sandaHotelPersons = SandaHotel.objects.all().values('hotel__person')
+            athleteSec2 = Athlete.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            antrenorSec2 = Coach.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            gozlemciSec2 = Observer.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            resmiGorevliSec2 = Officer.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            hakemSec2 = Judge.objects.all().exclude(person__in=taoluHotelPersons).exclude(person__in=sandaHotelPersons)
+            otelSec = list(chain(athleteSec2, antrenorSec2, gozlemciSec2, resmiGorevliSec2, hakemSec2))
 
             athletes = SandaAthlete.objects.filter(competition=musabaka)
             coaches = SandaCoach.objects.filter(competition=musabaka)
@@ -218,7 +230,23 @@ def musabaka_sanda(request, pk):
             gozlemciSec = Observer.objects.filter(federation=federation)
             resmiGorevliSec = Officer.objects.filter(federation=federation)
             hakemSec = Judge.objects.filter(federation=federation)
-            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
+
+            taoluHotelPersons = TaoluHotel.objects.all().filter(
+                hotel__federation__user=request.user).values('hotel__person')
+            sandaHotelPersons = SandaHotel.objects.all().filter(
+                hotel__federation__user=request.user).values('hotel__person')
+            athleteSec2 = Athlete.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            antrenorSec2 = Coach.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            gozlemciSec2 = Observer.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            resmiGorevliSec2 = Officer.objects.filter(federation=federation).exclude(
+                person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            hakemSec2 = Judge.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            otelSec = list(chain(athleteSec2, antrenorSec2, gozlemciSec2, resmiGorevliSec2, hakemSec2))
 
             athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
             coaches = SandaCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
@@ -284,7 +312,19 @@ def musabaka_taolu(request, pk):
             gozlemciSec = Observer.objects.all()
             resmiGorevliSec = Officer.objects.all()
             hakemSec = Judge.objects.all()
-            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
+
+            taoluHotelPersons = TaoluHotel.objects.all().values('hotel__person')
+            sandaHotelPersons = SandaHotel.objects.all().values('hotel__person')
+            athleteSec2 = Athlete.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            antrenorSec2 = Coach.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            gozlemciSec2 = Observer.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            resmiGorevliSec2 = Officer.objects.all().exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            hakemSec2 = Judge.objects.all().exclude(person__in=taoluHotelPersons).exclude(person__in=sandaHotelPersons)
+            otelSec = list(chain(athleteSec2, antrenorSec2, gozlemciSec2, resmiGorevliSec2, hakemSec2))
 
             athletes = TaoluAthlete.objects.filter(competition=musabaka)
             coaches = TaoluCoach.objects.filter(competition=musabaka)
@@ -304,7 +344,22 @@ def musabaka_taolu(request, pk):
             gozlemciSec = Observer.objects.filter(federation=federation)
             resmiGorevliSec = Officer.objects.filter(federation=federation)
             hakemSec = Judge.objects.filter(federation=federation)
-            otelSec = list(chain(athleteSec, antrenorSec, gozlemciSec, resmiGorevliSec, hakemSec))
+
+            taoluHotelPersons = TaoluHotel.objects.all().filter(
+                hotel__federation__user=request.user).values('hotel__person')
+            sandaHotelPersons = SandaHotel.objects.all().filter(
+                hotel__federation__user=request.user).values('hotel__person')
+            athleteSec2 = Athlete.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            antrenorSec2 = Coach.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            gozlemciSec2 = Observer.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            resmiGorevliSec2 = Officer.objects.filter(federation=federation).exclude(
+                person__in=taoluHotelPersons).exclude(person__in=sandaHotelPersons)
+            hakemSec2 = Judge.objects.filter(federation=federation).exclude(person__in=taoluHotelPersons).exclude(
+                person__in=sandaHotelPersons)
+            otelSec = list(chain(athleteSec2, antrenorSec2, gozlemciSec2, resmiGorevliSec2, hakemSec2))
 
             athletes = TaoluAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
             coaches = TaoluCoach.objects.filter(competition=musabaka).filter(coach__federation__user=request.user)
