@@ -14,8 +14,8 @@ class Hotel(models.Model):
 
     )
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
-    registerStartDate = models.DateTimeField(auto_now_add=True)
-    registerFinishDate = models.DateTimeField(auto_now=True)
+    registerStartDate = models.DateTimeField()
+    registerFinishDate = models.DateTimeField()
     name = models.CharField(max_length=128, verbose_name='Hotel Room-Price', choices=HOTELTYPE)
     federation = models.ForeignKey(Federation, on_delete=models.CASCADE)
 
