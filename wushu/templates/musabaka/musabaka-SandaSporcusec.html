@@ -1070,11 +1070,13 @@
                                                                         <td>{{ sandaHotel.hotel.federation.person.country }}</td>
                                                                     {% endif %}
                                                                     <td>{{ sandaHotel.hotel.name }} </td>
-                                                                    <td>
-                                                                        {{ sandaHotel.hotel.registerStartDate }}
+                                                                    <td>{% load i18n %}
+                                                                        {% language 'en' %}
+                                                                            {{ sandaHotel.hotel.registerStartDate }}
+                                                                        {% endlanguage %}
                                                                     </td>
-                                                                    <td>
-                                                                        {{ sandaHotel.hotel.registerFinishDate }}
+                                                                    <td>{% language 'en' %}
+                                                                        {{ sandaHotel.hotel.registerFinishDate }}{% endlanguage %}
                                                                     </td>
                                                                     <td>
                                                                         {{ sandaHotel.hotel.totalDay }}

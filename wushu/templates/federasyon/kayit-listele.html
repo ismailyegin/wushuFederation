@@ -159,7 +159,11 @@
                                 {% for athlete in athletes.all %}
                                     <tr>
                                         <td>{{ athlete.person.name }} {{ athlete.person.surName }} </td>
-                                        <td> {{ athlete.person.birthDate }}</td>
+                                        <td>
+                                            {% load i18n %}
+                                            {% language 'en' %}
+                                                {{ athlete.person.birthDate }}</td>
+                                            {% endlanguage %}
                                         <td> {{ athlete.federation.person.country }}</td>
                                         <td> Athlete</td>
                                         <td>
@@ -194,11 +198,14 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ athlete.person.pasaport }}</td>
-                                    <td> {{ athlete.person.hotel.name }}</td>
-                                    <td> {{ athlete.person.hotel.registerStartDate }}</td>
-                                    <td> {{ athlete.person.hotel.registerFinishDate }}</td>
-                                    <td> {{ athlete.person.hotel.totalDay }}</td>
-                                    <td> {{ athlete.person.hotel.price }} €</td>
+                                        <td> {{ athlete.person.hotel.name }}</td>
+                                        <td>
+                                            {% language 'en' %}
+                                                {{ athlete.person.hotel.registerStartDate }}
+                                            {% endlanguage %}</td>
+                                        <td> {% language 'en' %}{{ athlete.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td> {{ athlete.person.hotel.totalDay }}</td>
+                                        <td> {{ athlete.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -209,7 +216,7 @@
                                 {% for coach in coaches.all %}
                                     <tr>
                                         <td>{{ coach.person.name }} {{ coach.person.surName }} </td>
-                                        <td> {{ coach.person.birthDate }}</td>
+                                        <td> {% language 'en' %}{{ coach.person.birthDate }}{% endlanguage %}</td>
                                         <td> {{ coach.federation.person.country }}</td>
                                         <td> Coach</td>
                                         <td>
@@ -226,11 +233,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ coach.person.pasaport }}</td>
-                                    <td> {{ coach.person.hotel.name }}</td>
-                                    <td> {{ coach.person.hotel.registerStartDate }}</td>
-                                    <td> {{ coach.person.hotel.registerFinishDate }}</td>
-                                    <td> {{ coach.person.hotel.totalDay }}</td>
-                                    <td> {{ coach.person.hotel.price }} €</td>
+                                        <td> {{ coach.person.hotel.name }}</td>
+                                        <td> {% language 'en' %}{{ coach.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td> {% language 'en' %}{{ coach.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td> {{ coach.person.hotel.totalDay }}</td>
+                                        <td> {{ coach.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -241,7 +248,7 @@
                                 {% for observer in observers.all %}
                                     <tr>
                                         <td>{{ observer.person.name }} {{ observer.person.surName }} </td>
-                                        <td> {{ observer.person.birthDate }}</td>
+                                        <td> {% language 'en' %}{{ observer.person.birthDate }}{% endlanguage %}</td>
                                         <td> {{ observer.federation.person.country }}</td>
                                         <td> Observer</td>
                                         <td>
@@ -258,11 +265,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ observer.person.pasaport }}</td>
-                                    <td> {{ observer.person.hotel.name }}</td>
-                                    <td> {{ observer.person.hotel.registerStartDate }}</td>
-                                    <td> {{ observer.person.hotel.registerFinishDate }}</td>
-                                    <td> {{ observer.person.hotel.totalDay }}</td>
-                                    <td> {{ observer.person.hotel.price }} €</td>
+                                        <td> {{ observer.person.hotel.name }}</td>
+                                        <td> {% language 'en' %}{{ observer.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td> {% language 'en' %}{{ observer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td> {{ observer.person.hotel.totalDay }}</td>
+                                        <td> {{ observer.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -273,7 +280,7 @@
                                 {% for officer in officers.all %}
                                     <tr>
                                         <td>{{ officer.person.name }} {{ officer.person.surName }} </td>
-                                        <td> {{ officer.person.birthDate }}</td>
+                                        <td> {% language 'en' %}{{ officer.person.birthDate }}{% endlanguage %}</td>
                                         <td> {{ officer.federation.person.country }}</td>
                                         <td> Officer</td>
                                         <td>
@@ -290,11 +297,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ officer.person.pasaport }}</td>
-                                    <td> {{ officer.person.hotel.name }}</td>
-                                    <td> {{ officer.person.hotel.registerStartDate }}</td>
-                                    <td> {{ officer.person.hotel.registerFinishDate }}</td>
-                                    <td> {{ officer.person.hotel.totalDay }}</td>
-                                    <td> {{ officer.person.hotel.price }} €</td>
+                                        <td> {{ officer.person.hotel.name }}</td>
+                                        <td> {% language 'en' %}{{ officer.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td> {% language 'en' %}{{ officer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td> {{ officer.person.hotel.totalDay }}</td>
+                                        <td> {{ officer.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -305,7 +312,7 @@
                                 {% for judge in judges.all %}
                                     <tr>
                                         <td>{{ judge.person.name }} {{ judge.person.surName }} </td>
-                                        <td> {{ judge.person.birthDate }}</td>
+                                        <td> {% language 'en' %}{{ judge.person.birthDate }}{% endlanguage %}</td>
                                         <td> {{ judge.federation.person.country }}</td>
                                         <td> Referee</td>
                                         <td>
@@ -323,8 +330,8 @@
                                         <td></td>
                                         <td>{{ judge.person.pasaport }}</td>
                                         <td> {{ judge.person.hotel.name }}</td>
-                                        <td> {{ judge.person.hotel.registerStartDate }}</td>
-                                        <td> {{ judge.person.hotel.registerFinishDate }}</td>
+                                        <td> {% language 'en' %}{{ judge.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td> {% language 'en' %}{{ judge.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ judge.person.hotel.totalDay }}</td>
                                         <td> {{ judge.person.hotel.price }} €</td>
 

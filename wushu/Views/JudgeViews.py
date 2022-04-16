@@ -202,10 +202,17 @@ def updatejudges(request, pk):
                 judge_form.save()
                 judge_federation_form.save()
 
-                judge.weight = request.POST['weight']
-                judge.height = request.POST['height']
-                judge.pantSize = request.POST['pantSize']
-                judge.shirtSize = request.POST['shirtSize']
+                if judge_form.cleaned_data['category'] == 1:
+                    judge.weight = request.POST['weight']
+                    judge.height = request.POST['height']
+                    judge.pantSize = request.POST['pantSize']
+                    judge.shirtSize = request.POST['shirtSize']
+                else:
+                    judge.is_national = None
+                    judge.weight = None
+                    judge.height = None
+                    judge.pantSize = None
+                    judge.shirtSize = None
                 judge.save()
 
                 messages.success(request, 'Referee Successfully Updated.')
@@ -225,10 +232,17 @@ def updatejudges(request, pk):
 
                 person_form.save()
                 judge_form.save()
-                judge.weight = request.POST['weight']
-                judge.height = request.POST['height']
-                judge.pantSize = request.POST['pantSize']
-                judge.shirtSize = request.POST['shirtSize']
+                if judge_form.cleaned_data['category'] == 1:
+                    judge.weight = request.POST['weight']
+                    judge.height = request.POST['height']
+                    judge.pantSize = request.POST['pantSize']
+                    judge.shirtSize = request.POST['shirtSize']
+                else:
+                    judge.is_national = None
+                    judge.weight = None
+                    judge.height = None
+                    judge.pantSize = None
+                    judge.shirtSize = None
                 judge.save()
                 messages.success(request, 'Referee Successfully Updated.')
 

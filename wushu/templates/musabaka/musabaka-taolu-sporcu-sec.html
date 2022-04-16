@@ -1181,11 +1181,12 @@
                                                                         <td>{{ taoluHotel.hotel.federation.person.country }}</td>
                                                                     {% endif %}
                                                                     <td>{{ taoluHotel.hotel.name }} </td>
-                                                                    <td>
-                                                                        {{ taoluHotel.hotel.registerStartDate }}
+                                                                    <td>{% load i18n %}
+                                                                        {% language 'en' %}
+                                                                        {{ taoluHotel.hotel.registerStartDate }}{% endlanguage %}
                                                                     </td>
-                                                                    <td>
-                                                                        {{ taoluHotel.hotel.registerFinishDate }}
+                                                                    <td>{% language 'en' %}
+                                                                        {{ taoluHotel.hotel.registerFinishDate }}{% endlanguage %}
                                                                     </td>
                                                                     <td>
                                                                         {{ taoluHotel.hotel.totalDay }}
