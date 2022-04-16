@@ -282,7 +282,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerFinishDate">Release Date</label>
-                        <input id="registerFinishDate" type="date" class="form-control datepicker pull-right"
+                        <input id="registerFinishDate" type="date" class="form-control datepicker2 pull-right"
                                autocomplete="on" onkeydown="return true">
                     </div>
                 </div>
@@ -436,11 +436,7 @@
                             <a href="#antrenorIslemleri" data-toggle="tab" aria-expanded="true">Coach Registration</a>
                         </li>
                         <li>
-                            <a href="#gozlemciIslemleri" data-toggle="tab" aria-expanded="true">Observer
-                                Registration</a>
-                        </li>
-                        <li>
-                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Officials
+                            <a href="#resmiGorevliIslemleri" data-toggle="tab" aria-expanded="true">Official
                                 Registration</a>
                         </li>
                         <li>
@@ -511,7 +507,7 @@
                                                                 <td>{{ athlete.athlete_yas_category }}
                                                                     - {{ athlete.competitiontype }}</td>
                                                                 <td>
-                                                                    {% if athlete.athlete.person.gender == "Kadın" %}
+                                                                    {% if athlete.athlete.person.gender == "WOMAN" %}
                                                                         WOMAN </td>
                                                                     {% else %}MAN
                                                                     {% endif %}
@@ -568,7 +564,7 @@
                                                                     <td>{{ athlete.athlete.person.birthDate.year }} </td>
                                                                     <td>{{ athlete.category }}</td>
                                                                     <td>
-                                                                        {% if athlete.athlete.person.gender == "Kadın" %}
+                                                                        {% if athlete.athlete.person.gender == "WOMAN" %}
                                                                             WOMAN
                                                                         {% else %}MAN
                                                                         {% endif %}
@@ -764,167 +760,12 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="gozlemciIslemleri">
-                            <div class="box">
-                                <div class="row">
-
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Added Observers </h3>
-                                    </div>
-                                    <div class="box-header with-border">
-
-                                        <div class="btn-group">
-
-                                            <a onclick="gozlemciSec(3)"
-                                               type="button" class="btn btn-success"><i
-                                                    class="fa fa-edit"></i>Add Observer
-                                            </a>
-
-                                        </div>
-
-                                        <div class="box-body">
-                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'SANDA' %}
-                                                <table id="" class="table table-bordered table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Name Surname</th>
-                                                        <th id="display">İL</th>
-                                                        <th id="display">İL</th>
-                                                        <th>Date of birth</th>
-                                                        {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                            <th>Club</th>
-                                                        {% endif %}
-
-                                                        <th>Age - Sanda Category</th>
-                                                        ,
-                                                        <th>Gender</th>
-
-
-                                                        <th>Sub-Branch</th>
-                                                        <th>Transactions</th>
-
-
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    {% if athletes %}
-                                                        {% for athlete in athletes %}
-                                                            <tr>
-                                                                <td>{{ forloop.counter }} </td>
-                                                                <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                                <td id="display">{{ athlete.athlete.communication.city }}</td>
-                                                                <td id="display">{{ athlete.athlete.communication.city }}</td>
-
-                                                                <td>{{ athlete.athlete.person.birthDate }} </td>
-                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                                    <td>{{ athlete.athlete.licenses.last.sportsClub }}</td>
-                                                                {% endif %}
-                                                                <td>{{ athlete.athlete_yas_category }}
-                                                                    - {{ athlete.competitiontype }}</td>
-                                                                <td>
-                                                                    {% if athlete.athlete.person.gender == "Kadın" %}
-                                                                        WOMAN </td>
-                                                                    {% else %}MAN
-                                                                    {% endif %}
-
-                                                                <td>{{ athlete.competition.subBranch }}</td>
-
-                                                                <td>
-                                                                    <div class="btn-group">
-                                                                        {% if competition.status == 'Ön Kayıt Açık' %}
-                                                                            <a onclick="deleteAthlete({{ athlete.id }})"
-                                                                               type="button" class="btn btn-danger"><i
-                                                                                    class="fa fa-edit"></i>delete
-                                                                            </a>
-                                                                        {% endif %}
-
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-
-                                                        {% endfor %}
-                                                    {% endif %}
-
-
-                                                    </tbody>
-                                                </table>
-                                            {% endif %}
-                                            <style>
-                                                #display {
-                                                    display: none;
-                                                }
-                                            </style>
-                                            {% if competition.status == 'Ön Kayıt Açık' and competition.subBranch == 'TAOLU' %}
-                                                <div class="col-lg-12">
-                                                    <table id="taolu3" class="table table-bordered table-hover"
-                                                           style="width: 100%;">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Name Surname</th>
-                                                            <th>Date of birth</th>
-                                                            <th>Gender</th>
-                                                            <th>Transactions</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        {% if observers %}
-                                                            {% for observer in observers %}
-                                                                <tr>
-                                                                    <td>{{ forloop.counter }} </td>
-                                                                    <td>{{ observer.observer.person.name }} {{ observer.observer.person.surName }} </td>
-                                                                    <td>{{ observer.observer.person.birthDate }} </td>
-                                                                    <td>
-                                                                        {% if observer.observer.person.gender == "Kadın" %}
-                                                                            WOMAN </td>
-                                                                        {% else %}MAN
-                                                                        {% endif %}
-
-                                                                    <td>
-                                                                        <div class="btn-group">
-                                                                            {% if competition.status == 'Ön Kayıt Açık' %}
-                                                                                <a onclick="deleteObserver(3, {{ observer.id }})"
-                                                                                   type="button"
-                                                                                   class="btn btn-danger"><i
-                                                                                        class="fa fa-edit"></i>delete
-                                                                                </a>
-                                                                            {% endif %}
-
-                                                                        </div>
-                                                                    </td>
-
-                                                                </tr>
-
-                                                            {% endfor %}
-                                                        {% endif %}
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                            {% endif %}
-
-
-                                        </div>
-                                    </div>
-                                    <!-- /.box -->
-
-                                </div>
-                                <!-- /.row (main row) -->
-                            </div>
-                        </div>
-
                         <div class="tab-pane" id="resmiGorevliIslemleri">
                             <div class="box">
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Added Officials </h3>
+                                        <h3 class="box-title">Added Official </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -1324,6 +1165,8 @@
                                                             <th>Room-Price</th>
                                                             <th>Entry Date</th>
                                                             <th>Release Date</th>
+                                                            <th>Total Day</th>
+                                                            <th>Total Price</th>
                                                             <th>Transactions</th>
                                                         </tr>
                                                         </thead>
@@ -1343,6 +1186,12 @@
                                                                     </td>
                                                                     <td>
                                                                         {{ taoluHotel.hotel.registerFinishDate }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ taoluHotel.hotel.totalDay }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ taoluHotel.hotel.price }} €
                                                                     </td>
                                                                     <td>
                                                                         <div class="btn-group">
@@ -1769,6 +1618,7 @@
                                     } else {
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("taoluError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
 
 

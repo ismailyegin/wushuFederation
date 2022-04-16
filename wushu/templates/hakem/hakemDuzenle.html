@@ -91,51 +91,52 @@
                                         {{ judge_form.category }}
                                     </div>
                                     {% if judge.category == 1 %}
-                                        <div class="form-group" id="heightx" >
-                                            <label for="height"> Height </label>
-                                            <input value="{{ judge.height }}" class="form-control" id="height"
-                                                   type="text" placeholder="cm">
-                                        </div>
-                                        <div class="form-group" id="weightx" >
-                                            <label for="weight"> Weight </label>
-                                            <input value="{{ judge.weight }}" class="form-control" id="weight"
-                                                   type="text">
-                                        </div>
-                                        <div class="form-group" id="pant" >
-                                            <label for="pantSize"> Pants Size </label>
-                                            <select id="pantSize" class="form-control select2 select2-hidden-accessible"
-                                                    style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                <option selected="selected" value="{{ judge.pantSize }}">{{ judge.pantSize }}</option>
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                                <option value="XL">XL</option>
-                                                <option value="XXL">XXL</option>
+                                    <div class="form-group" id="heightx">
+                                        <label for="height"> Height </label>
+                                        <input value="{{ judge.height }}" class="form-control" id="height" name="height"
+                                               type="number" placeholder="cm">
+                                    </div>
+                                    <div class="form-group" id="weightx">
+                                        <label for="weight"> Weight </label>
+                                        <input value="{{ judge.weight }}" class="form-control" id="weight" name="weight"
+                                               type="number">
+                                    </div>
+                                    <div class="form-group" id="pant">
+                                        <label for="pantSize"> Pants Size </label>
+                                        <select id="pantSize" name="pantSize" class="form-control select2 select2-hidden-accessible"
+                                                style="width: 100%;" tabindex="-1"
+                                                aria-hidden="true">
+                                            <option selected="selected"
+                                                    value="{{ judge.pantSize }}">{{ judge.pantSize }}</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group" id="shirt" >
-                                            <label for="shirtSize"> Shirt Size </label>
-                                            <select id="shirtSize"
-                                                    class="form-control select2 select2-hidden-accessible"
-                                                    style="width: 100%;" data-select2-id="1" tabindex="-1"
-                                                    aria-hidden="true">
-                                                <option selected="selected"
-                                                        value="{{ judge.shirtSize }}">{{ judge.shirtSize }}</option>
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
-                                                <option value="XL">XL</option>
-                                                <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="shirt">
+                                        <label for="shirtSize"> Shirt Size </label>
+                                        <select id="shirtSize" name="shirtSize"
+                                                class="form-control select2 select2-hidden-accessible"
+                                                style="width: 100%;" data-select2-id="1" tabindex="-1"
+                                                aria-hidden="true">
+                                            <option selected="selected"
+                                                    value="{{ judge.shirtSize }}">{{ judge.shirtSize }}</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group" id="nationalx">
-                                            <label for="national"> Do you have a national judging certificate? </label>
-                                            <input value="{{ judge.is_national }}" id="national" type="checkbox">
-                                        </div>
-                                    {% endif %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="nationalx">
+                                        <label for="national"> Do you have a national judging certificate? </label>
+                                            {{ judge_form.is_national }}
+
+                                        {% endif %}
                                 </div>
 
                                 <div class="col-lg-6">

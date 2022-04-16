@@ -9,8 +9,8 @@ class Hotel(models.Model):
     DOUBLEROOM = 1
 
     HOTELTYPE = (
-        (SINGLEROOM, 'SINGLE ROOM'),
-        (DOUBLEROOM, 'DOUBLE ROOM'),
+        (SINGLEROOM, 'SINGLE ROOM-81€'),
+        (DOUBLEROOM, 'DOUBLE ROOM-63€'),
 
     )
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
@@ -18,6 +18,8 @@ class Hotel(models.Model):
     registerFinishDate = models.DateTimeField()
     name = models.CharField(max_length=128, verbose_name='Hotel Room-Price', choices=HOTELTYPE)
     federation = models.ForeignKey(Federation, on_delete=models.CASCADE)
+    totalDay = models.CharField(max_length=10, blank=True, null=True, verbose_name='Total Day')
+    price = models.CharField(max_length=10, blank=True, null=True, verbose_name='Price')
 
     def __str__(self):
         return '%s %s' % (self.person.name, self.person.surName)

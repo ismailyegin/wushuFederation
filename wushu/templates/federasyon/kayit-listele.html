@@ -147,6 +147,11 @@
                                 <th>Category</th>
                                 <th>Age Group</th>
                                 <th>Passport No</th>
+                                <th>Room-Price</th>
+                                <th>Hotel Entry Date</th>
+                                <th>Hotel Release Date</th>
+                                <th>Total Day</th>
+                                <th>Total Price</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -189,6 +194,11 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ athlete.person.pasaport }}</td>
+                                    <td> {{ athlete.person.hotel.name }}</td>
+                                    <td> {{ athlete.person.hotel.registerStartDate }}</td>
+                                    <td> {{ athlete.person.hotel.registerFinishDate }}</td>
+                                    <td> {{ athlete.person.hotel.totalDay }}</td>
+                                    <td> {{ athlete.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -201,7 +211,7 @@
                                         <td>{{ coach.person.name }} {{ coach.person.surName }} </td>
                                         <td> {{ coach.person.birthDate }}</td>
                                         <td> {{ coach.federation.person.country }}</td>
-                                        <td> Coach </td>
+                                        <td> Coach</td>
                                         <td>
                                             {% for category in sandaCoach %}
                                                 {% if category.coach == coach %}
@@ -216,6 +226,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ coach.person.pasaport }}</td>
+                                    <td> {{ coach.person.hotel.name }}</td>
+                                    <td> {{ coach.person.hotel.registerStartDate }}</td>
+                                    <td> {{ coach.person.hotel.registerFinishDate }}</td>
+                                    <td> {{ coach.person.hotel.totalDay }}</td>
+                                    <td> {{ coach.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -228,7 +243,7 @@
                                         <td>{{ observer.person.name }} {{ observer.person.surName }} </td>
                                         <td> {{ observer.person.birthDate }}</td>
                                         <td> {{ observer.federation.person.country }}</td>
-                                        <td> Observer </td>
+                                        <td> Observer</td>
                                         <td>
                                             {% for category in sandaObserver %}
                                                 {% if category.observer == observer %}
@@ -243,6 +258,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ observer.person.pasaport }}</td>
+                                    <td> {{ observer.person.hotel.name }}</td>
+                                    <td> {{ observer.person.hotel.registerStartDate }}</td>
+                                    <td> {{ observer.person.hotel.registerFinishDate }}</td>
+                                    <td> {{ observer.person.hotel.totalDay }}</td>
+                                    <td> {{ observer.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -255,7 +275,7 @@
                                         <td>{{ officer.person.name }} {{ officer.person.surName }} </td>
                                         <td> {{ officer.person.birthDate }}</td>
                                         <td> {{ officer.federation.person.country }}</td>
-                                        <td> Officer </td>
+                                        <td> Officer</td>
                                         <td>
                                             {% for category in sandaOfficer %}
                                                 {% if category.officer == officer %}
@@ -270,6 +290,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ officer.person.pasaport }}</td>
+                                    <td> {{ officer.person.hotel.name }}</td>
+                                    <td> {{ officer.person.hotel.registerStartDate }}</td>
+                                    <td> {{ officer.person.hotel.registerFinishDate }}</td>
+                                    <td> {{ officer.person.hotel.totalDay }}</td>
+                                    <td> {{ officer.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -282,7 +307,7 @@
                                         <td>{{ judge.person.name }} {{ judge.person.surName }} </td>
                                         <td> {{ judge.person.birthDate }}</td>
                                         <td> {{ judge.federation.person.country }}</td>
-                                        <td> Referee </td>
+                                        <td> Referee</td>
                                         <td>
                                             {% for category in sandaJudge %}
                                                 {% if category.judge == judge %}
@@ -297,6 +322,11 @@
                                         </td>
                                         <td></td>
                                         <td>{{ judge.person.pasaport }}</td>
+                                        <td> {{ judge.person.hotel.name }}</td>
+                                        <td> {{ judge.person.hotel.registerStartDate }}</td>
+                                        <td> {{ judge.person.hotel.registerFinishDate }}</td>
+                                        <td> {{ judge.person.hotel.totalDay }}</td>
+                                        <td> {{ judge.person.hotel.price }} €</td>
 
                                     </tr>
 
@@ -369,14 +399,13 @@
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5]
                         },
-                        titleAttr: 'Save Pdf'
+                        titleAttr: 'Save Pdf',
                     },
 
                     {
                         extend: 'excelHtml5',
                         title: 'Sporcular',
                         text: '<i class="fa fa-file-excel-o"></i>',
-                        messageTop: 'Twf Bilgi Sistemi ',
                         {#footer: true,#}
                         exportOptions: {
                             {#     yer degisimi de yapilabilir.#}

@@ -1,4 +1,5 @@
 import traceback
+from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -570,10 +571,16 @@ def musabaka_taolu_sporcu_ekle(request):
 
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('hakemId'))
+                    if judge.category == 1 and TaoluJudge.objects.filter(judge__category=1):
+                        return JsonResponse({'status': 'Warning',
+                                             'messages': 'More than one referee cannot be registered.'})
+
+
                     taoluJudge = TaoluJudge(
                         competition=compettion,
                         judge=judge,
                     )
+
                     taoluJudge.save()
                     mesaj = str(
                         compettion.name) + ' to the competition ' + taoluJudge.judge.person.name + ' ' + taoluJudge.judge.person.surName + '  added'
@@ -586,6 +593,14 @@ def musabaka_taolu_sporcu_ekle(request):
                     name = request.POST.get('hotelRoom')
                     registerStartDate = request.POST.get('registerStartDate')
                     registerFinishDate = request.POST.get('registerFinishDate')
+                    finishDate = datetime.strptime(registerFinishDate, "%Y-%m-%d").date()
+                    startDate = datetime.strptime(registerStartDate, "%Y-%m-%d").date()
+                    totalDay = finishDate - startDate
+                    totalDay = totalDay.days
+                    if name == 'SINGLE ROOM-81€':
+                        price = totalDay * 81
+                    else:
+                        price = totalDay * 63
                     person = Person.objects.get(pk=personId)
                     if request.user.groups.filter(name='Admin'):
                         if Athlete.objects.filter(person=person):
@@ -603,7 +618,7 @@ def musabaka_taolu_sporcu_ekle(request):
 
                     hotel = Hotel(
                         person=person, name=name, registerStartDate=registerStartDate,
-                        registerFinishDate=registerFinishDate, federation=federation
+                        registerFinishDate=registerFinishDate, federation=federation, totalDay=totalDay, price=price
                     )
                     hotel.save()
 
@@ -919,6 +934,9 @@ def musabaka_sanda_sporcu_ekle(request):
                     return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('judgeId'))
+                    if judge.category == 1 and SandaJudge.objects.filter(judge__category=1):
+                        return JsonResponse({'status': 'Warning',
+                                             'messages': 'More than one referee cannot be registered.'})
                     sandaJudge = SandaJudge(
                         competition=compettion,
                         judge=judge,
@@ -934,6 +952,14 @@ def musabaka_sanda_sporcu_ekle(request):
                     name = request.POST.get('hotelRoom')
                     registerStartDate = request.POST.get('registerStartDate')
                     registerFinishDate = request.POST.get('registerFinishDate')
+                    finishDate = datetime.strptime(registerFinishDate, "%Y-%m-%d").date()
+                    startDate = datetime.strptime(registerStartDate, "%Y-%m-%d").date()
+                    totalDay = finishDate - startDate
+                    totalDay = totalDay.days
+                    if name == 'SINGLE ROOM-81€':
+                        price = totalDay * 81
+                    else:
+                        price = totalDay * 63
                     person = Person.objects.get(pk=personId)
                     if request.user.groups.filter(name='Admin'):
                         if Athlete.objects.filter(person=person):
@@ -951,7 +977,7 @@ def musabaka_sanda_sporcu_ekle(request):
 
                     hotel = Hotel(
                         person=person, name=name, registerStartDate=registerStartDate,
-                        registerFinishDate=registerFinishDate, federation=federation
+                        registerFinishDate=registerFinishDate, federation=federation, totalDay=totalDay, price=price
                     )
                     hotel.save()
 

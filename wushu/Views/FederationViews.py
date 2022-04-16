@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
@@ -12,6 +12,7 @@ from wushu.Forms.UserForm import UserForm
 from wushu.models import Athlete, Person, Federation, Coach, Observer, Officer, Judge, Competition, SandaAthlete, \
     TaoluAthlete, SandaCoach, SandaObserver, SandaOfficer, SandaJudge, TaoluCoach, TaoluObserver, TaoluOfficer, \
     TaoluJudge
+from wushu.models.Hotel import Hotel
 from wushu.services import general_methods
 
 
@@ -38,6 +39,9 @@ def return_add_federation(request):
             password = User.objects.make_random_password()
             user.set_password(password)
             user.is_active = user_form.cleaned_data['is_active']
+            group = Group.objects.get(name='Federation')
+            user.save()
+            user.groups.add(group)
             user.save()
 
             person = person_form.save(commit=False)
@@ -86,6 +90,9 @@ def return_federations(request):
             password = User.objects.make_random_password()
             user.set_password(password)
             # user.is_active = user_form.cleaned_data['is_active']
+            group = Group.objects.get(name='Federation')
+            user.save()
+            user.groups.add(group)
             user.save()
 
             person = person_form.save(commit=False)

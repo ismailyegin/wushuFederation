@@ -120,7 +120,7 @@ def return_judges(request):
                 judge.height = request.POST['height']
                 judge.pantSize = request.POST['pantSize']
                 judge.shirtSize = request.POST['shirtSize']
-                judge.is_national = request.POST['national']
+
                 judge.save()
 
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
@@ -151,7 +151,7 @@ def return_judges(request):
                 judge.height = request.POST['height']
                 judge.pantSize = request.POST['pantSize']
                 judge.shirtSize = request.POST['shirtSize']
-                judge.is_national = request.POST['national']
+
                 judge.save()
 
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
@@ -206,7 +206,6 @@ def updatejudges(request, pk):
                 judge.height = request.POST['height']
                 judge.pantSize = request.POST['pantSize']
                 judge.shirtSize = request.POST['shirtSize']
-                judge.is_national = request.POST['national']
                 judge.save()
 
                 messages.success(request, 'Referee Successfully Updated.')
@@ -230,7 +229,6 @@ def updatejudges(request, pk):
                 judge.height = request.POST['height']
                 judge.pantSize = request.POST['pantSize']
                 judge.shirtSize = request.POST['shirtSize']
-                judge.is_national = request.POST['national']
                 judge.save()
                 messages.success(request, 'Referee Successfully Updated.')
 

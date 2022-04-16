@@ -99,7 +99,7 @@ def return_athletes(request):
     user = User.objects.get(pk=login_user.pk)
     athletes = Athlete.objects.none()
     person_form = PersonForm()
-    athlete_form = AthleteForm()
+    # athlete_form = AthleteForm()
     athlete_federation_form = AthleteFederationForm()
     if request.method == 'POST':
         person_form = PersonForm(request.POST, request.FILES)
@@ -111,8 +111,7 @@ def return_athletes(request):
                 person = person_form.save()
 
                 athlete = Athlete(
-                    person=person, federation=athlete_federation_form.cleaned_data['federation'],
-                    eeg=athlete_form.cleaned_data['eeg'].name, ekg=athlete_form.cleaned_data['ekg'].name
+                    person=person, federation=athlete_federation_form.cleaned_data['federation']
                 )
                 athlete.save()
 
@@ -135,10 +134,10 @@ def return_athletes(request):
                 person.save()
                 federation = Federation.objects.get(user=request.user)
 
-                athlete = athlete_form.save(commit=False)
+                # athlete = athlete_form.save(commit=False)
 
                 athlete = Athlete(
-                    person=person, federation=federation, eeg=athlete.eeg, ekg=athlete.ekg
+                    person=person, federation=federation
                 )
                 athlete.save()
 
@@ -159,8 +158,7 @@ def return_athletes(request):
         athletes = Athlete.objects.all()
 
     return render(request, 'sporcu/sporcular.html',
-                  {'athletes': athletes,'person_form': person_form, 'athlete_form': athlete_form,
-                                                       'athlete_federation_form': athlete_federation_form,})
+                  {'athletes': athletes,'person_form': person_form, 'athlete_federation_form': athlete_federation_form,})
 
 
 @login_required
@@ -175,7 +173,7 @@ def updateathletes(request, pk):
     user = request.user
 
     person_form = PersonForm(request.POST or None, request.FILES or None, instance=person)
-    athlete_form = AthleteForm(request.POST or None, request.FILES or None, instance=athlete)
+    # athlete_form = AthleteForm(request.POST or None, request.FILES or None, instance=athlete)
     athlete_federation_form = AthleteFederationForm(request.POST or None, request.FILES or None, instance=athlete)
     say = 0
 
@@ -183,11 +181,11 @@ def updateathletes(request, pk):
 
         if user.groups.filter(name__in=['Yonetim', 'Admin']):
             athlete_federation_form = AthleteFederationForm(request.POST, request.FILES)
-            if person_form.is_valid() and athlete_form.is_valid() and athlete_federation_form.is_valid():
+            if person_form.is_valid() and athlete_federation_form.is_valid():
 
                 person_form.save()
-                athlete.ekg = athlete_form.cleaned_data['ekg'].name
-                athlete.eeg = athlete_form.cleaned_data['eeg'].name
+                # athlete.ekg = athlete_form.cleaned_data['ekg'].name
+                # athlete.eeg = athlete_form.cleaned_data['eeg'].name
                 athlete.federation = athlete_federation_form.cleaned_data['federation']
                 athlete.save()
 
@@ -204,10 +202,10 @@ def updateathletes(request, pk):
 
         if user.groups.filter(name='Federation'):
 
-            if person_form.is_valid() and athlete_form.is_valid():
+            if person_form.is_valid() :
 
                 person_form.save()
-                athlete_form.save()
+                # athlete_form.save()
 
                 messages.success(request, 'Athlete Successfully Updated.')
 
@@ -221,7 +219,7 @@ def updateathletes(request, pk):
                 messages.warning(request, 'Check Fields')
 
     return render(request, 'sporcu/sporcuDuzenle.html',
-                  {'person_form': person_form, 'athlete': athlete, 'say': say, 'athlete_form': athlete_form,
+                  {'person_form': person_form, 'athlete': athlete, 'say': say,
                    'athlete_federation_form': athlete_federation_form, })
 
 
