@@ -203,7 +203,8 @@
                                             {% language 'en' %}
                                                 {{ athlete.person.hotel.registerStartDate }}
                                             {% endlanguage %}</td>
-                                        <td> {% language 'en' %}{{ athlete.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ athlete.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ athlete.person.hotel.totalDay }}</td>
                                         <td> {{ athlete.person.hotel.price }} €</td>
 
@@ -234,8 +235,10 @@
                                         <td></td>
                                         <td>{{ coach.person.pasaport }}</td>
                                         <td> {{ coach.person.hotel.name }}</td>
-                                        <td> {% language 'en' %}{{ coach.person.hotel.registerStartDate }}{% endlanguage %}</td>
-                                        <td> {% language 'en' %}{{ coach.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ coach.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ coach.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ coach.person.hotel.totalDay }}</td>
                                         <td> {{ coach.person.hotel.price }} €</td>
 
@@ -266,8 +269,10 @@
                                         <td></td>
                                         <td>{{ observer.person.pasaport }}</td>
                                         <td> {{ observer.person.hotel.name }}</td>
-                                        <td> {% language 'en' %}{{ observer.person.hotel.registerStartDate }}{% endlanguage %}</td>
-                                        <td> {% language 'en' %}{{ observer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ observer.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ observer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ observer.person.hotel.totalDay }}</td>
                                         <td> {{ observer.person.hotel.price }} €</td>
 
@@ -298,8 +303,10 @@
                                         <td></td>
                                         <td>{{ officer.person.pasaport }}</td>
                                         <td> {{ officer.person.hotel.name }}</td>
-                                        <td> {% language 'en' %}{{ officer.person.hotel.registerStartDate }}{% endlanguage %}</td>
-                                        <td> {% language 'en' %}{{ officer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ officer.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ officer.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ officer.person.hotel.totalDay }}</td>
                                         <td> {{ officer.person.hotel.price }} €</td>
 
@@ -330,8 +337,10 @@
                                         <td></td>
                                         <td>{{ judge.person.pasaport }}</td>
                                         <td> {{ judge.person.hotel.name }}</td>
-                                        <td> {% language 'en' %}{{ judge.person.hotel.registerStartDate }}{% endlanguage %}</td>
-                                        <td> {% language 'en' %}{{ judge.person.hotel.registerFinishDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ judge.person.hotel.registerStartDate }}{% endlanguage %}</td>
+                                        <td>{% language 'en' %}
+                                            {{ judge.person.hotel.registerFinishDate }}{% endlanguage %}</td>
                                         <td> {{ judge.person.hotel.totalDay }}</td>
                                         <td> {{ judge.person.hotel.price }} €</td>
 
@@ -395,7 +404,7 @@
                         title: 'Sporcular',
                         text: '<i class="fa  fa-print"></i>',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                         },
                         titleAttr: 'Print'
                     },
@@ -404,9 +413,14 @@
                         download: 'open',
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                         },
                         titleAttr: 'Save Pdf',
+                        orientation: 'landscape',
+                        columnDefs: [
+                            {"width": "5%"}
+                        ],
+
                     },
 
                     {
@@ -416,7 +430,7 @@
                         {#footer: true,#}
                         exportOptions: {
                             {#     yer degisimi de yapilabilir.#}
-                            columns: [0, 2, 1, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
                         },
                         titleAttr: 'Excel Save'
