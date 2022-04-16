@@ -115,11 +115,18 @@ def return_judges(request):
                 judge = Judge(
                     person=person, federation=federation, category=category
                 )
-                judge.save()
-                judge.weight = request.POST['weight']
-                judge.height = request.POST['height']
-                judge.pantSize = request.POST['pantSize']
-                judge.shirtSize = request.POST['shirtSize']
+
+                if judge_form.cleaned_data['category'] == 1:
+                    judge.weight = request.POST['weight']
+                    judge.height = request.POST['height']
+                    judge.pantSize = request.POST['pantSize']
+                    judge.shirtSize = request.POST['shirtSize']
+                else:
+                    judge.is_national = None
+                    judge.weight = None
+                    judge.height = None
+                    judge.pantSize = None
+                    judge.shirtSize = None
 
                 judge.save()
 
@@ -146,11 +153,17 @@ def return_judges(request):
                 judge = Judge(
                     person=person, federation=federation, category=category
                 )
-                judge.save()
-                judge.weight = request.POST['weight']
-                judge.height = request.POST['height']
-                judge.pantSize = request.POST['pantSize']
-                judge.shirtSize = request.POST['shirtSize']
+                if judge_form.cleaned_data['category'] == 1:
+                    judge.weight = request.POST['weight']
+                    judge.height = request.POST['height']
+                    judge.pantSize = request.POST['pantSize']
+                    judge.shirtSize = request.POST['shirtSize']
+                else:
+                    judge.is_national = None
+                    judge.weight = None
+                    judge.height = None
+                    judge.pantSize = None
+                    judge.shirtSize = None
 
                 judge.save()
 
@@ -243,6 +256,7 @@ def updatejudges(request, pk):
                     judge.height = None
                     judge.pantSize = None
                     judge.shirtSize = None
+
                 judge.save()
                 messages.success(request, 'Referee Successfully Updated.')
 
