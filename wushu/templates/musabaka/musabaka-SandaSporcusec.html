@@ -189,7 +189,7 @@
                 <div class="modal-body">
                     <div class="modal-header">
                         <a style="" href="{% url "wushu:officers" %}" class="btn btn-success" type="button">
-                            <i class="fa fa-plus"></i> Add New Officer
+                            <i class="fa fa-plus"></i> Add New Official
                         </a>
                     </div>
 
@@ -905,7 +905,7 @@
 
                                             <a onclick="resmiGorevliSec(4)"
                                                type="button" class="btn btn-success"><i
-                                                    class="fa fa-edit"></i>Add Officer
+                                                    class="fa fa-edit"></i>Add Official
                                             </a>
 
                                         </div>
@@ -1613,7 +1613,7 @@
 
                                     if (result.status == "Success") {
 
-                                        html = 'Officer Successfully Added.';
+                                        html = 'Official Successfully Added.';
                                         debugger;
                                         $(".successModal").html(html);
                                         $('#modal-success').on("shown.bs.modal", function (e) {
@@ -2542,7 +2542,7 @@
                         },
                         success: function (result) {
 
-                            html = 'Officer Successfully Deleted.';
+                            html = 'Official Successfully Deleted.';
                             debugger;
                             $(".successModal").html(html);
                             $('#modal-success').on("shown.bs.modal", function (e) {
