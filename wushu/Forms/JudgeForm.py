@@ -10,7 +10,7 @@ class JudgeForm(ModelForm):
 
         fields = ('category',)
 
-        labels = {'category': 'Branch(*)', }
+        labels = {'category': 'Role(*)', }
         widgets = {
 
             'category': forms.Select(attrs={'class': 'form-control select2 select2-hidden-accessible',

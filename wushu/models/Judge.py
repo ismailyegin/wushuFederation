@@ -12,8 +12,8 @@ class Judge(models.Model):
 
 
     COMPEVENTTYPE = (
-        (ADAYHAKEM, 'ADAY HAKEM'),
-        (HAKEM, 'HAKEM'),
+        (ADAYHAKEM, 'CANDIDATE JUDGE'),
+        (HAKEM, 'JUDGE'),
 
     )
     person = models.OneToOneField(Person, on_delete=models.CASCADE)

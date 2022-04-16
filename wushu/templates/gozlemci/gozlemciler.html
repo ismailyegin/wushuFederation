@@ -232,20 +232,22 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Observers</h3>
                     </div>
-{#                    <div class="box-header with-border">#}
-{#                        <div class="btn-group">#}
-{#                            <a href="{% url "wushu:add-observer" %}"#}
-{#                               type="button" class="btn btn-success"><i#}
-{#                                    class="fa fa-edit"></i> Add New Observer#}
-{#                            </a>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="box-header with-border">#}
+                    {#                        <div class="btn-group">#}
+                    {#                            <a href="{% url "wushu:add-observer" %}"#}
+                    {#                               type="button" class="btn btn-success"><i#}
+                    {#                                    class="fa fa-edit"></i> Add New Observer#}
+                    {#                            </a>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                     <div class="box-body">
                         <table id="coaches" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name </th>
+                                <th>Name</th>
+                                <th>Date of birth</th>
+                                <th>Gender</th>
                                 <th>Transactions</th>
 
 
@@ -257,19 +259,21 @@
                                     <tr>
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ observer.person.name }} {{ observer.person.surName }} </td>
+                                        <td>{{ observer.person.birthDate }}</td>
+                                        <td>{{ observer.person.gender }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:update-observers" observer.pk %}"
                                                    type="button" class="btn btn-warning"><i
                                                         class="fa fa-edit"></i>Update
                                                 </a>
-{#                                                {% if user.groups.all.0.name == "Admin" %}#}
-{#                                                silme işlemi#}
-                                                    <a class="btn btn-danger"
-                                                       data-toggle="modal" onclick=deleteObserver({{ observer.pk }})><i
-                                                            class="fa fa-trash"></i> Delete
-                                                    </a>
-{#                                                {% endif %}#}
+                                                {#                                                {% if user.groups.all.0.name == "Admin" %}#}
+                                                {#                                                silme işlemi#}
+                                                <a class="btn btn-danger"
+                                                   data-toggle="modal" onclick=deleteObserver({{ observer.pk }})><i
+                                                        class="fa fa-trash"></i> Delete
+                                                </a>
+                                                {#                                                {% endif %}#}
                                             </div>
                                         </td>
 
@@ -303,7 +307,6 @@
                     url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/en-GB.json"
 
                 },
-
 
 
                 lengthMenu: [
@@ -343,7 +346,7 @@
                         download: 'open',
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: [0, 1, 2, 3]
                         },
                         titleAttr: 'Save Pdf'
                     },

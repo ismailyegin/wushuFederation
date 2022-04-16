@@ -250,6 +250,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Role</th>
+                                <th>Date of birth</th>
+                                <th>Gender</th>
                                 <th>Transactions</th>
 
 
@@ -261,18 +264,25 @@
                                     <tr>
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ judge.person.name }} {{ judge.person.surName }} </td>
+                                        {% if judge.category == 0 %}
+                                            <td>CANDIDATE JUDGE</td>
+                                        {% else %}
+                                            <td>JUDGE</td>
+                                        {% endif %}
+                                        <td>{{ judge.person.birthDate }}</td>
+                                        <td>{{ judge.person.gender }} </td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:update-judges" judge.pk %}"
                                                    type="button" class="btn btn-warning"><i
                                                         class="fa fa-edit"></i>Update
                                                 </a>
-{#                                                {% if user.groups.all.0.name == "Admin" %}#}
-                                                    <a class="btn btn-danger"
-                                                       data-toggle="modal" onclick=deleteJudge({{ judge.pk }})><i
-                                                            class="fa fa-trash"></i> Delete
-                                                    </a>
-{#                                                {% endif %}#}
+                                                {#                                                {% if user.groups.all.0.name == "Admin" %}#}
+                                                <a class="btn btn-danger"
+                                                   data-toggle="modal" onclick=deleteJudge({{ judge.pk }})><i
+                                                        class="fa fa-trash"></i> Delete
+                                                </a>
+                                                {#                                                {% endif %}#}
                                             </div>
                                         </td>
 
@@ -329,7 +339,6 @@
                 },
 
 
-
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     ['10 row', '25 row ', '50 row ', '100 row', 'Show All']
@@ -367,7 +376,7 @@
                         download: 'open',
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: [0, 1, 2, 3]
                         },
                         titleAttr: 'Save Pdf'
                     },

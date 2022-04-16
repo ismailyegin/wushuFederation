@@ -257,6 +257,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                 <th>Date of birth</th>
+                                <th>Gender</th>
                                 <th>Transactions</th>
 
 
@@ -268,6 +270,8 @@
                                     <tr>
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ coach.person.name }} {{ coach.person.surName }} </td>
+                                         <td>{{ coach.person.birthDate }}</td>
+                                        <td>{{ coach.person.gender }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:update-coaches" coach.pk %}"
@@ -373,7 +377,7 @@
                         download: 'open',
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: [0,1,2,3]
                         },
                         titleAttr: 'Save Pdf'
                     },
