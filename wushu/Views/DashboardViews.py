@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
 
-from wushu.models import Competition, Coach, Observer, Officer, Judge
+from wushu.models import Competition, Coach, Observer, Officer, Judge, SandaAthlete, SandaCoach, SandaObserver, \
+    SandaOfficer, SandaJudge, TaoluAthlete, TaoluCoach, TaoluObserver, TaoluOfficer, TaoluJudge
 from wushu.models.Athlete import Athlete
 from wushu.models.Federation import Federation
 from wushu.services import general_methods
@@ -40,15 +41,30 @@ def return_federation_dashboard(request):
 
         return redirect('accounts:login')
     competitions = Competition.objects.filter(registerStartDate__lte=timezone.now(),
-                                             registerFinishDate__gte=timezone.now())
+                                              registerFinishDate__gte=timezone.now())
     athletes = Athlete.objects.filter(federation__user=request.user)
     coaches = Coach.objects.filter(federation__user=request.user)
     observers = Observer.objects.filter(federation__user=request.user)
     officers = Officer.objects.filter(federation__user=request.user)
     judges = Judge.objects.filter(federation__user=request.user)
+
+    sandaAthlete = SandaAthlete.objects.all().count()
+    sandaCoach = SandaCoach.objects.all().count()
+    sandaObserver = SandaObserver.objects.all().count()
+    sandaOfficer = SandaOfficer.objects.all().count()
+    sandaJudge = SandaJudge.objects.all().count()
+
+    taoluAthlete = TaoluAthlete.objects.all().count()
+    taoluCoach = TaoluCoach.objects.all().count()
+    taoluObserver = TaoluObserver.objects.all().count()
+    taoluOfficer = TaoluOfficer.objects.all().count()
+    taoluJudge = TaoluJudge.objects.all().count()
+
+    totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
+
     return render(request, 'anasayfa/federasyon.html',
                   {'application': competitions, 'athletes': athletes, 'coaches': coaches,
-                   'observers': observers, 'officers': officers, 'judges': judges, })
+                   'observers': observers, 'officers': officers, 'judges': judges, 'totalRegistration': totalRegistration, })
 
 
 @login_required
