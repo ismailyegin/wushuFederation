@@ -202,6 +202,13 @@ def updatejudges(request, pk):
                 judge_form.save()
                 judge_federation_form.save()
 
+                judge.weight = request.POST['weight']
+                judge.height = request.POST['height']
+                judge.pantSize = request.POST['pantSize']
+                judge.shirtSize = request.POST['shirtSize']
+                judge.is_national = request.POST['national']
+                judge.save()
+
                 messages.success(request, 'Referee Successfully Updated.')
 
                 mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
@@ -219,6 +226,12 @@ def updatejudges(request, pk):
 
                 person_form.save()
                 judge_form.save()
+                judge.weight = request.POST['weight']
+                judge.height = request.POST['height']
+                judge.pantSize = request.POST['pantSize']
+                judge.shirtSize = request.POST['shirtSize']
+                judge.is_national = request.POST['national']
+                judge.save()
                 messages.success(request, 'Referee Successfully Updated.')
 
                 mesaj = 'The judge named ' + str(person.name) + ' ' + str(person.surName) + ' has been updated'
