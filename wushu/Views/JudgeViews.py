@@ -116,6 +116,12 @@ def return_judges(request):
                     person=person, federation=federation, category=category
                 )
                 judge.save()
+                judge.weight = request.POST['weight']
+                judge.height = request.POST['height']
+                judge.pantSize = request.POST['pantSize']
+                judge.shirtSize = request.POST['shirtSize']
+                judge.is_national = request.POST['national']
+                judge.save()
 
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
@@ -141,6 +147,12 @@ def return_judges(request):
                     person=person, federation=federation, category=category
                 )
                 judge.save()
+                judge.weight = request.POST['weight']
+                judge.height = request.POST['height']
+                judge.pantSize = request.POST['pantSize']
+                judge.shirtSize = request.POST['shirtSize']
+                judge.is_national = request.POST['national']
+                judge.save()
 
                 mesaj = str(judge.person.name) + ' ' + str(judge.person.surName) + ' judge registered'
                 log = general_methods.logwrite(request, request.user, mesaj)
@@ -160,8 +172,8 @@ def return_judges(request):
         judges = Judge.objects.all()
 
     return render(request, 'hakem/hakemler.html',
-                  {'judges': judges,'person_form': person_form, 'judge_form': judge_form,
-                                                     'judge_federation_form': judge_federation_form})
+                  {'judges': judges, 'person_form': person_form, 'judge_form': judge_form,
+                   'judge_federation_form': judge_federation_form})
 
 
 @login_required

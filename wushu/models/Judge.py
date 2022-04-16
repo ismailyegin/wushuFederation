@@ -21,6 +21,14 @@ class Judge(models.Model):
     modificationDate = models.DateTimeField(auto_now=True)
     category = models.IntegerField(null=True, blank=True, choices=COMPEVENTTYPE)
     federation = models.ForeignKey(Federation, on_delete=models.CASCADE)
+    weight=models.IntegerField(null=True,blank=True,verbose_name='Kilo')
+    height=models.IntegerField(null=True,blank=True,verbose_name='Boy')
+    is_national=models.BooleanField(null=True,blank=True,verbose_name='Ulusal Hakem mi?')
+    shirtSize=models.CharField(max_length=250,null=True,blank=True,verbose_name='Üst Beden')
+    pantSize=models.CharField(max_length=250,null=True,blank=True,verbose_name='Alt Beden')
+
+
+
 
 
     def __str__(self):
