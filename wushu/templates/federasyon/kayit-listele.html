@@ -365,6 +365,7 @@
     <script>
         $(function () {
             $('#registrationList').DataTable({
+                "pageLength": 50,
 
 
                 dom: 'Bfrtip',
@@ -413,13 +414,12 @@
                         download: 'open',
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                            columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 4]
                         },
                         titleAttr: 'Save Pdf',
                         orientation: 'landscape',
-                        columnDefs: [
-                            {"width": "5%"}
-                        ],
+                        pageSize: 'LEGAL'
+
 
                     },
 
