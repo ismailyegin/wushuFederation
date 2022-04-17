@@ -115,7 +115,7 @@ def return_judges(request):
                 judge = Judge(
                     person=person, federation=federation, category=category
                 )
-                judge.save()
+
                 if judge_form.cleaned_data['category'] == 1:
                     judge.weight = request.POST['weight']
                     judge.height = request.POST['height']
@@ -153,7 +153,6 @@ def return_judges(request):
                 judge = Judge(
                     person=person, federation=federation, category=category
                 )
-                judge.save()
                 if judge_form.cleaned_data['category'] == 1:
                     judge.weight = request.POST['weight']
                     judge.height = request.POST['height']
@@ -257,6 +256,7 @@ def updatejudges(request, pk):
                     judge.height = None
                     judge.pantSize = None
                     judge.shirtSize = None
+
                 judge.save()
                 messages.success(request, 'Referee Successfully Updated.')
 
