@@ -61,9 +61,9 @@
                     </select>
                     <label for="inputState">Weight Category</label>
                     <select id="sanda-weight" name='sanda-weight' style="width: 100%;" class=" form-control">
-                        {#                        {% for item in weightCategory %}#}
-                        {#                            <option value="{{ item.pk }}">{{ item.categoryName }}</option>#}
-                        {#                        {% endfor %}#}
+                        {% for item in weightCategory %}
+                            <option value="{{ item.pk }}">{{ item.categoryName }}</option>
+                        {% endfor %}
                         <option value=""></option>
                     </select>
 
