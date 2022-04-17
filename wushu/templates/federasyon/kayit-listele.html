@@ -174,7 +174,7 @@
                                             {% endfor %}
                                             {% for category in taoluAthlete %}
                                                 {% if category.athlete == athlete %}
-                                                    {{ category.competitiontype }},
+                                                    {{ category.category.categoryName }},
                                                 {% endif %}
                                             {% endfor %}
                                         </td>
