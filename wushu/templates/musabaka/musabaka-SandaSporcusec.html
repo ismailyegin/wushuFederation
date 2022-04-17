@@ -13,7 +13,7 @@
                     <h4 class="modal-title">Warning</h4>
                 </div>
                 <div class="modal-body">
-                    <p id="taoluError"></p>
+                    <p id="sandaError"></p>
                 </div>
                 <div class="modal-footer">
 
@@ -1247,7 +1247,7 @@
                                         debugger;
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
-                                            document.getElementById("mesaj").innerHTML = result['messages'];
+                                            document.getElementById("sandaError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
 
                                                 $('#modal-warning').modal('hide');

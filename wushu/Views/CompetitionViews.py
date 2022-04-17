@@ -513,25 +513,29 @@ def musabaka_taolu_sporcu_ekle(request):
                     athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
                     athDulianComp = TaoluAthlete.objects.filter(athlete=athlete).filter(category__isDuilian=1).count()
                     athComp = TaoluAthlete.objects.filter(athlete=athlete).filter(category__isDuilian=0).count()
-                    if not TaoluAthlete.objects.filter(category=category):
-                        if (category.isDuilian == 1 and athDulianComp < 2) or (category.isDuilian == 0 and athComp < 2):
-                            taoluAthlete = TaoluAthlete(
-                                competition=compettion,
-                                category=category,
-                                athlete=athlete,
-                            )
-                            taoluAthlete.save()
-                            mesaj = str(
-                                compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
-                            log = general_methods.logwrite(request, request.user, mesaj)
-                            return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
+                    if SandaAthlete.objects.filter(athlete=athlete):
+                        return JsonResponse({'status': 'Warning',
+                                             'messages': 'Athletes registered in Sanda cannot be registered in Taolu.'})
+                    else:
+                        if not TaoluAthlete.objects.filter(category=category):
+                            if (category.isDuilian == 1 and athDulianComp < 2) or (category.isDuilian == 0 and athComp < 2):
+                                taoluAthlete = TaoluAthlete(
+                                    competition=compettion,
+                                    category=category,
+                                    athlete=athlete,
+                                )
+                                taoluAthlete.save()
+                                mesaj = str(
+                                    compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
+                                log = general_methods.logwrite(request, request.user, mesaj)
+                                return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
 
+                            else:
+                                return JsonResponse({'status': 'Warning',
+                                                     'messages': 'It is not possible to register for more than two competitions.'})
                         else:
                             return JsonResponse({'status': 'Warning',
-                                                 'messages': 'It is not possible to register for more than two competitions.'})
-                    else:
-                        return JsonResponse({'status': 'Warning',
-                                             'messages': 'It is not possible to register twice in the same category.'})
+                                                 'messages': 'It is not possible to register twice in the same category.'})
 
                 elif id == 2:
                     coach = Coach.objects.get(pk=request.POST.get('antrenorId'))
@@ -861,14 +865,36 @@ def musabaka_sanda_sporcu_ekle(request):
                 if id == 1:
                     athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
                     athleteComps = SandaAthlete.objects.filter(athlete=athlete)
-                    if athleteComps.count() > 1:
-                        return JsonResponse(
-                            {'status': 'Warning',
-                             'messages': 'It is not possible to register for more than two competitions.'})
-                    elif athleteComps.count() == 1:
-                        compCategory = SandaAthlete.objects.get(athlete=athlete).competitiontype
-                        if (int(request.POST.get('sanda')) == 1 and compCategory == 'Tuishou') or (
-                                int(request.POST.get('sanda')) == 2 and compCategory == 'Light Sanda'):
+                    if TaoluAthlete.objects.filter(athlete=athlete):
+                        return JsonResponse({'status': 'Warning',
+                                             'messages': 'Athletes registered in Taolu cannot be registered in Sanda.'})
+                    else:
+                        if athleteComps.count() > 1:
+                            return JsonResponse(
+                                {'status': 'Warning',
+                                 'messages': 'It is not possible to register for more than two competitions.'})
+                        elif athleteComps.count() == 1:
+                            compCategory = SandaAthlete.objects.get(athlete=athlete).competitiontype
+                            if (int(request.POST.get('sanda')) == 1 and compCategory == 'Tuishou') or (
+                                    int(request.POST.get('sanda')) == 2 and compCategory == 'Light Sanda'):
+                                sandaAthlete = SandaAthlete(
+                                    competition=compettion,
+                                    athlete=athlete,
+                                    competitiontype=sanda,
+                                    weight_category=SandaWeightCategory.objects.get(
+                                        pk=int(request.POST.get('sandaWeight'))).categoryName
+                                )
+                                sandaAthlete.save()
+                                mesaj = str(
+                                    compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
+                                log = general_methods.logwrite(request, request.user, mesaj)
+                                return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
+                            else:
+                                return JsonResponse(
+                                    {'status': 'Warning',
+                                     'messages': 'It is not possible to register for more than one competitions.'})
+
+                        else:
                             sandaAthlete = SandaAthlete(
                                 competition=compettion,
                                 athlete=athlete,
@@ -881,24 +907,6 @@ def musabaka_sanda_sporcu_ekle(request):
                                 compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
                             log = general_methods.logwrite(request, request.user, mesaj)
                             return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
-                        else:
-                            return JsonResponse(
-                                {'status': 'Warning',
-                                 'messages': 'It is not possible to register for more than one competitions.'})
-
-                    else:
-                        sandaAthlete = SandaAthlete(
-                            competition=compettion,
-                            athlete=athlete,
-                            competitiontype=sanda,
-                            weight_category=SandaWeightCategory.objects.get(
-                                pk=int(request.POST.get('sandaWeight'))).categoryName
-                        )
-                        sandaAthlete.save()
-                        mesaj = str(
-                            compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
-                        log = general_methods.logwrite(request, request.user, mesaj)
-                        return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
                 elif id == 2:
                     coach = Coach.objects.get(pk=request.POST.get('coachId'))
                     sandaCoach = SandaCoach(
