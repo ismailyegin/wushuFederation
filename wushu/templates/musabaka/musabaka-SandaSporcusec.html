@@ -473,7 +473,7 @@
                             <a href="#hakemIslemleri" data-toggle="tab" aria-expanded="true">Referee Registration</a>
                         </li>
                         <li>
-                            <a href="#otelIslemleri" data-toggle="tab" aria-expanded="true">Otel Registration</a>
+                            <a href="#otelIslemleri" data-toggle="tab" aria-expanded="true">Hotel Registration</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -1026,7 +1026,7 @@
                                 <div class="row">
 
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Added Otel Registration </h3>
+                                        <h3 class="box-title">Added Hotel Registration </h3>
                                     </div>
                                     <div class="box-header with-border">
 
@@ -1034,7 +1034,7 @@
 
                                             <a onclick="otelSec(6)"
                                                type="button" class="btn btn-success"><i
-                                                    class="fa fa-edit"></i>Add Otel Registration
+                                                    class="fa fa-edit"></i>Add Hotel Registration
                                             </a>
 
                                         </div>
@@ -1639,58 +1639,67 @@
 
                             personId = $('#personSec').val();
                             hotelRoom = $('#otelSec').val();
-                            registerStartDate = $('#registerStartDate').val();
-                            registerFinishDate = $('#registerFinishDate').val();
-                            debugger;
+                            let start=$('#registerStartDate').val()
+                            let finish=$('#registerFinishDate').val()
+                            if (start < finish){
+                                registerStartDate = start;
+                                registerFinishDate = finish;
+                                debugger;
 
-                            $.ajax({
-                                url: "{% url "wushu:sanda-sporcu-kaydet" %}",
-                                type: "POST",
-                                data: {
-                                    'csrfmiddlewaretoken': "{{  csrf_token  }}",
-                                    competition: {{ competition.pk }},
-                                    personId: personId,
-                                    id: id,
-                                    hotelRoom: hotelRoom,
-                                    registerStartDate: registerStartDate,
-                                    registerFinishDate: registerFinishDate,
-                                },
+                                $.ajax({
+                                    url: "{% url "wushu:sanda-sporcu-kaydet" %}",
+                                    type: "POST",
+                                    data: {
+                                        'csrfmiddlewaretoken': "{{  csrf_token  }}",
+                                        competition: {{ competition.pk }},
+                                        personId: personId,
+                                        id: id,
+                                        hotelRoom: hotelRoom,
+                                        registerStartDate: registerStartDate,
+                                        registerFinishDate: registerFinishDate,
+                                    },
 
-                                success: function (result) {
+                                    success: function (result) {
 
-                                    if (result.status == "Success") {
+                                        if (result.status == "Success") {
 
-                                        html = 'Hotel registration has been made.';
-                                        debugger;
-                                        $(".successModal").html(html);
-                                        $('#modal-success').on("shown.bs.modal", function (e) {
-                                            $(".btn-ok").click(function () {
+                                            html = 'Hotel registration has been made.';
+                                            debugger;
+                                            $(".successModal").html(html);
+                                            $('#modal-success').on("shown.bs.modal", function (e) {
+                                                $(".btn-ok").click(function () {
 
-                                                window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
+                                                    window.location.replace("{% url "wushu:musabaka-sanda-ekle" competition.pk %}");
 
-                                            });
+                                                });
 
-                                        }).modal('show');
-
-
-                                    } else {
-
-                                        $('#modal-warning').on("shown.bs.modal", function (e) {
-                                            $(".btn-ok").click(function () {
+                                            }).modal('show');
 
 
-                                                $('#modal-warning').modal('hide');
-                                                $('.modal').modal('hide');
-                                            });
+                                        } else {
 
-                                        }).modal('show');
+                                            $('#modal-warning').on("shown.bs.modal", function (e) {
+                                                $(".btn-ok").click(function () {
+
+
+                                                    $('#modal-warning').modal('hide');
+                                                    $('.modal').modal('hide');
+                                                });
+
+                                            }).modal('show');
+
+
+                                        }
 
 
                                     }
+                                });
+                            }
+                            else {
+                                alert("Register Start Date cannot be greater than Register Finish Date");
+                            }
 
 
-                                }
-                            });
                         } else {
 
                             alert("Please enter the missing fields");
