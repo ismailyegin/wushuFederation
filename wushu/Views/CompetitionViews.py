@@ -307,12 +307,12 @@ def musabaka_taolu(request, pk):
         if musabaka.subBranch == EnumFields.SANDA.value:
             athletes = SandaAthlete.objects.filter(competition=musabaka)
         elif musabaka.subBranch == EnumFields.TAOLU.value:
-            federations = Federation.objects.all()
-            athleteSec = Athlete.objects.all()
-            antrenorSec = Coach.objects.all()
-            gozlemciSec = Observer.objects.all()
-            resmiGorevliSec = Officer.objects.all()
-            hakemSec = Judge.objects.all()
+            federations = Federation.objects.all().order_by('person__name')
+            athleteSec = Athlete.objects.all().order_by('person__name')
+            antrenorSec = Coach.objects.all().order_by('person__name')
+            gozlemciSec = Observer.objects.all().order_by('person__name')
+            resmiGorevliSec = Officer.objects.all().order_by('person__name')
+            hakemSec = Judge.objects.all().order_by('person__name')
 
             taoluHotelPersons = TaoluHotel.objects.all().values('hotel__person')
             sandaHotelPersons = SandaHotel.objects.all().values('hotel__person')
