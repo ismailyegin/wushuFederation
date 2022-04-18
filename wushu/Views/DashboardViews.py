@@ -48,23 +48,24 @@ def return_federation_dashboard(request):
     officers = Officer.objects.filter(federation__user=request.user)
     judges = Judge.objects.filter(federation__user=request.user)
 
-    sandaAthlete = SandaAthlete.objects.all().count()
-    sandaCoach = SandaCoach.objects.all().count()
-    sandaObserver = SandaObserver.objects.all().count()
-    sandaOfficer = SandaOfficer.objects.all().count()
-    sandaJudge = SandaJudge.objects.all().count()
+    sandaAthlete = SandaAthlete.objects.filter(athlete__federation__user=request.user).count()
+    sandaCoach = SandaCoach.objects.filter(coach__federation__user=request.user).count()
+    sandaObserver = SandaObserver.objects.filter(observer__federation__user=request.user).count()
+    sandaOfficer = SandaOfficer.objects.filter(officer__federation__user=request.user).count()
+    sandaJudge = SandaJudge.objects.filter(judge__federation__user=request.user).count()
 
-    taoluAthlete = TaoluAthlete.objects.all().count()
-    taoluCoach = TaoluCoach.objects.all().count()
-    taoluObserver = TaoluObserver.objects.all().count()
-    taoluOfficer = TaoluOfficer.objects.all().count()
-    taoluJudge = TaoluJudge.objects.all().count()
+    taoluAthlete = TaoluAthlete.objects.filter(athlete__federation__user=request.user).count()
+    taoluCoach = TaoluCoach.objects.filter(coach__federation__user=request.user).count()
+    taoluObserver = TaoluObserver.objects.filter(observer__federation__user=request.user).count()
+    taoluOfficer = TaoluOfficer.objects.filter(officer__federation__user=request.user).count()
+    taoluJudge = TaoluJudge.objects.filter(judge__federation__user=request.user).count()
 
     totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
 
     return render(request, 'anasayfa/federasyon.html',
                   {'application': competitions, 'athletes': athletes, 'coaches': coaches,
-                   'observers': observers, 'officers': officers, 'judges': judges, 'totalRegistration': totalRegistration, })
+                   'observers': observers, 'officers': officers, 'judges': judges,
+                   'totalRegistration': totalRegistration, })
 
 
 @login_required
@@ -83,10 +84,29 @@ def return_admin_dashboard(request):
     total_coachs = Coach.objects.all().count()
 
     competitions = Competition.objects.all().order_by('-startDate')
+
+    observers = Observer.objects.all()
+    officers = Officer.objects.all()
+    judges = Judge.objects.all()
+
+    sandaAthlete = SandaAthlete.objects.all().count()
+    sandaCoach = SandaCoach.objects.all().count()
+    sandaObserver = SandaObserver.objects.all().count()
+    sandaOfficer = SandaOfficer.objects.all().count()
+    sandaJudge = SandaJudge.objects.all().count()
+
+    taoluAthlete = TaoluAthlete.objects.all().count()
+    taoluCoach = TaoluCoach.objects.all().count()
+    taoluObserver = TaoluObserver.objects.all().count()
+    taoluOfficer = TaoluOfficer.objects.all().count()
+    taoluJudge = TaoluJudge.objects.all().count()
+
+    totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
     return render(request, 'anasayfa/admin.html',
                   {
                       'total_athlete': total_athlete, 'total_coachs': total_coachs, 'last_athletes': last_athlete,
                       'total_athlete_gender_man': total_athlete_gender_man,
                       'total_athlete_gender_woman': total_athlete_gender_woman,
-                      'application': competitions,
+                      'application': competitions, 'observers': observers, 'officers': officers, 'judges': judges,
+                      'totalRegistration': totalRegistration,
                   })
