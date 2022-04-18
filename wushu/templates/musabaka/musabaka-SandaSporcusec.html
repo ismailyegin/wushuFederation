@@ -2546,12 +2546,14 @@
 
             var e = document.getElementById("sporcuSec");
             var athleteId = e.options[e.selectedIndex].value;
+            var sanda = document.getElementById('sanda').value;
             $.ajax({
                 url: "{% url 'wushu:get_weight_category' %}",
                 type: "post", // or "get"
                 async: false,
                 data: {
                     athleteId: athleteId,
+                    sanda: sanda,
                 },
                 headers: {"X-CSRFToken": '{{csrf_token}}'},
 

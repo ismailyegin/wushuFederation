@@ -518,7 +518,8 @@ def musabaka_taolu_sporcu_ekle(request):
                                              'messages': 'Athletes registered in Sanda cannot be registered in Taolu.'})
                     else:
                         if not TaoluAthlete.objects.filter(athlete=athlete).filter(category=category):
-                            if (category.isDuilian == 1 and athDulianComp < 2) or (category.isDuilian == 0 and athComp < 2):
+                            if (category.isDuilian == 1 and athDulianComp < 2) or (
+                                    category.isDuilian == 0 and athComp < 2):
                                 taoluAthlete = TaoluAthlete(
                                     competition=compettion,
                                     category=category,
@@ -578,7 +579,6 @@ def musabaka_taolu_sporcu_ekle(request):
                     if judge.category == 1 and TaoluJudge.objects.filter(judge__category=1):
                         return JsonResponse({'status': 'Warning',
                                              'messages': 'More than one referee cannot be registered.'})
-
 
                     taoluJudge = TaoluJudge(
                         competition=compettion,
@@ -866,8 +866,22 @@ def musabaka_sanda_sporcu_ekle(request):
                     athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
                     athleteComps = SandaAthlete.objects.filter(athlete=athlete)
                     if TaoluAthlete.objects.filter(athlete=athlete):
-                        return JsonResponse({'status': 'Warning',
-                                             'messages': 'Athletes registered in Taolu cannot be registered in Sanda.'})
+                        if int(request.POST.get('sanda')) == 2:
+                            sandaAthlete = SandaAthlete(
+                                competition=compettion,
+                                athlete=athlete,
+                                competitiontype=sanda,
+                                weight_category=SandaWeightCategory.objects.get(
+                                    pk=int(request.POST.get('sandaWeight'))).categoryName
+                            )
+                            sandaAthlete.save()
+                            mesaj = str(
+                                compettion.name) + ' to the competition ' + sandaAthlete.athlete.person.name + ' ' + sandaAthlete.athlete.person.surName + 'added'
+                            log = general_methods.logwrite(request, request.user, mesaj)
+                            return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
+                        else:
+                            return JsonResponse({'status': 'Warning',
+                                                 'messages': 'Athletes registered in Taolu cannot be registered in Sanda.'})
                     else:
                         if athleteComps.count() > 1:
                             return JsonResponse(
@@ -892,7 +906,7 @@ def musabaka_sanda_sporcu_ekle(request):
                             else:
                                 return JsonResponse(
                                     {'status': 'Warning',
-                                     'messages': 'It is not possible to register for more than one competitions.'})
+                                     'messages': 'Registration is not possible in the selected category.'})
 
                         else:
                             sandaAthlete = SandaAthlete(
@@ -1078,24 +1092,37 @@ def get_weight_category(request):
     if request.POST:
         try:
             athleteId = request.POST.get('athleteId')
+            sanda = int(request.POST.get('sanda'))
             athlete = Athlete.objects.get(pk=athleteId)
             ageGroup = ''
-            if athlete.person.birthDate.year == 2015 or athlete.person.birthDate.year == 2016:
-                ageGroup = '6-7'
-            elif athlete.person.birthDate.year == 2013 or athlete.person.birthDate.year == 2014:
-                ageGroup = '8-9'
-            elif athlete.person.birthDate.year == 2011 or athlete.person.birthDate.year == 2012:
-                ageGroup = '10-11'
-            elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010:
-                ageGroup = '12-13'
-            elif athlete.person.birthDate.year == 2008:
-                ageGroup = '14'
-            elif athlete.person.birthDate.year == 2006 or athlete.person.birthDate.year == 2007:
-                ageGroup = '15-16'
-            elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005:
-                ageGroup = '17-18'
-            elif athlete.person.birthDate.year == 2001 or athlete.person.birthDate.year == 2004:
-                ageGroup = '18-21'
+            if sanda == 2:
+                if athlete.person.birthDate.year >= 1967 and athlete.person.birthDate.year <= 1981:
+                    ageGroup = '41-55'
+                elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2004:
+                    ageGroup = '18-40'
+                elif athlete.person.birthDate.year == 2005 or athlete.person.birthDate.year == 2006:
+                    ageGroup = '10-11'
+                elif athlete.person.birthDate.year == 2007 or athlete.person.birthDate.year == 2008:
+                    ageGroup = '14-15'
+                elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010:
+                    ageGroup = '12-13'
+            else:
+                if athlete.person.birthDate.year == 2015 or athlete.person.birthDate.year == 2016:
+                    ageGroup = '6-7'
+                elif athlete.person.birthDate.year == 2013 or athlete.person.birthDate.year == 2014:
+                    ageGroup = '8-9'
+                elif athlete.person.birthDate.year == 2011 or athlete.person.birthDate.year == 2012:
+                    ageGroup = '10-11'
+                elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010:
+                    ageGroup = '12-13'
+                elif athlete.person.birthDate.year == 2008:
+                    ageGroup = '14'
+                elif athlete.person.birthDate.year == 2006 or athlete.person.birthDate.year == 2007:
+                    ageGroup = '15-16'
+                elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005:
+                    ageGroup = '17-18'
+                elif athlete.person.birthDate.year == 2001 or athlete.person.birthDate.year == 2004:
+                    ageGroup = '18-21'
 
             gender = athlete.person.gender.lower()
             sandaWeightCategory = SandaWeightCategory.objects.filter(gender=gender).filter(ageGroup=ageGroup)
