@@ -549,6 +549,9 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Year of Birth</th>
+                                                              {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                            <th>Country</th>
+                                                        {% endif %}
                                                             <th>Taolu Category</th>
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
@@ -562,6 +565,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                                     <td>{{ athlete.athlete.person.birthDate.year }} </td>
+                                                                  {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                    <td>{{ athlete.athlete.person.country.name }} </td>
+                                                        {% endif %}
                                                                     <td>{{ athlete.category }}</td>
                                                                     <td>
                                                                         {% if athlete.athlete.person.gender == "WOMAN" %}

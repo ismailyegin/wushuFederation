@@ -1121,7 +1121,7 @@ def get_weight_category(request):
                     ageGroup = '15-16'
                 elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005:
                     ageGroup = '17-18'
-                elif athlete.person.birthDate.year == 2001 or athlete.person.birthDate.year == 2004:
+                elif athlete.person.birthDate.year >= 2001 and athlete.person.birthDate.year <= 2004:
                     ageGroup = '18-21'
 
             gender = athlete.person.gender.lower()

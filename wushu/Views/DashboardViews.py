@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 
 from wushu.models import Competition, Coach, Observer, Officer, Judge, SandaAthlete, SandaCoach, SandaObserver, \
-    SandaOfficer, SandaJudge, TaoluAthlete, TaoluCoach, TaoluObserver, TaoluOfficer, TaoluJudge
+    SandaOfficer, SandaJudge, TaoluAthlete, TaoluCoach, TaoluObserver, TaoluOfficer, TaoluJudge, Country
 from wushu.models.Athlete import Athlete
 from wushu.models.Federation import Federation
 from wushu.services import general_methods
@@ -104,12 +104,30 @@ def return_admin_dashboard(request):
     taoluJudge = TaoluJudge.objects.all().count()
 
     totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
-    # federations = list(chain(total_athlete, total_coachs, observers, officers, judges))
+    list=[]
+    for country in Country.objects.all():
+        country_dict={}
+        country_dict['country']=country.name
+        athlete=Athlete.objects.filter(person__country=country).count()
+        judge=Judge.objects.filter(person__country=country).count()
+        coach=Coach.objects.filter(person__country=country).count()
+        officer=Officer.objects.filter(person__country=country).count()
+        observer=Observer.objects.filter(person__country=country).count()
+
+        country_dict['athlete']=athlete
+        country_dict['judge']=judge
+        country_dict['officer']=officer
+        country_dict['observer']=observer
+        country_dict['coach']=coach
+
+        list.append(country_dict)
+
+
     return render(request, 'anasayfa/admin.html',
                   {
                       'total_athlete': total_athlete, 'total_coachs': total_coachs, 'last_athletes': last_athlete,
                       'total_athlete_gender_man': total_athlete_gender_man,
                       'total_athlete_gender_woman': total_athlete_gender_woman,
                       'application': competitions, 'observers': observers, 'officers': officers, 'judges': judges,
-                      'totalRegistration': totalRegistration, 'federations': federations,
+                      'totalRegistration': totalRegistration, 'country_list': list,
                   })
