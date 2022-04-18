@@ -291,6 +291,7 @@
                                 <th>Name</th>
                                 <th>Role</th>
                                 <th>Date of birth</th>
+                                <th>Country</th>
                                 <th>Gender</th>
                                 <th>Transactions</th>
 
@@ -309,6 +310,7 @@
                                             <td>JUDGE</td>
                                         {% endif %}
                                         <td>{{ judge.person.birthDate }}</td>
+                                    <td>{{ judge.person.country.name }}</td>
                                         <td>{{ judge.person.gender }} </td>
                                         <td>
                                             <div class="btn-group">

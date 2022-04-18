@@ -247,6 +247,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Date of birth</th>
+                                <th>Country</th>
                                 <th>Gender</th>
                                 <th>Transactions</th>
 
@@ -260,6 +261,7 @@
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ observer.person.name }} {{ observer.person.surName }} </td>
                                         <td>{{ observer.person.birthDate }}</td>
+                                        <td>{{ observer.person.country.name }}</td>
                                         <td>{{ observer.person.gender }}</td>
                                         <td>
                                             <div class="btn-group">
