@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -102,11 +104,12 @@ def return_admin_dashboard(request):
     taoluJudge = TaoluJudge.objects.all().count()
 
     totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
+    # federations = list(chain(total_athlete, total_coachs, observers, officers, judges))
     return render(request, 'anasayfa/admin.html',
                   {
                       'total_athlete': total_athlete, 'total_coachs': total_coachs, 'last_athletes': last_athlete,
                       'total_athlete_gender_man': total_athlete_gender_man,
                       'total_athlete_gender_woman': total_athlete_gender_woman,
                       'application': competitions, 'observers': observers, 'officers': officers, 'judges': judges,
-                      'totalRegistration': totalRegistration,
+                      'totalRegistration': totalRegistration, 'federations': federations,
                   })
