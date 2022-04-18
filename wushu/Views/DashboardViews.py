@@ -105,7 +105,9 @@ def return_admin_dashboard(request):
 
     totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
     list=[]
-    for country in Country.objects.all():
+    list_last = []
+    athlete_list=[]
+    for country in Country.objects.all().order_by('id'):
         country_dict={}
         country_dict['country']=country.name
         athlete=Athlete.objects.filter(person__country=country).count()
@@ -123,11 +125,12 @@ def return_admin_dashboard(request):
         list.append(country_dict)
 
 
+
     return render(request, 'anasayfa/admin.html',
                   {
                       'total_athlete': total_athlete, 'total_coachs': total_coachs, 'last_athletes': last_athlete,
                       'total_athlete_gender_man': total_athlete_gender_man,
                       'total_athlete_gender_woman': total_athlete_gender_woman,
                       'application': competitions, 'observers': observers, 'officers': officers, 'judges': judges,
-                      'totalRegistration': totalRegistration, 'country_list': list,
+                      'totalRegistration': totalRegistration, 'country_list': list,'country_last': list_last,
                   })
