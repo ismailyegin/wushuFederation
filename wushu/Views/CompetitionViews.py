@@ -194,11 +194,11 @@ def musabaka_sanda(request, pk):
         competition_form = CompetitionForm(request.POST or None, instance=musabaka)
         if musabaka.subBranch == EnumFields.SANDA.value:
             federations = Federation.objects.all()
-            athleteSec = Athlete.objects.all()
-            antrenorSec = Coach.objects.all()
-            gozlemciSec = Observer.objects.all()
-            resmiGorevliSec = Officer.objects.all()
-            hakemSec = Judge.objects.all()
+            athleteSec = Athlete.objects.all().order_by('person__name')
+            antrenorSec = Coach.objects.all().order_by('person__name')
+            gozlemciSec = Observer.objects.all().order_by('person__name')
+            resmiGorevliSec = Officer.objects.all().order_by('person__name')
+            hakemSec = Judge.objects.all().order_by('person__name')
 
             taoluHotelPersons = TaoluHotel.objects.all().values('hotel__person')
             sandaHotelPersons = SandaHotel.objects.all().values('hotel__person')
@@ -340,11 +340,11 @@ def musabaka_taolu(request, pk):
             athletes = SandaAthlete.objects.filter(competition=musabaka).filter(athlete__federation__user=request.user)
         elif musabaka.subBranch == EnumFields.TAOLU.value:
             federation = Federation.objects.get(user=request.user)
-            athleteSec = Athlete.objects.filter(federation=federation)
-            antrenorSec = Coach.objects.filter(federation=federation)
-            gozlemciSec = Observer.objects.filter(federation=federation)
-            resmiGorevliSec = Officer.objects.filter(federation=federation)
-            hakemSec = Judge.objects.filter(federation=federation)
+            athleteSec = Athlete.objects.filter(federation=federation).order_by('person__name')
+            antrenorSec = Coach.objects.filter(federation=federation).order_by('person__name')
+            gozlemciSec = Observer.objects.filter(federation=federation).order_by('person__name')
+            resmiGorevliSec = Officer.objects.filter(federation=federation).order_by('person__name')
+            hakemSec = Judge.objects.filter(federation=federation).order_by('person__name')
 
             taoluHotelPersons = TaoluHotel.objects.all().filter(
                 hotel__federation__user=request.user).values('hotel__person')
