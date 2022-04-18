@@ -229,6 +229,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name Surname</th>
+                                <th>Country</th>
                                 <th>Transactions</th>
                             </tr>
                             </thead>
@@ -238,6 +239,7 @@
                                     <tr>
                                         <td>{{ forloop.counter }} </td>
                                         <td>{{ federation.user.first_name }} {{ federation.user.last_name }} </td>
+                                    <td>{{ federation.person.country.name }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:update-federations" federation.pk %}"
