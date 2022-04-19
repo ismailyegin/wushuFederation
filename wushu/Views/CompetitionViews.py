@@ -1124,6 +1124,8 @@ def get_weight_category(request):
                     ageGroup = '17-18'
                 elif athlete.person.birthDate.year >= 2001 and athlete.person.birthDate.year <= 2004:
                     ageGroup = '18-21'
+                elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2000:
+                    ageGroup = '22-40'
 
             gender = athlete.person.gender.lower()
             sandaWeightCategory = SandaWeightCategory.objects.filter(gender=gender).filter(ageGroup=ageGroup)
