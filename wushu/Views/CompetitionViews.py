@@ -513,7 +513,8 @@ def musabaka_taolu_sporcu_ekle(request):
                     athlete = Athlete.objects.get(pk=request.POST.get('athleteId'))
                     athDulianComp = TaoluAthlete.objects.filter(athlete=athlete).filter(category__isDuilian=1).count()
                     athComp = TaoluAthlete.objects.filter(athlete=athlete).filter(category__isDuilian=0).count()
-                    if SandaAthlete.objects.filter(athlete=athlete):
+
+                    if SandaAthlete.objects.filter(athlete=athlete).filter(competitiontype='Sanda'):
                         return JsonResponse({'status': 'Warning',
                                              'messages': 'Athletes registered in Sanda cannot be registered in Taolu.'})
                     else:
