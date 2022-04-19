@@ -1334,7 +1334,7 @@
 
                                             <div class="profile-left-heading">
                                                 <h2 class="profile-name">{{ competition.name }}</h2>
-                                                <h4 class="profile-designation">{{ competition.startDate |date:"d " }}
+                                                <h4 class="profile-designation">{{ competition.startDate|date:"d" }}
                                                     - {{ competition.finishDate | date }}</h4>
                                                 <center>
                                                     <div class="box-header with-border">
@@ -1433,7 +1433,6 @@
 
 
     <script src="{% static 'bower_components/chart.js/Chart.js' %}"></script>
-    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
     <script src="{% static 'bower_components/raphael/raphael.min.js' %}"></script>
     <script src="{% static 'bower_components/morris.js/morris.min.js' %}"></script>
