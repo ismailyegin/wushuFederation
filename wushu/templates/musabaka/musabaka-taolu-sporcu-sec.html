@@ -423,7 +423,7 @@
 
 
 
-<section class="content-header">
+    <section class="content-header">
         <h1>
             {{ competition.name }}
         </h1>
@@ -554,9 +554,9 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Year of Birth</th>
-                                                              {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                            <th>Country</th>
-                                                        {% endif %}
+                                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Taolu Category</th>
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
@@ -570,9 +570,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                                     <td>{{ athlete.athlete.person.birthDate.year }} </td>
-                                                                  {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                                    <td>{{ athlete.athlete.person.country.name }} </td>
-                                                        {% endif %}
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ athlete.athlete.person.country.name }} </td>
+                                                                    {% endif %}
                                                                     <td>{{ athlete.category }}</td>
                                                                     <td>
                                                                         {% if athlete.athlete.person.gender == "WOMAN" %}
@@ -721,10 +721,10 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Date of birth</th>
-                                                              {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
 
-                                                            <th>Country</th>
-                                                        {% endif %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -737,9 +737,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ coach.coach.person.name }} {{ coach.coach.person.surName }} </td>
                                                                     <td>{{ coach.coach.person.birthDate }} </td>
-                                                                  {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                           <td>{{ coach.coach.person.country.name }}</td>
-                                                        {% endif %}
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ coach.coach.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if coach.coach.person.gender == "WOMAN" %}
                                                                             WOMAN </td>
@@ -886,8 +886,8 @@
                                                             <th>Name Surname</th>
                                                             <th>Date of birth</th>
                                                             {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                            <th>Country</th>
-                                                        {% endif %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -900,9 +900,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ officer.officer.person.name }} {{ officer.officer.person.surName }} </td>
                                                                     <td>{{ officer.officer.person.birthDate }} </td>
-                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                            <td>{{ officer.officer.person.country.name }}</td>
-                                                        {% endif %}
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ officer.officer.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if officer.officer.person.gender == "WOMAN" %}
                                                                             WOMAN </td>
@@ -975,6 +975,7 @@
                                                         {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                             <th>Club</th>
                                                             <th>Country</th>
+
                                                         {% endif %}
 
                                                         <th>Age - Sanda Category</th>
@@ -1050,9 +1051,10 @@
                                                             <th>Date of birth</th>
                                                             {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
 
-                                                            <th>Country</th>
-                                                        {% endif %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
+                                                            <th>Role</th>
                                                             <th>Transactions</th>
                                                         </tr>
                                                         </thead>
@@ -1064,15 +1066,22 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ judge.judge.person.name }} {{ judge.judge.person.surName }} </td>
                                                                     <td>{{ judge.judge.person.birthDate }} </td>
-                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                            <td>{{ judge.judge.person.country.name }}</td>
-                                                        {% endif %}
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ judge.judge.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if judge.judge.person.gender == "WOMAN" %}
-                                                                            WOMAN </td>
-                                                                        {% else %}MAN
-                                                                        {% endif %}
+                                                                            WOMAN
+                                                                        {% else %}
+                                                                            MAN
+                                                                        {% endif %}</td>
 
+
+                                                                    {% if judge.category == 0 %}
+                                                                        <td>CANDIDATE JUDGE</td>
+                                                                    {% else %}
+                                                                        <td>JUDGE</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         <div class="btn-group">
                                                                             {% if competition.status == 'Ön Kayıt Açık' %}
@@ -1151,8 +1160,8 @@
                                                                 <td>{{ forloop.counter }} </td>
                                                                 <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                           <td>{{ athlete.athlete.person.country.name }}</td>
-                                                        {% endif %}
+                                                                    <td>{{ athlete.athlete.person.country.name }}</td>
+                                                                {% endif %}
                                                                 <td id="display">{{ athlete.athlete.communication.city }}</td>
                                                                 <td id="display">{{ athlete.athlete.communication.city }}</td>
 
@@ -1773,8 +1782,7 @@
 
                                     }
                                 });
-                            }
-                              else {
+                            } else {
                                 alert("Register Start Date cannot be greater than Register Finish Date");
                             }
                         } else {

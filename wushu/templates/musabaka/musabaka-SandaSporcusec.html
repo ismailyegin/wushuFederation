@@ -955,6 +955,7 @@
                                                         {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                             <th>Country</th>
                                                         {% endif %}
+                                                        <th>Role</th>
                                                         <th>Gender</th>
                                                         <th>Transactions</th>
 
@@ -971,6 +972,11 @@
                                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                                     <td>{{ judge.judge.person.country.name }}</td>
                                                                 {% endif %}
+                                                             {% if judge.category == 0 %}
+                                                                        <td>CANDIDATE JUDGE</td>
+                                                                    {% else %}
+                                                                        <td>JUDGE</td>
+                                                                    {% endif %}
                                                                 <td>
                                                                     {% if judge.judge.person.gender == "WOMAN" %}
                                                                         WOMAN
