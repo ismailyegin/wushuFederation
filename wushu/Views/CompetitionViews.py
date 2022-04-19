@@ -579,7 +579,7 @@ def musabaka_taolu_sporcu_ekle(request):
                     judge = Judge.objects.get(pk=request.POST.get('hakemId'))
                     if judge.category == 1 and TaoluJudge.objects.filter(judge__category=1):
                         return JsonResponse({'status': 'Warning',
-                                             'messages': 'More than one referee cannot be registered.'})
+                                                 'messages': 'More than one referee cannot be registered.Please add a Candıdate judge '})
 
                     taoluJudge = TaoluJudge(
                         competition=compettion,
@@ -959,7 +959,7 @@ def musabaka_sanda_sporcu_ekle(request):
                     judge = Judge.objects.get(pk=request.POST.get('judgeId'))
                     if judge.category == 1 and SandaJudge.objects.filter(judge__category=1):
                         return JsonResponse({'status': 'Warning',
-                                             'messages': 'More than one referee cannot be registered.'})
+                                             'messages': 'More than one referee cannot be registered.Please add a Candıdate judge'})
                     sandaJudge = SandaJudge(
                         competition=compettion,
                         judge=judge,
