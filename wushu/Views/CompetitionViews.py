@@ -577,7 +577,7 @@ def musabaka_taolu_sporcu_ekle(request):
 
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('hakemId'))
-                    if judge.category == 1 and TaoluJudge.objects.filter(judge__category=1):
+                    if judge.category == 1 and TaoluJudge.objects.filter(judge__federation__user=request.user).filter(judge__category=1):
                         return JsonResponse({'status': 'Warning',
                                                  'messages': 'More than one referee cannot be registered.Please add a Candıdate judge '})
 
@@ -957,7 +957,7 @@ def musabaka_sanda_sporcu_ekle(request):
                     return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('judgeId'))
-                    if judge.category == 1 and SandaJudge.objects.filter(judge__category=1):
+                    if judge.category == 1 and SandaJudge.objects.filter(judge__federation__user=request.user).filter(judge__category=1):
                         return JsonResponse({'status': 'Warning',
                                              'messages': 'More than one referee cannot be registered.Please add a Candıdate judge'})
                     sandaJudge = SandaJudge(
