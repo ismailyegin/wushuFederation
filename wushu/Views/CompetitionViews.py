@@ -541,15 +541,18 @@ def musabaka_taolu_sporcu_ekle(request):
 
                 elif id == 2:
                     coach = Coach.objects.get(pk=request.POST.get('antrenorId'))
-                    taoluCoach = TaoluCoach(
-                        competition=compettion,
-                        coach=coach,
-                    )
-                    taoluCoach.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + taoluCoach.coach.person.name + ' ' + taoluCoach.coach.person.surName + '  added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+                    if not TaoluCoach.objects.filter(coach=coach):
+                        taoluCoach = TaoluCoach(
+                            competition=compettion,
+                            coach=coach,
+                        )
+                        taoluCoach.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + taoluCoach.coach.person.name + ' ' + taoluCoach.coach.person.surName + '  added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Coach already added'})
 
                 elif id == 3:
                     observer = Observer.objects.get(pk=request.POST.get('gozlemciId'))
@@ -565,32 +568,41 @@ def musabaka_taolu_sporcu_ekle(request):
 
                 elif id == 4:
                     officer = Officer.objects.get(pk=request.POST.get('resmiGorevliId'))
-                    taoluOfficer = TaoluOfficer(
-                        competition=compettion,
-                        officer=officer,
-                    )
-                    taoluOfficer.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + taoluOfficer.officer.person.name + ' ' + taoluOfficer.officer.person.surName + '  added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
+                    if not TaoluOfficer.objects.filter(officer=officer):
+                        taoluOfficer = TaoluOfficer(
+                            competition=compettion,
+                            officer=officer,
+                        )
+                        taoluOfficer.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + taoluOfficer.officer.person.name + ' ' + taoluOfficer.officer.person.surName + '  added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Official Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Official already added'})
+
 
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('hakemId'))
-                    if judge.category == 1 and TaoluJudge.objects.filter(judge__federation__user=request.user).filter(judge__category=1):
-                        return JsonResponse({'status': 'Warning',
+                    if not TaoluJudge.objects.filter(judge=judge):
+                        if judge.category == 1 and TaoluJudge.objects.filter(judge__federation__user=request.user).filter(
+                                judge__category=1):
+                            return JsonResponse({'status': 'Warning',
                                                  'messages': 'More than one referee cannot be registered.Please add a Candıdate judge '})
 
-                    taoluJudge = TaoluJudge(
-                        competition=compettion,
-                        judge=judge,
-                    )
+                        taoluJudge = TaoluJudge(
+                            competition=compettion,
+                            judge=judge,
+                        )
 
-                    taoluJudge.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + taoluJudge.judge.person.name + ' ' + taoluJudge.judge.person.surName + '  added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+                        taoluJudge.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + taoluJudge.judge.person.name + ' ' + taoluJudge.judge.person.surName + '  added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Referee already added'})
+
                 elif id == 6:
                     person = None
                     federation = None
@@ -924,16 +936,21 @@ def musabaka_sanda_sporcu_ekle(request):
                             return JsonResponse({'status': 'Success', 'messages': 'Athlete Successfully Added'})
                 elif id == 2:
                     coach = Coach.objects.get(pk=request.POST.get('coachId'))
-                    sandaCoach = SandaCoach(
-                        competition=compettion,
-                        coach=coach,
-                    )
-                    sandaCoach.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + sandaCoach.coach.person.name + ' ' + sandaCoach.coach.person.surName + 'added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+                    if not SandaCoach.objects.filter(coach=coach):
+                        sandaCoach = SandaCoach(
+                            competition=compettion,
+                            coach=coach,
+                        )
+                        sandaCoach.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + sandaCoach.coach.person.name + ' ' + sandaCoach.coach.person.surName + 'added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Coach Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Coach already added.'})
+
                 elif id == 3:
+
                     observer = Observer.objects.get(pk=request.POST.get('observerId'))
                     sandaObserver = SandaObserver(
                         competition=compettion,
@@ -946,29 +963,39 @@ def musabaka_sanda_sporcu_ekle(request):
                     return JsonResponse({'status': 'Success', 'messages': 'Observer Successfully Added'})
                 elif id == 4:
                     officer = Officer.objects.get(pk=request.POST.get('officerId'))
-                    sandaOfficer = SandaOfficer(
-                        competition=compettion,
-                        officer=officer,
-                    )
-                    sandaOfficer.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + sandaOfficer.officer.person.name + ' ' + sandaOfficer.officer.person.surName + 'added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Officer Successfully Added'})
+                    if not SandaOfficer.objects.filter(officer=officer):
+
+                        sandaOfficer = SandaOfficer(
+                            competition=compettion,
+                            officer=officer,
+                        )
+                        sandaOfficer.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + sandaOfficer.officer.person.name + ' ' + sandaOfficer.officer.person.surName + 'added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Official Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Official already added.'})
+
                 elif id == 5:
                     judge = Judge.objects.get(pk=request.POST.get('judgeId'))
-                    if judge.category == 1 and SandaJudge.objects.filter(judge__federation__user=request.user).filter(judge__category=1):
-                        return JsonResponse({'status': 'Warning',
-                                             'messages': 'More than one referee cannot be registered.Please add a Candıdate judge'})
-                    sandaJudge = SandaJudge(
-                        competition=compettion,
-                        judge=judge,
-                    )
-                    sandaJudge.save()
-                    mesaj = str(
-                        compettion.name) + ' to the competition ' + sandaJudge.judge.person.name + ' ' + sandaJudge.judge.person.surName + 'added'
-                    log = general_methods.logwrite(request, request.user, mesaj)
-                    return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+                    if not SandaJudge.objects.filter(judge=judge):
+                        if judge.category == 1 and SandaJudge.objects.filter(judge__federation__user=request.user).filter(
+                                judge__category=1):
+                            return JsonResponse({'status': 'Warning',
+                                                 'messages': 'More than one referee cannot be registered.Please add a Candıdate judge'})
+                        sandaJudge = SandaJudge(
+                            competition=compettion,
+                            judge=judge,
+                        )
+                        sandaJudge.save()
+                        mesaj = str(
+                            compettion.name) + ' to the competition ' + sandaJudge.judge.person.name + ' ' + sandaJudge.judge.person.surName + 'added'
+                        log = general_methods.logwrite(request, request.user, mesaj)
+                        return JsonResponse({'status': 'Success', 'messages': 'Referee Successfully Added'})
+                    else:
+                        return JsonResponse({'status': 'Warning', 'messages': 'Referee already added.'})
+
                 elif id == 6:
                     federation = None
                     personId = int(request.POST.get('personId'))

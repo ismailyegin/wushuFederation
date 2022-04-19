@@ -8,8 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <h4 class="modal-title">Warning</h4>
+                    <h4 class="modal-title"> Warning !! </h4>
                 </div>
                 <div class="modal-body">
                     <p id="sandaError"></p>
@@ -332,9 +331,9 @@
     <div class="modal modal-success modal-success-food fade in" id="modal-success" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <h4 class="modal-title">Transaction Successful</h4>
+                 <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title"> Success </h4>
                 </div>
                 <div class="modal-body successModal">
                     ...
@@ -354,8 +353,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <h4 class="modal-title">Warning</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title"> Warning !! </h4>
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete?</p>
@@ -1383,9 +1382,9 @@
 
                                     } else {
 
-                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                       $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("sandaError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
-
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
@@ -1468,9 +1467,9 @@
 
                                     } else {
 
-                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                       $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("sandaError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
-
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
@@ -1554,8 +1553,8 @@
                                     } else {
 
                                         $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("sandaError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
-
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
@@ -1638,10 +1637,9 @@
 
                                     } else {
 
-                                        $('#modal-warning').on("shown.bs.modal", function (e) {
+                                       $('#modal-warning').on("shown.bs.modal", function (e) {
                                             document.getElementById("sandaError").innerHTML = result['messages'];
                                             $(".btn-ok").click(function () {
-
 
                                                 $('#modal-warning').modal('hide');
                                                 $('.modal').modal('hide');
@@ -1730,15 +1728,15 @@
 
                                         } else {
 
-                                            $('#modal-warning').on("shown.bs.modal", function (e) {
-                                                $(".btn-ok").click(function () {
+                                           $('#modal-warning').on("shown.bs.modal", function (e) {
+                                            document.getElementById("sandaError").innerHTML = result['messages'];
+                                            $(".btn-ok").click(function () {
 
+                                                $('#modal-warning').modal('hide');
+                                                $('.modal').modal('hide');
+                                            });
 
-                                                    $('#modal-warning').modal('hide');
-                                                    $('.modal').modal('hide');
-                                                });
-
-                                            }).modal('show');
+                                        }).modal('show');
 
 
                                         }
@@ -2538,6 +2536,7 @@
                     });
                 });
             }).modal('show');
+            $('#btn-close').click(function () {
             $('#btn-close').click(function () {
                 $('#modal-danger').modal('hide');
             });
