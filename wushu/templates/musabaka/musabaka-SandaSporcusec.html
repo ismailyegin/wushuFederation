@@ -972,7 +972,7 @@
                                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                                     <td>{{ judge.judge.person.country.name }}</td>
                                                                 {% endif %}
-                                                             {% if judge.category == 0 %}
+                                                             {% if judge.judge.category == 0 %}
                                                                         <td>CANDIDATE JUDGE</td>
                                                                     {% else %}
                                                                         <td>JUDGE</td>
