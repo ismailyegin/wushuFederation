@@ -449,7 +449,12 @@
 
 
 
+    <section class="content-header">
+        <h1>
+            {{ competition.name }}
+        </h1>
 
+    </section>
 
     <section class="content">
 
@@ -656,6 +661,10 @@
                                                         <th>#</th>
                                                         <th>Name Surname</th>
                                                         <th>Date of birth</th>
+                                                        {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+
+                                                            <th>Country</th>
+                                                        {% endif %}
                                                         <th>Gender</th>
                                                         <th>Transactions</th>
 
@@ -669,6 +678,9 @@
                                                                 <td>{{ forloop.counter }} </td>
                                                                 <td>{{ coach.coach.person.name }} {{ coach.coach.person.surName }} </td>
                                                                 <td>{{ coach.coach.person.birthDate }} </td>
+                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                    <td>{{ coach.coach.person.country.name }}</td>
+                                                                {% endif %}
                                                                 <td>
                                                                     {% if coach.coach.person.gender == "WOMAN" %}
                                                                         WOMAN
@@ -709,6 +721,9 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Date of birth</th>
+                                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -721,6 +736,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ coach.coach.person.name }} {{ coach.coach.person.surName }} </td>
                                                                     <td>{{ coach.coach.person.birthDate }} </td>
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ coach.coach.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if coach.coach.person.gender == "WOMAN" %}
                                                                             WOMAN </td>
@@ -789,6 +807,9 @@
                                                         <th>#</th>
                                                         <th>Name Surname</th>
                                                         <th>Date of birth</th>
+                                                        {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                            <th>Country</th>
+                                                        {% endif %}
                                                         <th>Gender</th>
                                                         <th>Transactions</th>
 
@@ -802,6 +823,9 @@
                                                                 <td>{{ forloop.counter }} </td>
                                                                 <td>{{ officer.officer.person.name }} {{ officer.officer.person.surName }} </td>
                                                                 <td>{{ officer.officer.person.birthDate }} </td>
+                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                    <td>{{ officer.officer.person.country.name }}</td>
+                                                                {% endif %}
                                                                 <td>
                                                                     {% if officer.officer.person.gender == "WOMAN" %}
                                                                         WOMAN
@@ -842,6 +866,9 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Date of birth</th>
+                                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -854,6 +881,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ officer.officer.person.name }} {{ officer.officer.person.surName }} </td>
                                                                     <td>{{ officer.officer.person.birthDate }} </td>
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ officer.officer.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if officer.officer.person.gender == "WOMAN" %}
                                                                             WOMAN </td>
@@ -922,6 +952,9 @@
                                                         <th>#</th>
                                                         <th>Name Surname</th>
                                                         <th>Date of birth</th>
+                                                        {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                            <th>Country</th>
+                                                        {% endif %}
                                                         <th>Gender</th>
                                                         <th>Transactions</th>
 
@@ -935,6 +968,9 @@
                                                                 <td>{{ forloop.counter }} </td>
                                                                 <td>{{ judge.judge.person.name }} {{ judge.judge.person.surName }} </td>
                                                                 <td>{{ judge.judge.person.birthDate }} </td>
+                                                                {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                    <td>{{ judge.judge.person.country.name }}</td>
+                                                                {% endif %}
                                                                 <td>
                                                                     {% if judge.judge.person.gender == "WOMAN" %}
                                                                         WOMAN
@@ -975,6 +1011,9 @@
                                                             <th>#</th>
                                                             <th>Name Surname</th>
                                                             <th>Date of birth</th>
+                                                            {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                <th>Country</th>
+                                                            {% endif %}
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -987,6 +1026,9 @@
                                                                     <td>{{ forloop.counter }} </td>
                                                                     <td>{{ judge.judge.person.name }} {{ judge.judge.person.surName }} </td>
                                                                     <td>{{ judge.judge.person.birthDate }} </td>
+                                                                    {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
+                                                                        <td>{{ judge.judge.person.country.name }}</td>
+                                                                    {% endif %}
                                                                     <td>
                                                                         {% if judge.judge.person.gender == "WOMAN" %}
                                                                             WOMAN </td>
