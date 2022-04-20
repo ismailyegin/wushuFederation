@@ -526,6 +526,13 @@ def musabaka_taolu_sporcu_ekle(request):
                                     category=category,
                                     athlete=athlete,
                                 )
+                                if YearsTaoluCategory.objects.filter(
+                                        startYear__lte=athlete.person.birthDate.year,
+                                        finishYear__gte=athlete.person.birthDate.year):
+                                    ageCategory = YearsTaoluCategory.objects.get(
+                                        startYear__lte=athlete.person.birthDate.year,
+                                        finishYear__gte=athlete.person.birthDate.year)
+                                    taoluAthlete.years = ageCategory
                                 taoluAthlete.save()
                                 mesaj = str(
                                     compettion.name) + ' to the competition ' + taoluAthlete.athlete.person.name + ' ' + taoluAthlete.athlete.person.surName + '  added'
@@ -1166,3 +1173,19 @@ def get_weight_category(request):
         except Exception as e:
 
             return JsonResponse({'status': 'Fail', 'msg': e})
+
+
+def taolu_year_transmission(request):
+    perm = general_methods.control_access(request)
+
+    if not perm:
+        logout(request)
+        return redirect('accounts:login')
+    athletes = TaoluAthlete.objects.all()
+    for athlete in athletes:
+        if athlete.athlete.person.birthDate:
+            if YearsTaoluCategory.objects.filter(startYear__lte=athlete.athlete.person.birthDate.year, finishYear__gte=athlete.athlete.person.birthDate.year):
+                ageCategory = YearsTaoluCategory.objects.get(startYear__lte=athlete.athlete.person.birthDate.year, finishYear__gte=athlete.athlete.person.birthDate.year)
+                athlete.years = ageCategory
+                athlete.save()
+    return redirect('wushu:musabakalar')

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews, ObserverViews, OfficerViews, \
-    JudgeViews, FederationViews
+    JudgeViews, FederationViews, PdfConvertViews
 
 app_name = 'wushu'
 
@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'musabaka/SporcuSecim/Sanda/$', CompetitionViews.return_sporcu_sec_sanda, name='sanda-sporcu-sec-ajax'),
     url(r'musabaka/musabaka-sanda-sporcu-kaydet/$', CompetitionViews.musabaka_sanda_sporcu_ekle,
         name='sanda-sporcu-kaydet'),
+    url(r'musabaka/taolu_year_transmission/$', CompetitionViews.taolu_year_transmission,
+        name='taolu_year_transmission'),
 
     # Coachs
     url(r'coach/add-coach/$', CoachViews.return_add_coach, name='add-coach'),
@@ -95,4 +97,8 @@ urlpatterns = [
     url(r'competition/sanda-weight-category-update/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_update,
         name='sanda-weight-category-update'),
     url(r'competition/get_sanda-weight-category', CompetitionViews.get_weight_category, name='get_weight_category'),
+    url(r'showproducts', PdfConvertViews.show_products, name='showproducts'),
+    url(r'create-pdf', PdfConvertViews.pdf_report_create, name='create-pdf'),
+    url(r'java-test', PdfConvertViews.java, name='java-test'),
+
 ]
