@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews, ObserverViews, OfficerViews, \
-    JudgeViews, FederationViews, PdfConvertViews
+    JudgeViews, FederationViews
 
 app_name = 'wushu'
 
