@@ -97,8 +97,8 @@ urlpatterns = [
     url(r'competition/sanda-weight-category-update/(?P<pk>\d+)$', CompetitionViews.sanda_weight_category_update,
         name='sanda-weight-category-update'),
     url(r'competition/get_sanda-weight-category', CompetitionViews.get_weight_category, name='get_weight_category'),
-    url(r'showproducts', PdfConvertViews.show_products, name='showproducts'),
-    url(r'create-pdf', PdfConvertViews.pdf_report_create, name='create-pdf'),
-    url(r'java-test', PdfConvertViews.java, name='java-test'),
+    # url(r'showproducts', PdfConvertViews.show_products, name='showproducts'),
+    # url(r'create-pdf', PdfConvertViews.pdf_report_create, name='create-pdf'),
+    # url(r'java-test', PdfConvertViews.java, name='java-test'),
 
 ]
