@@ -245,12 +245,25 @@
                                                 <td id="display">{{ athlete.athlete.person.country.name }}</td>
                                                 <td id="display">{{ athlete.athlete.person.country.name }}</td>
 
-                                                <td>{{ athlete.athlete.person.birthDate }} </td>
+                                                <td>{{ athlete.athlete.person.birthDate.year }} </td>
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <td>{{ athlete.athlete.person.country.name }}</td>
                                                 {% endif %}
-                                                <td>{{ athlete.athlete_yas_category }}
-                                                    - {{ athlete.competitiontype }}</td>
+                                                <td>
+                                                    {% if athlete.athlete.person.birthDate.year == 2015 or athlete.athlete.person.birthDate.year == 2016 %}
+                                                        6-7{% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
+                                                        8-9{% elif athlete.athlete.person.birthDate.year == 2011 or athlete.athlete.person.birthDate.year == 2012 %}
+                                                        10-11{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                        12-13{% elif athlete.athlete.person.birthDate.year == 2008 %}
+                                                        14{% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
+                                                        15-16{% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
+                                                        17-18{% elif athlete.athlete.person.birthDate.year >= 2001 or athlete.athlete.person.birthDate.year <= 2004 %}
+                                                        18-21{% elif athlete.athlete.person.birthDate.year >= 1967 or athlete.athlete.person.birthDate.year <= 1981 %}
+                                                        41-55{% elif athlete.athlete.person.birthDate.year >= 1982 or athlete.athlete.person.birthDate.year <= 2004 %}
+                                                        18-40{% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
+                                                        16-17{% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
+                                                        14-15{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                        12-13{% endif %} Age Group - {{ athlete.competitiontype }}</td>
                                                 <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                     WOMAN </td>
                                                 {% else %}MAN
@@ -429,7 +442,7 @@
                         {#footer: true,#}
                         exportOptions: {
                             {#yer degisimi de yapilabilir.#}
-                            columns: [1, 2, 3,4, 6, 8, 7]
+                            columns: [1, 2, 3, 4, 6, 8, 7]
 
 
                         },
@@ -514,7 +527,7 @@
                         title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: [1, 2, 3,4, 6, 8, 7]
+                            columns: [1, 2, 3, 4, 6, 8, 7]
                         },
                         titleAttr: 'Excel Save'
                     },
