@@ -249,7 +249,7 @@
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <td>{{ athlete.athlete.person.country.name }}</td>
                                                 {% endif %}
-                                                <td>{{ athlete.athlete.weight_category }}</td>
+                                                <td>{{ athlete.weight_category }}</td>
                                                 <td>
                                                     {% if athlete.athlete.person.birthDate.year == 2015 or athlete.athlete.person.birthDate.year == 2016 %}
                                                         6-7{% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
