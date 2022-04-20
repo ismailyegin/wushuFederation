@@ -259,7 +259,9 @@
                                                         14{% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
                                                         15-16{% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
                                                         17-18{% elif athlete.athlete.person.birthDate.year >= 2001 or athlete.athlete.person.birthDate.year <= 2004 %}
-                                                        18-21{% elif athlete.athlete.person.birthDate.year >= 1967 or athlete.athlete.person.birthDate.year <= 1981 %}
+                                                        18-21{% elif athlete.athlete.person.birthDate.year >= 1982 or athlete.athlete.person.birthDate.year <= 2000 %}
+                                                        22-40{% elif athlete.athlete.person.birthDate.year >= 1967 or athlete.athlete.person.birthDate.year <= 1981 %}
+
                                                         41-55{% elif athlete.athlete.person.birthDate.year >= 1982 or athlete.athlete.person.birthDate.year <= 2004 %}
                                                         18-40{% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
                                                         16-17{% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
@@ -528,7 +530,7 @@
                         title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 6, 7, 8,9]
+                            columns: [1, 2, 3, 4, 6, 7, 8, 9]
                         },
                         titleAttr: 'Excel Save'
                     },
