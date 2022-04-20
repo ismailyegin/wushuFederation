@@ -249,8 +249,7 @@
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <td>{{ athlete.athlete.person.country.name }}</td>
                                                 {% endif %}
-                                                <td>{{ athlete.athlete_yas_category }}
-                                                    - {{ athlete.competitiontype }}</td>
+                                                <td>{{ athlete.athlete_yas_category }} - {{ athlete.competitiontype }}</td>
                                                 <td>{% if athlete.athlete.person.gender == "Kadın" %}
                                                     WOMAN </td>
                                                 {% else %}MAN
@@ -319,8 +318,7 @@
                                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                         <td>{{ athlete.athlete.person.country.name }}</td>
                                                     {% endif %}
-                                                    <td>{{ athlete.athlete.person.birthDate.year }}
-                                                        - {{ athlete.category }}</td>
+                                                    <td>{{ athlete.athlete.person.birthDate.year }} - {{ athlete.category }}</td>
                                                     <td>{% if athlete.athlete.person.gender == "Kadın" %}
                                                         WOMAN </td>
                                                     {% else %}MAN
@@ -405,7 +403,7 @@
                     },
                     {
                         extend: 'print',
-                        title: 'Sbs Bilgi Sistemi',
+                        title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa  fa-print"></i>',
                         exportOptions: {
                             columns: ':visible'
@@ -424,7 +422,7 @@
 
                     {
                         extend: 'excelHtml5',
-                        title: 'Sbs Bilgi Sistemi',
+                        title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         {#footer: true,#}
                         exportOptions: {
@@ -492,7 +490,7 @@
                     },
                     {
                         extend: 'print',
-                        title: 'Sbs Bilgi Sistemi',
+                        title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa  fa-print"></i>',
                         exportOptions: {
                             columns: ':visible'
@@ -511,7 +509,7 @@
 
                     {
                         extend: 'excelHtml5',
-                        title: 'Sbs Bilgi Sistemi',
+                        title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
                             columns: [1, 2, 3, 6, 8, 7]
