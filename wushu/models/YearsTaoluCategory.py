@@ -6,6 +6,8 @@ class YearsTaoluCategory(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
     operationDate = models.DateTimeField(auto_now_add=True)
     explanation = models.CharField(max_length=255, null=True, blank=True)
+    startYear = models.IntegerField(null=True, blank=True)
+    finishYear = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         if self.explanation:

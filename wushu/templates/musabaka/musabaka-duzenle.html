@@ -249,8 +249,9 @@
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                     <td>{{ athlete.athlete.person.country.name }}</td>
                                                 {% endif %}
-                                                <td>{{ athlete.athlete_yas_category }} - {{ athlete.competitiontype }}</td>
-                                                <td>{% if athlete.athlete.person.gender == "Kadın" %}
+                                                <td>{{ athlete.athlete_yas_category }}
+                                                    - {{ athlete.competitiontype }}</td>
+                                                <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                     WOMAN </td>
                                                 {% else %}MAN
                                                 {% endif %}
@@ -318,8 +319,9 @@
                                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                         <td>{{ athlete.athlete.person.country.name }}</td>
                                                     {% endif %}
-                                                    <td>{{ athlete.athlete.person.birthDate.year }} - {{ athlete.category }}</td>
-                                                    <td>{% if athlete.athlete.person.gender == "Kadın" %}
+                                                    <td>{{ athlete.years.categoryYear }}
+                                                        - {{ athlete.category }}</td>
+                                                    <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                         WOMAN </td>
                                                     {% else %}MAN
                                                     {% endif %}
@@ -422,7 +424,7 @@
 
                     {
                         extend: 'excelHtml5',
-                        title: 'EUWUF INFORMATION SYSTEM',
+                        title: 'Sbs Bilgi Sistemi',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         {#footer: true,#}
                         exportOptions: {
