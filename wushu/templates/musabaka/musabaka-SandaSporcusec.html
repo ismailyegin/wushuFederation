@@ -2325,6 +2325,7 @@
         function deleteAthlete(id, athleteId) {
 
             console.log(id);
+            debugger;
             var html = '';
             $("#modal-danger").on("shown.bs.modal", function (e) {
                 $("#btn-conf").click(function () {
@@ -2501,6 +2502,7 @@
         function deleteJudge(id, judgeId) {
 
             console.log(id);
+            console.log(judgeId);
             var html = '';
             $("#modal-danger").on("shown.bs.modal", function (e) {
                 $("#btn-conf").click(function () {
@@ -2515,6 +2517,7 @@
                             'csrfmiddlewaretoken': "{{  csrf_token  }}",
                             isActive: 'False',
                             id: id,
+                            judgeId: judgeId,
                         },
                         success: function (result) {
 
@@ -2536,7 +2539,6 @@
                     });
                 });
             }).modal('show');
-            $('#btn-close').click(function () {
             $('#btn-close').click(function () {
                 $('#modal-danger').modal('hide');
             });

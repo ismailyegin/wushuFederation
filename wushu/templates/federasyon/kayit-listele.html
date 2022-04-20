@@ -193,11 +193,11 @@
                                                 15-16
                                             {% elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005 %}
                                                 17-18
-                                            {% elif athlete.person.birthDate.year >= 2001 or athlete.person.birthDate.year <= 2004 %}
+                                            {% elif athlete.person.birthDate.year >= 2001 and athlete.person.birthDate.year <= 2004 %}
                                                 18-21
-                                            {% elif athlete.person.birthDate.year >= 1967 or athlete.person.birthDate.year <= 1981 %}
+                                            {% elif athlete.person.birthDate.year >= 1967 and athlete.person.birthDate.year <= 1981 %}
                                                 41-55
-                                            {% elif athlete.person.birthDate.year >= 1982 or athlete.person.birthDate.year <= 2004 %}
+                                            {% elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2004 %}
                                                 18-40
                                             {% elif athlete.person.birthDate.year == 2005 or athlete.person.birthDate.year == 2006 %}
                                                 16-17
