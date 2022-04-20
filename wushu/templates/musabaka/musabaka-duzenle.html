@@ -217,11 +217,11 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name Surname</th>
-                                        <th id="display">İL</th>
-                                        <th id="display">İL</th>
-                                        <th>Date of birth</th>
+                                        <th id="display">Country</th>
+                                        <th id="display">Country</th>
+                                        <th>Year of birth</th>
                                         {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                            <th>Club</th>
+                                            <th>country</th>
                                         {% endif %}
 
                                         <th>Age - Sanda Category</th>
@@ -242,14 +242,15 @@
                                             <tr>
                                                 <td>{{ forloop.counter }} </td>
                                                 <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                <td id="display">{{ athlete.athlete.communication.city }}</td>
-                                                <td id="display">{{ athlete.athlete.communication.city }}</td>
+                                                <td id="display">{{ athlete.athlete.person.country.name }}</td>
+                                                <td id="display">{{ athlete.athlete.person.country.name }}</td>
 
                                                 <td>{{ athlete.athlete.person.birthDate }} </td>
                                                 {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                    <td>{{ athlete.athlete.licenses.last.sportsClub }}</td>
+                                                    <td>{{ athlete.athlete.person.country.name }}</td>
                                                 {% endif %}
-                                                <td>{{ athlete.athlete_yas_category }} - {{ athlete.competitiontype }}</td>
+                                                <td>{{ athlete.athlete_yas_category }}
+                                                    - {{ athlete.competitiontype }}</td>
                                                 <td>{% if athlete.athlete.person.gender == "Kadın" %}
                                                     WOMAN </td>
                                                 {% else %}MAN
@@ -290,11 +291,11 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name Surname</th>
-                                            <th id="display">İL</th>
-                                            <th id="display">İL</th>
-                                            <th>Date of birth</th>
+                                            <th id="display">Country</th>
+                                            <th id="display">Country</th>
+                                            <th>Year of birth</th>
                                             {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                <th>Club</th>
+                                                <th>country</th>
                                             {% endif %}
                                             <th>Age - Taulo Category</th>
                                             <th>Gender</th>
@@ -311,14 +312,15 @@
                                                 <tr>
                                                     <td>{{ forloop.counter }} </td>
                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
-                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
-                                                    <td id="display">{{ athlete.athlete.communication.city }}</td>
+                                                    <td id="display">{{ athlete.athlete.person.country.name }}</td>
+                                                    <td id="display">{{ athlete.athlete.person.country.name }}</td>
 
-                                                    <td>{{ athlete.athlete.person.birthDate }} </td>
+                                                    <td>{{ athlete.athlete.person.birthDate.year }} </td>
                                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
-                                                        <td>{{ athlete.athlete.licenses.last.sportsClub }}</td>
+                                                        <td>{{ athlete.athlete.person.country.name }}</td>
                                                     {% endif %}
-                                                    <td>{{ athlete.years }} - {{ athlete.category }}</td>
+                                                    <td>{{ athlete.athlete.person.birthDate.year }}
+                                                        - {{ athlete.category }}</td>
                                                     <td>{% if athlete.athlete.person.gender == "Kadın" %}
                                                         WOMAN </td>
                                                     {% else %}MAN
@@ -427,7 +429,8 @@
                         {#footer: true,#}
                         exportOptions: {
                             {#yer degisimi de yapilabilir.#}
-                            columns: ':visible'
+                            columns: [1, 2, 3, 6, 8, 7]
+
 
                         },
                         titleAttr: 'Excel Save'
@@ -511,7 +514,7 @@
                         title: 'Sbs Bilgi Sistemi',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: [1, 2, 3, 6, 8, 7]
                         },
                         titleAttr: 'Excel Save'
                     },
