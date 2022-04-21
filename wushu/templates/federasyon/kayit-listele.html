@@ -144,8 +144,7 @@
                                 <th>Date of Birth</th>
                                 <th>Nationality</th>
                                 <th>Role</th>
-                                <th>Category</th>
-                                <th>Age Group</th>
+                                <th>Age Group - Category</th>
                                 <th>Passport No</th>
                                 <th>Room-Price</th>
                                 <th>Hotel Entry Date</th>
@@ -169,43 +168,30 @@
                                         <td>
                                             {% for category in sandaAthlete %}
                                                 {% if category.athlete == athlete %}
-                                                    {{ category.competitiontype }},
+                                                    {% if category.competitiontype == 'Tuishou' %}
+                                                        {% if athlete.person.birthDate.year >= 1967 and athlete.person.birthDate.year <= 1981 %}
+                                                        41-55{% elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2004 %}
+                                                        18-40{% elif athlete.person.birthDate.year == 2005 or athlete.person.birthDate.year == 2006 %}
+                                                        16-17{% elif athlete.person.birthDate.year == 2007 or athlete.person.birthDate.year == 2008 %}
+                                                        14-15{% elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010 %}
+                                                        12-13{% endif %} Age Group - {{ category.competitiontype }},
+                                                    {% else %}
+                                                        {% if athlete.person.birthDate.year == 2015 or athlete.person.birthDate.year == 2016 %}
+                                                        6-7{% elif athlete.person.birthDate.year == 2013 or athlete.person.birthDate.year == 2014 %}
+                                                        8-9{% elif athlete.person.birthDate.year == 2011 or athlete.person.birthDate.year == 2012 %}
+                                                        10-11{% elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010 %}
+                                                        12-13{% elif athlete.person.birthDate.year == 2008 %}
+                                                        14{% elif athlete.person.birthDate.year == 2006 or athlete.person.birthDate.year == 2007 %}
+                                                        15-16{% elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005 %}
+                                                        17-18{% elif athlete.person.birthDate.year >= 2001 and athlete.person.birthDate.year <= 2003 %}
+                                                        19-21{% elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2000 %}
+                                                        22-40{% endif %} Age Group - {{ category.competitiontype }},
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endfor %}
                                             {% for category in taoluAthlete %}
-                                                {% if category.athlete == athlete %}
-                                                    {{ category.category.categoryName }},
-                                                {% endif %}
+                                                {% if category.athlete == athlete %}{{ category.years.categoryYear }} - {{ category.category.categoryName }},{% endif %}
                                             {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% if athlete.person.birthDate.year == 2015 or athlete.person.birthDate.year == 2016 %}
-                                                6-7
-                                            {% elif athlete.person.birthDate.year == 2013 or athlete.person.birthDate.year == 2014 %}
-                                                8-9
-                                            {% elif athlete.person.birthDate.year == 2011 or athlete.person.birthDate.year == 2012 %}
-                                                10-11
-                                            {% elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010 %}
-                                                12-13
-                                            {% elif athlete.person.birthDate.year == 2008 %}
-                                                14
-                                            {% elif athlete.person.birthDate.year == 2006 or athlete.person.birthDate.year == 2007 %}
-                                                15-16
-                                            {% elif athlete.person.birthDate.year == 2004 or athlete.person.birthDate.year == 2005 %}
-                                                17-18
-                                            {% elif athlete.person.birthDate.year >= 2001 and athlete.person.birthDate.year <= 2004 %}
-                                                18-21
-                                            {% elif athlete.person.birthDate.year >= 1967 and athlete.person.birthDate.year <= 1981 %}
-                                                41-55
-                                            {% elif athlete.person.birthDate.year >= 1982 and athlete.person.birthDate.year <= 2004 %}
-                                                18-40
-                                            {% elif athlete.person.birthDate.year == 2005 or athlete.person.birthDate.year == 2006 %}
-                                                16-17
-                                            {% elif athlete.person.birthDate.year == 2007 or athlete.person.birthDate.year == 2008 %}
-                                                14-15
-                                            {% elif athlete.person.birthDate.year == 2009 or athlete.person.birthDate.year == 2010 %}
-                                                12-13
-                                            {% endif %}
                                         </td>
                                         <td>{{ athlete.person.pasaport }}</td>
                                         <td> {{ athlete.person.hotel.name }}</td>
