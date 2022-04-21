@@ -251,21 +251,26 @@
                                                 {% endif %}
                                                 <td>{{ athlete.weight_category }}</td>
                                                 <td>
+                                                {% if athlete.competitiontype == 'Tuishou' %}
+                                                    {% if athlete.athlete.person.birthDate.year >= 1967 and athlete.athlete.person.birthDate.year <= 1981 %}
+                                                    41-55{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2004 %}
+                                                    18-40{% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
+                                                    16-17{% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
+                                                    14-15{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                    12-13{% endif %} Age Group - {{ athlete.competitiontype }}
+                                                {% else %}
                                                     {% if athlete.athlete.person.birthDate.year == 2015 or athlete.athlete.person.birthDate.year == 2016 %}
-                                                        6-7{% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
-                                                        8-9{% elif athlete.athlete.person.birthDate.year == 2011 or athlete.athlete.person.birthDate.year == 2012 %}
-                                                        10-11{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
-                                                        12-13{% elif athlete.athlete.person.birthDate.year == 2008 %}
-                                                        14{% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
-                                                        15-16{% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
-                                                        17-18{% elif athlete.athlete.person.birthDate.year >= 2001 and athlete.athlete.person.birthDate.year <= 2003 %}
-                                                        19-21{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2000 %}
-                                                        22-40{% elif athlete.athlete.person.birthDate.year >= 1967 and athlete.athlete.person.birthDate.year <= 2000 %}
-                                                        41-55{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2004 %}
-                                                        18-40{% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
-                                                        16-17{% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
-                                                        14-15{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
-                                                        12-13{% endif %} Age Group - {{ athlete.competitiontype }}</td>
+                                                    6-7{% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
+                                                    8-9{% elif athlete.athlete.person.birthDate.year == 2011 or athlete.athlete.person.birthDate.year == 2012 %}
+                                                    10-11{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                    12-13{% elif athlete.athlete.person.birthDate.year == 2008 %}
+                                                    14{% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
+                                                    15-16{% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
+                                                    17-18{% elif athlete.athlete.person.birthDate.year >= 2001 and athlete.athlete.person.birthDate.year <= 2003 %}
+                                                    19-21{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2000 %}
+                                                    22-40{% endif %} Age Group - {{ athlete.competitiontype }}
+                                                {% endif %}
+                                                </td>
                                                 <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                     WOMAN </td>
                                                 {% else %}MAN
