@@ -40,7 +40,7 @@ def profile_image(request):
         # file=os.path.join(BASE_DIR, 'media/profile_image.zip')
         # html='<a href="/media/profile_image.zip" download>Download the file by clicking here</a>'
         if Path(zip_file).is_file():
-            html='You can download profile pictures of registered people by<a href="/media/profile_image.zip" download> clicking here</a>'
+            html='You can download profile pictures of registered people by<a href="/euwuf/media/profile_image.zip" download> clicking here</a>'
         else:
             html='file could not be created'
 
