@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
@@ -359,6 +360,7 @@ def registration_list(request):
         logout(request)
         return redirect('accounts:login')
 
+    form = PersonForm()
     athletes = None
     coaches = None
     observers = None
@@ -378,7 +380,6 @@ def registration_list(request):
 
     countSandaCoach = sandaAthlete.all().count()
 
-
     if user.groups.filter(name__in=['Yonetim', 'Admin']):
         athletes = Athlete.objects.all()
         coaches = Coach.objects.all()
@@ -393,9 +394,33 @@ def registration_list(request):
         officers = Officer.objects.filter(federation__user=request.user)
         judges = Judge.objects.filter(federation__user=request.user)
 
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        country = int(request.POST.get('country'))
+        if not country:
+            if user.groups.filter(name__in=['Yonetim', 'Admin']):
+                athletes = Athlete.objects.all()
+                coaches = Coach.objects.all()
+                observers = Observer.objects.all()
+                officers = Officer.objects.all()
+                judges = Judge.objects.all()
+
+        else:
+            query = Q()
+            if country:
+                query &= Q(federation__person__country__pk=country)
+
+                if user.groups.filter(name__in=['Yonetim', 'Admin']):
+                    athletes = Athlete.objects.filter(query)
+                    coaches = Coach.objects.filter(query)
+                    observers = Observer.objects.filter(query)
+                    officers = Officer.objects.filter(query)
+                    judges = Judge.objects.filter(query)
+
     return render(request, 'federasyon/kayit-listele.html',
                   {'athletes': athletes, 'coaches': coaches, 'observers': observers, 'officers': officers,
                    'judges': judges, 'sandaAthlete': sandaAthlete, 'sandaCoach': sandaCoach,
                    'sandaObserver': sandaObserver, 'sandaOfficer': sandaOfficer, 'sandaJudge': sandaJudge,
                    'taoluAthlete': taoluAthlete, 'taoluCoach': taoluCoach, 'taoluObserver': taoluObserver,
-                   'taoluOfficer': taoluOfficer, 'taoluJudge': taoluJudge, 'countSandaCoach': countSandaCoach, })
+                   'taoluOfficer': taoluOfficer, 'taoluJudge': taoluJudge, 'countSandaCoach': countSandaCoach,
+                   'form': form, })
