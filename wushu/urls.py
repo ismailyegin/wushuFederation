@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from wushu.Views import DashboardViews, AthleteViews, CompetitionViews, CoachViews, ObserverViews, OfficerViews, \
-    JudgeViews, FederationViews
+    JudgeViews, FederationViews, UsersViews
 
 app_name = 'wushu'
 
@@ -100,5 +100,6 @@ urlpatterns = [
     # url(r'showproducts', PdfConvertViews.show_products, name='showproducts'),
     # url(r'create-pdf', PdfConvertViews.pdf_report_create, name='create-pdf'),
     # url(r'java-test', PdfConvertViews.java, name='java-test'),
+    url(r'profile/image/$', UsersViews.profile_image, name='profile_image'),
 
 ]
