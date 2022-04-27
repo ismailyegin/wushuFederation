@@ -20,9 +20,8 @@ def profile_image(request):
     if not perm:
         logout(request)
         return redirect('accounts:login')
-    profile_image_file=Path((os.path.join('media', 'profile_image')))
-    if not profile_image_file:
-        file = os.makedirs(os.path.join('media', 'profile_image'))
+    if not (os.path.isdir('media/profile_image')):
+        os.makedirs(os.path.join('media', 'profile_image'))
 
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/profile_image')
     try:
