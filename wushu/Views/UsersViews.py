@@ -40,7 +40,7 @@ def profile_image(request):
         lists = list(chain(sandaJudge, sandaCoach, sandaOfficer, sandaObserver, sandaAthlete, taoluJudge, taoluOfficer,
                            taoluObserver, taoluCoach, taoluAthlete))
 
-        for item in Person.objects.all()[:3]:
+        for item in Person.objects.all():
             extension='.'+item.profileImage.name.split('.')[1]
             dst = os.path.join(BASE_DIR, 'media/profile_image/' + item.pasaport+extension)
             if not Path(dst).is_file():
