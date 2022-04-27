@@ -20,10 +20,10 @@ def profile_image(request):
     if not perm:
         logout(request)
         return redirect('accounts:login')
-    if not (os.path.isdir('media/profile_image')):
-        os.makedirs(os.path.join('media', 'profile_image'))
+    if not (os.path.isdir('euwuf/media/profile_image')):
+        os.makedirs(os.path.join('euwuf/media', 'profile_image'))
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/profile_image')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'euwuf/media/profile_image')
     try:
         sandaAthlete = SandaAthlete.objects.all().values('athlete__person')
         sandaCoach = SandaCoach.objects.all().values('coach__person')
@@ -41,19 +41,19 @@ def profile_image(request):
 
         for item in Person.objects.all():
             extension='.'+item.profileImage.name.split('.')[1]
-            dst = os.path.join(BASE_DIR, 'media/profile_image/' + item.pasaport+extension)
+            dst = os.path.join(BASE_DIR, 'euwuf/media/profile_image/' + item.pasaport+extension)
             if not Path(dst).is_file():
                 shutil.copyfile(item.profileImage.path, dst)
         zip_file=None
-        is_file=Path(os.path.join(BASE_DIR, 'media/profile_image.zip'))
+        is_file=Path(os.path.join(BASE_DIR, 'euwuf/media/profile_image.zip'))
         if not is_file.is_file():
             zip_file=shutil.make_archive(MEDIA_ROOT, 'zip', MEDIA_ROOT)
         else:
-            zip_file=os.path.join(BASE_DIR, 'media/profile_image.zip')
+            zip_file=os.path.join(BASE_DIR, 'euwuf/media//profile_image.zip')
         # file=os.path.join(BASE_DIR, 'media/profile_image.zip')
         # html='<a href="/media/profile_image.zip" download>Download the file by clicking here</a>'
         if Path(zip_file).is_file():
-            html='You can download profile pictures of registered people by<a href="/media/profile_image2.zip" download> clicking here</a>'
+            html='You can download profile pictures of registered people by<a href="/euwuf/media/profile_image.zip" download> clicking here</a>'
         else:
             html='file could not be created'
 
