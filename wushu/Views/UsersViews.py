@@ -25,7 +25,7 @@ def profile_image(request):
 
     root = os.path.join(MEDIA_ROOT, 'profile_image')
     try:
-        for item in Person.objects.all()[:5]:
+        for item in Person.objects.all():
             if item.profileImage:
                 extension='.'+item.profileImage.name.split('.')[1]
                 dst = os.path.join(MEDIA_ROOT, 'profile_image\\' + item.pasaport+extension)
