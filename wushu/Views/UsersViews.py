@@ -25,19 +25,6 @@ def profile_image(request):
 
     MEDIA_ROOT = os.path.join(BASE_DIR, 'euwuf/media/profile_image')
     try:
-        sandaAthlete = SandaAthlete.objects.all().values('athlete__person')
-        sandaCoach = SandaCoach.objects.all().values('coach__person')
-        sandaObserver = SandaObserver.objects.all().values('observer__person')
-        sandaOfficer = SandaOfficer.objects.all().values('officer__person')
-        sandaJudge = SandaJudge.objects.all().values('judge__person')
-        taoluAthlete = TaoluAthlete.objects.all().values('athlete__person')
-        taoluCoach = TaoluCoach.objects.all().values('coach__person')
-        taoluObserver = TaoluObserver.objects.all().values('observer__person')
-        taoluOfficer = TaoluOfficer.objects.all().values('officer__person')
-        taoluJudge = TaoluJudge.objects.all().values('judge__person')
-
-        lists = list(chain(sandaJudge, sandaCoach, sandaOfficer, sandaObserver, sandaAthlete, taoluJudge, taoluOfficer,
-                           taoluObserver, taoluCoach, taoluAthlete))
 
         for item in Person.objects.all():
             extension='.'+item.profileImage.name.split('.')[1]
