@@ -554,7 +554,7 @@
                                                             {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                                 <th>Country</th>
                                                             {% endif %}
-                                                            <th>Taolu Category</th>
+                                                            <th>Age - Taolu Category</th>
                                                             <th>Gender</th>
                                                             <th>Transactions</th>
                                                         </tr>
@@ -570,7 +570,7 @@
                                                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                                         <td>{{ athlete.athlete.person.country.name }} </td>
                                                                     {% endif %}
-                                                                    <td>{{ athlete.category }}</td>
+                                                                    <td>{{ athlete.years.categoryYear }} {{ athlete.athlete.person.gender }} - {{ athlete.category }}</td>
                                                                     <td>
                                                                         {% if athlete.athlete.person.gender == "WOMAN" %}
                                                                             WOMAN

@@ -937,12 +937,28 @@
                         <div class="inner">
                             <h3>{{ totalRegistration }}</h3>
 
-                            <p>Total Registration</p>
+                            <p>Total Registrations in Competitions</p>
                         </div>
                         <div class="icon">
                             <i class="fa  fa-flag-checkered"></i>
                         </div>
                         <a href="{% url 'wushu:registration-list' %}" class="small-box-footer">
+                            More <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-4">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{ total_country }}</h3>
+
+                            <p>Countries</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa  fa-flag-checkered"></i>
+                        </div>
+                        <a href="{% url 'wushu:federations' %}" class="small-box-footer">
                             More <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>

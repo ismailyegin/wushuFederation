@@ -84,6 +84,7 @@ def return_admin_dashboard(request):
     total_athlete_gender_man = Athlete.objects.filter(person__gender='Erkek').count()
     total_athlete_gender_woman = Athlete.objects.filter(person__gender='Kadın').count()
     total_coachs = Coach.objects.all().count()
+    total_country = Country.objects.all().count()
 
     competitions = Competition.objects.all().order_by('-startDate')
 
@@ -104,27 +105,25 @@ def return_admin_dashboard(request):
     taoluJudge = TaoluJudge.objects.all().count()
 
     totalRegistration = sandaAthlete + sandaCoach + sandaObserver + sandaOfficer + sandaJudge + taoluAthlete + taoluCoach + taoluObserver + taoluOfficer + taoluJudge
-    list=[]
+    list = []
     list_last = []
-    athlete_list=[]
+    athlete_list = []
     for country in Country.objects.all().order_by('id'):
-        country_dict={}
-        country_dict['country']=country.name
-        athlete=Athlete.objects.filter(person__country=country).count()
-        judge=Judge.objects.filter(person__country=country).count()
-        coach=Coach.objects.filter(person__country=country).count()
-        officer=Officer.objects.filter(person__country=country).count()
-        observer=Observer.objects.filter(person__country=country).count()
+        country_dict = {}
+        country_dict['country'] = country.name
+        athlete = Athlete.objects.filter(person__country=country).count()
+        judge = Judge.objects.filter(person__country=country).count()
+        coach = Coach.objects.filter(person__country=country).count()
+        officer = Officer.objects.filter(person__country=country).count()
+        observer = Observer.objects.filter(person__country=country).count()
 
-        country_dict['athlete']=athlete
-        country_dict['judge']=judge
-        country_dict['officer']=officer
-        country_dict['observer']=observer
-        country_dict['coach']=coach
+        country_dict['athlete'] = athlete
+        country_dict['judge'] = judge
+        country_dict['officer'] = officer
+        country_dict['observer'] = observer
+        country_dict['coach'] = coach
 
         list.append(country_dict)
-
-
 
     return render(request, 'anasayfa/admin.html',
                   {
@@ -132,5 +131,6 @@ def return_admin_dashboard(request):
                       'total_athlete_gender_man': total_athlete_gender_man,
                       'total_athlete_gender_woman': total_athlete_gender_woman,
                       'application': competitions, 'observers': observers, 'officers': officers, 'judges': judges,
-                      'totalRegistration': totalRegistration, 'country_list': list,'country_last': list_last,
+                      'totalRegistration': totalRegistration, 'country_list': list, 'country_last': list_last,
+                      'total_country': total_country,
                   })
