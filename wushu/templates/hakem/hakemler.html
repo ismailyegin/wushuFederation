@@ -159,7 +159,8 @@
                                     </div>
                                     <div class="form-group" id="heightx" style="display: none">
                                         <label for="height"> Height </label>
-                                        <input class="form-control" id="height" name="height" type="number" placeholder="cm">
+                                        <input class="form-control" id="height" name="height" type="number"
+                                               placeholder="cm">
                                     </div>
                                     <div class="form-group" id="weightx" style="display: none">
                                         <label for="weight"> Weight </label>
@@ -167,12 +168,13 @@
                                     </div>
                                     <div class="form-group" id="pant" style="display: none">
                                         <label for="pantSize"> Pants Size </label>
-                                        <select id="pantSize" name="pantSize" class="form-control select2 select2-hidden-accessible"
-                                                style="width: 100%;"  tabindex="-1"
+                                        <select id="pantSize" name="pantSize"
+                                                class="form-control select2 select2-hidden-accessible"
+                                                style="width: 100%;" tabindex="-1"
                                                 aria-hidden="true">
-                                            <option selected="selected" value="S" >S</option>
-                                            <option value="M" >M</option>
-                                            <option value="L" >L</option>
+                                            <option selected="selected" value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
                                             <option value="XL">XL</option>
                                             <option value="XXL">XXL</option>
 
@@ -180,12 +182,13 @@
                                     </div>
                                     <div class="form-group" id="shirt" style="display: none">
                                         <label for="shirtSize"> Shirt Size </label>
-                                        <select id="shirtSize" name="shirtSize" class="form-control select2 select2-hidden-accessible"
+                                        <select id="shirtSize" name="shirtSize"
+                                                class="form-control select2 select2-hidden-accessible"
                                                 style="width: 100%;" data-select2-id="1" tabindex="-1"
                                                 aria-hidden="true">
-                                            <option selected="selected" >S</option>
-                                            <option value="M" >M</option>
-                                            <option value="L" >L</option>
+                                            <option selected="selected">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
                                             <option value="XL">XL</option>
                                             <option value="XXL">XXL</option>
 
@@ -293,6 +296,10 @@
                                 <th>Date of birth</th>
                                 <th>Country</th>
                                 <th>Gender</th>
+                                <th>Weight</th>
+                                <th>Height</th>
+                                <th>Shirt Size</th>
+                                <th>Pant Size</th>
                                 <th>Transactions</th>
 
 
@@ -310,8 +317,12 @@
                                             <td>JUDGE</td>
                                         {% endif %}
                                         <td>{{ judge.person.birthDate }}</td>
-                                    <td>{{ judge.person.country.name }}</td>
+                                        <td>{{ judge.person.country.name }}</td>
                                         <td>{{ judge.person.gender }} </td>
+                                        <td>{{ judge.weight }}</td>
+                                        <td>{{ judge.height }}</td>
+                                        <td>{{ judge.shirtSize }}</td>
+                                        <td>{{ judge.pantSize }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{% url "wushu:update-judges" judge.pk %}"
@@ -518,8 +529,7 @@
                 document.getElementById("pantSize").required = true;
                 document.getElementById("shirt").style.display = 'block';
                 document.getElementById("shirtSize").required = true;
-            }
-            else{
+            } else {
                 document.getElementById("weightx").style.display = "none";
                 document.getElementById("weight").required = false;
                 document.getElementById("nationalx").style.display = "none";
