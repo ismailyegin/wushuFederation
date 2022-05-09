@@ -215,6 +215,7 @@
                                 <table id="sporcular" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
+                                        <th id="display">User Id</th>
                                         <th>#</th>
                                         <th>Name Surname</th>
                                         <th id="display">Country</th>
@@ -240,6 +241,7 @@
                                     {% if athletes %}
                                         {% for athlete in athletes %}
                                             <tr>
+                                                <td id="display">{{ athlete.athlete.person.pk }}</td>
                                                 <td>{{ forloop.counter }} </td>
                                                 <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                 <td id="display">{{ athlete.athlete.person.country.name }}</td>
@@ -251,25 +253,37 @@
                                                 {% endif %}
                                                 <td>{{ athlete.weight_category }}</td>
                                                 <td>
-                                                {% if athlete.competitiontype == 'Tuishou' %}
-                                                    {% if athlete.athlete.person.birthDate.year >= 1967 and athlete.athlete.person.birthDate.year <= 1981 %}
-                                                    41-55{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2004 %}
-                                                    18-40{% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
-                                                    16-17{% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
-                                                    14-15{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
-                                                    12-13{% endif %} Age Group - {{ athlete.competitiontype }}
-                                                {% else %}
-                                                    {% if athlete.athlete.person.birthDate.year == 2015 or athlete.athlete.person.birthDate.year == 2016 %}
-                                                    6-7{% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
-                                                    8-9{% elif athlete.athlete.person.birthDate.year == 2011 or athlete.athlete.person.birthDate.year == 2012 %}
-                                                    10-11{% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
-                                                    12-13{% elif athlete.athlete.person.birthDate.year == 2008 %}
-                                                    14{% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
-                                                    15-16{% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
-                                                    17-18{% elif athlete.athlete.person.birthDate.year >= 2001 and athlete.athlete.person.birthDate.year <= 2003 %}
-                                                    19-21{% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2000 %}
-                                                    22-40{% endif %} Age Group - {{ athlete.competitiontype }}
-                                                {% endif %}
+                                                    {% if athlete.competitiontype == 'Tuishou' %}
+                                                        {% if athlete.athlete.person.birthDate.year >= 1967 and athlete.athlete.person.birthDate.year <= 1981 %}
+                                                            41-55
+                                                        {% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2004 %}
+                                                            18-40
+                                                        {% elif athlete.athlete.person.birthDate.year == 2005 or athlete.athlete.person.birthDate.year == 2006 %}
+                                                            16-17
+                                                        {% elif athlete.athlete.person.birthDate.year == 2007 or athlete.athlete.person.birthDate.year == 2008 %}
+                                                            14-15
+                                                        {% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                            12-13{% endif %} Age Group - {{ athlete.competitiontype }}
+                                                    {% else %}
+                                                        {% if athlete.athlete.person.birthDate.year == 2015 or athlete.athlete.person.birthDate.year == 2016 %}
+                                                            6-7
+                                                        {% elif athlete.athlete.person.birthDate.year == 2013 or athlete.athlete.person.birthDate.year == 2014 %}
+                                                            8-9
+                                                        {% elif athlete.athlete.person.birthDate.year == 2011 or athlete.athlete.person.birthDate.year == 2012 %}
+                                                            10-11
+                                                        {% elif athlete.athlete.person.birthDate.year == 2009 or athlete.athlete.person.birthDate.year == 2010 %}
+                                                            12-13
+                                                        {% elif athlete.athlete.person.birthDate.year == 2008 %}
+                                                            14
+                                                        {% elif athlete.athlete.person.birthDate.year == 2006 or athlete.athlete.person.birthDate.year == 2007 %}
+                                                            15-16
+                                                        {% elif athlete.athlete.person.birthDate.year == 2004 or athlete.athlete.person.birthDate.year == 2005 %}
+                                                            17-18
+                                                        {% elif athlete.athlete.person.birthDate.year >= 2001 and athlete.athlete.person.birthDate.year <= 2003 %}
+                                                            19-21
+                                                        {% elif athlete.athlete.person.birthDate.year >= 1982 and athlete.athlete.person.birthDate.year <= 2000 %}
+                                                            22-40{% endif %} Age Group - {{ athlete.competitiontype }}
+                                                    {% endif %}
                                                 </td>
                                                 <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                     WOMAN </td>
@@ -309,6 +323,7 @@
                                     <table id="taolu" class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
+                                            <th id="display">User Id</th>
                                             <th>#</th>
                                             <th>Name Surname</th>
                                             <th id="display">Country</th>
@@ -330,6 +345,7 @@
                                         {% if athletes %}
                                             {% for athlete in athletes %}
                                                 <tr>
+                                                    <td id="display">{{ athlete.athlete.person.pk }}</td>
                                                     <td>{{ forloop.counter }} </td>
                                                     <td>{{ athlete.athlete.person.name }} {{ athlete.athlete.person.surName }} </td>
                                                     <td id="display">{{ athlete.athlete.person.country.name }}</td>
@@ -339,7 +355,8 @@
                                                     {% if user.groups.all.0.name == 'Yonetim' or user.groups.all.0.name == 'Admin' %}
                                                         <td>{{ athlete.athlete.person.country.name }}</td>
                                                     {% endif %}
-                                                    <td>{{ athlete.years.categoryYear }} {{ athlete.athlete.person.gender }} - {{ athlete.category }}</td>
+                                                    <td>{{ athlete.years.categoryYear }} {{ athlete.athlete.person.gender }}
+                                                        - {{ athlete.category }}</td>
                                                     <td>{% if athlete.athlete.person.gender == "WOMAN" %}
                                                         WOMAN </td>
                                                     {% else %}MAN
@@ -448,7 +465,7 @@
                         {#footer: true,#}
                         exportOptions: {
                             {#yer degisimi de yapilabilir.#}
-                            columns: [1, 2, 3, 4, 6, 8, 7]
+                            columns: [0, 1, 2, 3, 4, 5, 8, 7]
 
 
                         },
@@ -533,7 +550,7 @@
                         title: 'EUWUF INFORMATION SYSTEM',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 6, 7, 8, 9]
+                            columns: [0, 1, 2, 3, 4, 5, 7, 8, 9]
                         },
                         titleAttr: 'Excel Save'
                     },
